@@ -14,13 +14,11 @@ public class PacketManager : MonoBehaviour
     public string _Ip;
     private int _Port = 9090;
 
-    private CM_Test _SendPacket = new CM_Test(0);
-    private SM_Test _ReceivePacket;
     byte[] _Packet = new byte[1024];
 
     private IPEndPoint _ServerIpEndPoint;
     private Queue<byte[]> _PacketQueue = new();
-    private Action<byte[]>[] mPacketFunc = new Action<byte[]>[(int)ePacketIndex.MAX_FUNC_SIZE];
+    private Action<byte[]>[] mPacketFunc = new Action<byte[]>[(int)ePacket.MAX_FUNC_SIZE];
 
     public void Send(object obj, int size)
     {
@@ -43,11 +41,10 @@ public class PacketManager : MonoBehaviour
     }
     public void Recieve<T>(int index, Action<T> function) 
     {
-        if (index < 0 || index >= (int)Common.ePacketIndex.MAX_FUNC_SIZE)
+        if (index < 0 || index >= (int)Common.ePacket.MAX_FUNC_SIZE)
         {
             throw new ArgumentOutOfRangeException("index");
         }
-
         mPacketFunc[index] = (byte[] packet) => { function(ByteToStruct<T>(packet)); } ;
     }
 
@@ -82,13 +79,7 @@ public class PacketManager : MonoBehaviour
      void Awake()
     {
         InitClient();
-        Buffer.BlockCopy(Encoding.Unicode.GetBytes("클라"), 0, _SendPacket._StringlVariable, 0, 4);
-        Send(_SendPacket, _SendPacket._size);
-
-        Recieve<SM_Test>((int)ePacketIndex.eSM_Test, (p) =>
-        {
-            Debug.Log(Encoding.Unicode.GetString(p._StringlVariable));
-        });
+        
     }
 
 
@@ -109,8 +100,9 @@ public class PacketManager : MonoBehaviour
             sock.Receive(_Packet, 0, sock.Available, SocketFlags.None);
             short index = BitConverter.ToInt16(_Packet, 2);
 
-            if (index >= 0 && index < (short)ePacketIndex.MAX_FUNC_SIZE)
+            if (index >= 0 && index < (short)ePacket.MAX_FUNC_SIZE)
             {
+                Debug.Log($"SMPIndex : {index}");
                 mPacketFunc[index](_Packet);
             }
         }
