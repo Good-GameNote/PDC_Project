@@ -76,7 +76,7 @@ public class PacketManager : MonoBehaviour
         sock.Connect(_ServerIpEndPoint);
     }
 
-     void Awake()
+    void Awake()
     {
         InitClient();
         

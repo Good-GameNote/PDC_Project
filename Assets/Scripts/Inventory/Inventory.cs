@@ -4,11 +4,9 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using static Common;
 
-
-
 public struct sRelic
 {
-    short level;
+    public short level;
 };
 struct SP_LoadInventory
 {
@@ -32,11 +30,6 @@ public class Inventory : MonoBehaviour
         {
             Debug.Log(p.relics);
         });
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 
 }
