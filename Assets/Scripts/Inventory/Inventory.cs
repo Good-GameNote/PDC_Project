@@ -24,10 +24,16 @@ struct SP_LoadInventory
 
 public class Inventory : MonoBehaviour
 {
+    sRelic[] relics;
     private void Awake()
     {
+        relics = new sRelic[(int)eRelic.MAX_RELIC_SIZE];
         GameManager.Instance.packetManager.Recieve<SP_LoadInventory>((int)ePacket.eSP_LoadInventory, (p) =>
         {
+            for(int i = 0;i <(int)eRelic.MAX_RELIC_SIZE;i++)
+            {
+                relics[i] = p.relics[i];           
+            }
             Debug.Log(p.relics);
         });
     }

@@ -6,7 +6,7 @@ using static Common;
 
 
 
-public struct Mercenary
+public struct sMercenary
 {
     short level;
 };
@@ -17,19 +17,25 @@ struct SP_LoadMercenarys
     {
         _size = 44;
         _index = (short)ePacket.eSP_LoadMercenarys;
-        mercenarys = new Mercenary[(int)eMercenary.MAX_MERCENARY_SIZE];
+        mercenarys = new sMercenary[(int)eMercenary.MAX_MERCENARY_SIZE];
     }
     public short _size;
     public short _index;
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = (int)eMercenary.MAX_MERCENARY_SIZE)]
-    public Mercenary[] mercenarys;
+    public sMercenary[] mercenarys;
 };
 public class Team : MonoBehaviour
 {
+    sMercenary[] _sMercenarys;
     private void Awake()
     {
+        _sMercenarys = new sMercenary[(int)eMercenary.MAX_MERCENARY_SIZE];
         GameManager.Instance.packetManager.Recieve<SP_LoadMercenarys>((int)ePacket.eSP_LoadMercenarys, (p) =>
         {
+            for(int i =0; i<(int)eMercenary.MAX_MERCENARY_SIZE; i++)
+            {
+                _sMercenarys[i] = p.mercenarys[i];
+            }
             Debug.Log(p.mercenarys);
         });
     }

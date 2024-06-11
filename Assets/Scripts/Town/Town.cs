@@ -25,10 +25,16 @@ struct SP_LoadTown
 };
 public class Town : MonoBehaviour
 {
+    sBuilding[] sBuilding;
     private void Awake()
     {
+        sBuilding = new sBuilding[(int)eBuilding.MAX_BUILDING_SIZE];
         GameManager.Instance.packetManager.Recieve<SP_LoadTown>((int)ePacket.eSP_LoadTown, (p) =>
         {
+            for(int i = 0; i< (int)eBuilding.MAX_BUILDING_SIZE; i++)
+            {
+                sBuilding[i] = p.buildings[i];
+            }
             Debug.Log(p.buildings);
         });
     }

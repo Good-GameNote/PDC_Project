@@ -84,7 +84,16 @@ public class Common
         tooMany,
         notExist,
     };
+    public enum eBuy
+    {
+        eRelicGacha,
+        eRelicAdvancedGacha,
+        eMercenaryUp,
+        eTowerUp,
 
+
+        MAX_BUY_SIZE
+    };
 
 
     public enum ePacket
@@ -99,8 +108,11 @@ public class Common
         eSP_LoadTown,
         eSP_LoadInventory,
         eSP_LoadStages,
+        eCP_RecordMoney,
         MAX_FUNC_SIZE
     };
+
+
     #endregion
 
     #region struct

@@ -6,7 +6,7 @@ using static Common;
 
 
 
-public struct Stage
+public struct sStage
 {
     short Achievement;
 };
@@ -16,19 +16,25 @@ struct SP_LoadStages
     {
         _size = 44;
         _index = (short)ePacket.eSP_LoadStages;
-        stages = new Stage[Common.MAX_STAGE_SIZE];
+        stages = new sStage[Common.MAX_STAGE_SIZE];
     }
     public short _size;
     public short _index;
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = Common.MAX_STAGE_SIZE)]
-    public Stage[] stages;
+    public sStage[] stages;
 };
-public class Siege : MonoBehaviour
+public class Stage : MonoBehaviour
 {
+    sStage[] stages;
     private void Awake()
     {
+        stages = new sStage[Common.MAX_STAGE_SIZE];
         GameManager.Instance.packetManager.Recieve<SP_LoadStages>((int)ePacket.eSP_LoadStages, (p) =>
         {
+            for(int i = 0; i < MAX_STAGE_SIZE; i++) 
+            {
+                stages[i] = p.stages[i];
+            }
             Debug.Log(p.stages);
         });
     }
