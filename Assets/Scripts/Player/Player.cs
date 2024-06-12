@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using static Common;
 
@@ -54,42 +53,44 @@ struct CP_RecordMoney
     public int value;
 };
 
-
-public class Player : MonoBehaviour
+namespace PDC
 {
-    sAsset _sAsset;
-
-    private void Awake()
+    public class Player : MonoBehaviour
     {
-        GameManager.Instance.packetManager.Recieve<SP_LoadPlayer>((int)ePacket.eSP_LoadPlayer, (p) =>
+        sAsset _sAsset;
+
+        private void Awake()
         {
-            _sAsset = p.asset;
-            Debug.Log(p.asset);
-        });
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        _sAsset = new sAsset();
-    }
+            GameManager.Instance.packetManager.Recieve<SP_LoadPlayer>((int)ePacket.eSP_LoadPlayer, (p) =>
+            {
+                _sAsset = p.asset;
+                Debug.Log(p.asset);
+            });
+        }
+        // Start is called before the first frame update
+        void Start()
+        {
+            _sAsset = new sAsset();
+        }
 
-    public void Test()
-    {
-        ChangeMoney(eMoney.eDiamond, -500,eBuy.eRelicGacha);
+        public void Test()
+        {
+            ChangeMoney(eMoney.eDiamond, -500, eBuy.eRelicGacha);
+        }
+        public bool ChangeMoney(eMoney type, int value, eBuy reason)
+        {
+            if (value < 0 && _sAsset._money[(int)type] < -value)
+                return false;
+
+            _sAsset._money[(int)type] += value;
+
+            CP_RecordMoney cpRecord = new CP_RecordMoney(0);
+            cpRecord.moneyType = (short)6;
+            cpRecord.value = value;
+            cpRecord.reason = (short)reason;
+            GameManager.Instance.packetManager.Send(cpRecord, cpRecord._size);
+            return true;
+        }
+
     }
-    public bool ChangeMoney(eMoney type, int value , eBuy reason)
-    {
-        if (value<0 && _sAsset._money[(int)type] < -value)
-            return false;
-
-        _sAsset._money[(int)type] += value;
-
-        CP_RecordMoney cpRecord = new CP_RecordMoney(0);
-        cpRecord.moneyType = (short)6;
-        cpRecord.value = value;
-        cpRecord.reason = (short)reason;
-        GameManager.Instance.packetManager.Send(cpRecord, cpRecord._size);
-        return true;
-    }
-
 }

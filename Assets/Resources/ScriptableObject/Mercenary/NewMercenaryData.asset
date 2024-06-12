@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: NewMercenaryData
   m_EditorClassIdentifier: 
   <_index>k__BackingField: 0
-  <_coolTime>k__BackingField: 0
-  <_range>k__BackingField: 0
-  <_damage>k__BackingField: 0
-  <_criticalPer>k__BackingField: 0
-  <_name>k__BackingField: 
-  <_description>k__BackingField: 
+  <_coolTime>k__BackingField: 15
+  <_range>k__BackingField: 55
+  <_damage>k__BackingField: 25
+  <_criticalPer>k__BackingField: 5
+  <_name>k__BackingField: "\uD14C\uC2A4\uD2B8\uC6A9\uBCD1"
+  <_description>k__BackingField: "\uD14C\uC2A4\uD2B8\uB97C\uD558\uAE30\uC704\uD55C\uC6A9\uBCD1"
   <_sprite>k__BackingField: {fileID: 0}

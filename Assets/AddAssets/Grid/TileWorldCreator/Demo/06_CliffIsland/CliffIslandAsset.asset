@@ -4960,7 +4960,7 @@ MonoBehaviour:
       Data: true
     - Name: paintActive
       Entry: 5
-      Data: true
+      Data: false
     - Name: paintBrushSize
       Entry: 3
       Data: 0

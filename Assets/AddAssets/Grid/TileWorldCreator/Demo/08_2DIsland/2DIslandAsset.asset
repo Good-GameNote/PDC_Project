@@ -6215,6 +6215,48 @@ MonoBehaviour:
     - Name: mapOrientation
       Entry: 3
       Data: 0
+  mapBlueprintLayers:
+  - active: 1
+    layerName: Island
+    randomSeedOverride: 0
+    useCustomSeed: 0
+    customLayerRandomSeed: 0
+    previewColor: {r: 0.59956205, g: 0.7830189, b: 0.43952474, a: 0}
+    mapResultFailed: 0
+    stack:
+    - actionName: Cellular Automata
+    - actionName: Smooth
+  - active: 1
+    layerName: Grass
+    randomSeedOverride: 0
+    useCustomSeed: 0
+    customLayerRandomSeed: 0
+    previewColor: {r: 0.2915891, g: 0.49056602, b: 0.11801351, a: 0}
+    mapResultFailed: 0
+    stack:
+    - actionName: Add
+    - actionName: Shrink
+    - actionName: Smooth
+  - active: 1
+    layerName: Water
+    randomSeedOverride: 0
+    useCustomSeed: 0
+    customLayerRandomSeed: 0
+    previewColor: {r: 0.41255784, g: 0.59741133, b: 0.6886792, a: 0}
+    mapResultFailed: 0
+    stack:
+    - actionName: Add
+    - actionName: Invert
+  - active: 1
+    layerName: Palmtrees
+    randomSeedOverride: 0
+    useCustomSeed: 0
+    customLayerRandomSeed: 0
+    previewColor: {r: 0.57711023, g: 1, b: 0.21226418, a: 0}
+    mapResultFailed: 0
+    stack:
+    - actionName: Add
+    - actionName: Select
   worldName: TileWorldCreator_Map
   mapWidth: 20
   mapHeight: 20

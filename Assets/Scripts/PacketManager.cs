@@ -73,7 +73,7 @@ public class PacketManager : MonoBehaviour
         _ServerIpEndPoint = new IPEndPoint(IPAddress.Parse(_Ip), _Port);
         sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        sock.Connect(_ServerIpEndPoint);
+        //sock.Connect(_ServerIpEndPoint);
     }
 
     void Awake()
