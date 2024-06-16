@@ -14,20 +14,20 @@ public class UI_Exhibition : MonoBehaviour
     TMPro.TextMeshProUGUI _name;
 
     [SerializeField]
-    TMPro.TextMeshProUGUI _explane;
+    TMPro.TextMeshProUGUI _level;
 
     // Start is called before the first frame update
     void Awake()
     {
-        ICanExhibition obj = GetComponent<ICanExhibition>();   
+        ISlotExhibition obj = GetComponent<ISlotExhibition>();   
         SetUI(obj);
     }
 
-    void SetUI(ICanExhibition data)
+    public void SetUI(ISlotExhibition data)
     {
         _content.sprite = data.GiveSprite();
         _name.text = data.GiveName();
-        _explane.text = data.GiveExplan(data.GiveValue());
+        _level.text = data.GiveLevel().ToString();
     }
 
 }
