@@ -40,7 +40,7 @@ public class GPGSHelper : MonoBehaviour
                     CP_Enter packet = new CP_Enter(0);
                     Buffer.BlockCopy(Encoding.UTF8.GetBytes(authCode), 0, packet._token, 0, authCode.Length);
 
-                    GameManager.Instance.packetManager.Send(packet, packet._size);
+                    GameManager.Instance._packetManager.Send(packet, packet._size);
                 }
                 else
                 {

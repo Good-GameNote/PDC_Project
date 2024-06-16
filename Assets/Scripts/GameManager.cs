@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     static GameManager instance;
+
     public static GameManager Instance
     {
         get
@@ -28,6 +29,22 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(instance);
     }
 
+    [field: SerializeField]
+    public AddressableLoader _addressableLoader { get; private set; }
+
     [field:SerializeField]
-    public PacketManager packetManager { get; private set; }
+    public PacketManager _packetManager { get; private set; }
+    [field:SerializeField]
+    public PageController _pageController { get; private set; }
+    [field: SerializeField]
+    public Player _player { get; private set; }
+    [field: SerializeField]
+    public Inventory _inven { get; private set; }
+    [field: SerializeField]
+    public Battle _battle { get; private set; }
+    [field: SerializeField]
+    public Team _team { get; private set; }
+    [field: SerializeField]
+    public Town _town { get; private set; }
+    
 }

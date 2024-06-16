@@ -164,19 +164,19 @@ public class JoinTest : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.packetManager.Recieve<SP_Nick>((int)ePacket.eSP_Nick, (p) =>
+        GameManager.Instance._packetManager.Recieve<SP_Nick>((int)ePacket.eSP_Nick, (p) =>
         {
             Debug.Log(p._result);
         });
     
-        GameManager.Instance.packetManager.Recieve<SP_Test>((int)ePacket.eSP_Test, (p) =>
+        GameManager.Instance._packetManager.Recieve<SP_Test>((int)ePacket.eSP_Test, (p) =>
         {
             Debug.Log(Encoding.Unicode.GetString(p._StringlVariable));
         });
 
         CP_Test _SendPacket = new CP_Test(0);
         Buffer.BlockCopy(Encoding.Unicode.GetBytes("클라"), 0, _SendPacket._StringlVariable, 0, 4);
-        GameManager.Instance.packetManager.Send(_SendPacket, _SendPacket._size);
+        GameManager.Instance._packetManager.Send(_SendPacket, _SendPacket._size);
 
 
         //GameManager.Instance.packetManager.Recieve<SP_LoadPlayer>((int)ePacket.eSP_LoadPlayer, (p) =>
@@ -206,14 +206,14 @@ public class JoinTest : MonoBehaviour
         CP_Nick packet = new CP_Nick(0);
         Buffer.BlockCopy(Encoding.Unicode.GetBytes(nickField.text), 0, packet._nickName, 0, nickField.text.Length*2);
 
-        GameManager.Instance.packetManager.Send(packet, packet._size);
+        GameManager.Instance._packetManager.Send(packet, packet._size);
     }
     public void SendEnterPacket()
     {
         CP_Enter packet = new CP_Enter(0);
         Buffer.BlockCopy(Encoding.UTF8.GetBytes(tokenField.text), 0, packet._token, 0, tokenField.text.Length );
 
-        GameManager.Instance.packetManager.Send(packet, packet._size);
+        GameManager.Instance._packetManager.Send(packet, packet._size);
 
 
     }

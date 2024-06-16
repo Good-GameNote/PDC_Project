@@ -3,7 +3,6 @@ using System.Net.Sockets;
 using System.Net;
 using UnityEngine;
 using System;
-using System.Text;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using static Common;
@@ -17,7 +16,6 @@ public class PacketManager : MonoBehaviour
     byte[] _Packet = new byte[1024];
 
     private IPEndPoint _ServerIpEndPoint;
-    private Queue<byte[]> _PacketQueue = new();
     private Action<byte[]>[] mPacketFunc = new Action<byte[]>[(int)ePacket.MAX_FUNC_SIZE];
 
     public void Send(object obj, int size)
@@ -37,7 +35,9 @@ public class PacketManager : MonoBehaviour
         Marshal.Copy(ptr, arr, 0, size);
         Marshal.FreeHGlobal(ptr);
 
-        _PacketQueue.Enqueue(arr);
+       // _PacketQueue.Enqueue(arr);
+
+        sock.Send(arr, 0, size, SocketFlags.None);
     }
     public void Recieve<T>(int index, Action<T> function) 
     {
@@ -72,14 +72,12 @@ public class PacketManager : MonoBehaviour
     {
         _ServerIpEndPoint = new IPEndPoint(IPAddress.Parse(_Ip), _Port);
         sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-        //sock.Connect(_ServerIpEndPoint);
+        sock.Connect(_ServerIpEndPoint);
     }
 
     void Awake()
     {
         InitClient();
-        
     }
 
 
@@ -88,15 +86,8 @@ public class PacketManager : MonoBehaviour
 
     private void Update()
     {
-        if (_PacketQueue.Count > 0)
-        {
-            byte[] packet =_PacketQueue.Dequeue();
-            sock.Send(packet, 0, packet.Length, SocketFlags.None);
-        }
-
         if (sock.Available != 0)
         {
-            
             sock.Receive(_Packet, 0, sock.Available, SocketFlags.None);
             short index = BitConverter.ToInt16(_Packet, 2);
 
@@ -108,6 +99,7 @@ public class PacketManager : MonoBehaviour
         }
     }
 
+
     void CloseClient()
     {
         if (sock != null)
@@ -116,7 +108,6 @@ public class PacketManager : MonoBehaviour
             sock = null;
         }
     }
-
     void OnApplicationQuit()
     {
         CloseClient();

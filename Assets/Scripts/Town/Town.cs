@@ -8,7 +8,7 @@ using static Common;
 
 public struct sBuilding
 {
-    short level;
+  public  short level;
 };
 struct SP_LoadTown
 {
@@ -23,19 +23,41 @@ struct SP_LoadTown
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = (int)eBuilding.MAX_BUILDING_SIZE)]
     public sBuilding[] buildings;
 };
-public class Town : MonoBehaviour
+public class Town : MonoBehaviour,ITownSubject
 {
     sBuilding[] sBuilding;
+
+    List<ITownObserver> observers = new ();
+
+
+    short _count = 0;
+    short _totalLevel=0;
+    public void NotifyObservers()
+    {
+        foreach (var observer in observers) { observer.Set(_count,_totalLevel); }
+    }
+
+    public void ResistObserver(ITownObserver observer)
+    {
+        observers.Add(observer);
+    }
+
     private void Awake()
     {
         sBuilding = new sBuilding[(int)eBuilding.MAX_BUILDING_SIZE];
-        GameManager.Instance.packetManager.Recieve<SP_LoadTown>((int)ePacket.eSP_LoadTown, (p) =>
+        GameManager.Instance._packetManager.Recieve<SP_LoadTown>((int)ePacket.eSP_LoadTown, (p) =>
         {
-            for(int i = 0; i< (int)eBuilding.MAX_BUILDING_SIZE; i++)
+            for (int i = 0; i < (int)eBuilding.MAX_BUILDING_SIZE; i++)
             {
                 sBuilding[i] = p.buildings[i];
+                if (sBuilding[i].level != 0)
+                {
+                    _count++;
+                    _totalLevel += sBuilding[i].level;
+                }
+
+                Debug.Log(p.buildings);
             }
-            Debug.Log(p.buildings);
         });
     }
     // Start is called before the first frame update

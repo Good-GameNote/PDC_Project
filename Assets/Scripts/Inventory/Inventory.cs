@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -6,7 +7,9 @@ using static Common;
 
 public struct sRelic
 {
+    public short index;
     public short level;
+    public short surplus;
 };
 struct SP_LoadInventory
 {
@@ -24,18 +27,24 @@ struct SP_LoadInventory
 
 public class Inventory : MonoBehaviour
 {
-    sRelic[] relics;
+    Relic[] _relics;
+    
     private void Awake()
     {
-        relics = new sRelic[(int)eRelic.MAX_RELIC_SIZE];
-        GameManager.Instance.packetManager.Recieve<SP_LoadInventory>((int)ePacket.eSP_LoadInventory, (p) =>
+        _relics = new Relic[(int)eRelic.MAX_RELIC_SIZE];
+        GameManager.Instance._packetManager.Recieve<SP_LoadInventory>((int)ePacket.eSP_LoadInventory, (p) =>
         {
             for(int i = 0;i <(int)eRelic.MAX_RELIC_SIZE;i++)
             {
-                relics[i] = p.relics[i];           
+                _relics[i].SetsRelic( p.relics[i]);
             }
             Debug.Log(p.relics);
         });
     }
+    public void Gach()
+    {
+
+    }
+
 
 }

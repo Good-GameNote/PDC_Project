@@ -15,9 +15,9 @@ MonoBehaviour:
   m_DefaultGroup: c80199178fd2d0b4ca15980d30e3f3ab
   m_currentHash:
     serializedVersion: 2
-    Hash: c4a204bea7b52f0e3d2a1c777a282a5b
+    Hash: 8b4234cf507892289aa16054f9f5ad27
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
@@ -35,10 +35,10 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: 6e25a4e76a29b78449fc9def9cf9c555
   m_RemoteCatalogLoadPath:
-    m_Id: 
-  m_ContentStateBuildPathProfileVariableName: 
+    m_Id: 53475f01aba6a8241b4d12f6e540b2d9
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
@@ -46,10 +46,11 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: 199b20a517be58c4d84c760b069f5bbe, type: 2}
   - {fileID: 11400000, guid: 2bedab8e0fb25064fbe70c566477f0be, type: 2}
+  - {fileID: 11400000, guid: d1b4bd886d187dd4690af69329f26b65, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
-    m_LogResourceManagerExceptions: 1
+    m_LogResourceManagerExceptions: 0
     m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
   m_ProfileSettings:
     m_Profiles:
@@ -66,7 +67,7 @@ MonoBehaviour:
       - m_Id: 6e25a4e76a29b78449fc9def9cf9c555
         m_Value: ServerData/[BuildTarget]
       - m_Id: 53475f01aba6a8241b4d12f6e540b2d9
-        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+        m_Value: http://49.142.102.172:9091/android
     m_ProfileEntryNames:
     - m_Id: 6b5d611be6c3d774f86f52622df11459
       m_Name: BuildTarget

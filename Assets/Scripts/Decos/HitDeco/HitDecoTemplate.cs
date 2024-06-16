@@ -15,6 +15,8 @@ abstract class HitDecoTemplate : IHitDecorator, IEffector
 
     public abstract float GetPriority();
 
+
+
     //static IAttackDecorator CreateDeco(int index)
     //{
 

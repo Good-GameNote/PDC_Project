@@ -30,7 +30,7 @@ public class Team : MonoBehaviour
     private void Awake()
     {
         _sMercenarys = new sMercenary[(int)eMercenary.MAX_MERCENARY_SIZE];
-        GameManager.Instance.packetManager.Recieve<SP_LoadMercenarys>((int)ePacket.eSP_LoadMercenarys, (p) =>
+        GameManager.Instance._packetManager.Recieve<SP_LoadMercenarys>((int)ePacket.eSP_LoadMercenarys, (p) =>
         {
             for(int i =0; i<(int)eMercenary.MAX_MERCENARY_SIZE; i++)
             {

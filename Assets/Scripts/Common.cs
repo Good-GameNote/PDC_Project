@@ -73,28 +73,37 @@ public class Common
     };
 
 
-    public enum All_ERROR
-    {
-        success,
-        lackMoney,
-        lackLevel,
-        duplication,
-        slang,
-        tooLong,
-        tooMany,
-        notExist,
-    };
+  
     public enum eBuy
     {
         eRelicGacha,
         eRelicAdvancedGacha,
         eMercenaryUp,
         eTowerUp,
-
-
         MAX_BUY_SIZE
     };
 
+    public enum ePage
+    {
+        eShop,
+        eTown,
+        eStage,
+        eInven,
+        eTeam,
+        MAX_Page_SIZE
+    };
+
+    public enum All_ERROR
+    {
+        eSuccess,
+        eLackMoney,
+        eLackLevel,
+        eDuplication,
+        eSlang,
+        eTooLong,
+        eTooMany,
+        eNotExist,
+    };
 
     public enum ePacket
     {

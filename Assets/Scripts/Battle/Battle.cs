@@ -23,13 +23,13 @@ struct SP_LoadStages
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = Common.MAX_STAGE_SIZE)]
     public sStage[] stages;
 };
-public class Stage : MonoBehaviour
+public class Battle : MonoBehaviour
 {
     sStage[] stages;
     private void Awake()
     {
         stages = new sStage[Common.MAX_STAGE_SIZE];
-        GameManager.Instance.packetManager.Recieve<SP_LoadStages>((int)ePacket.eSP_LoadStages, (p) =>
+        GameManager.Instance._packetManager.Recieve<SP_LoadStages>((int)ePacket.eSP_LoadStages, (p) =>
         {
             for(int i = 0; i < MAX_STAGE_SIZE; i++) 
             {

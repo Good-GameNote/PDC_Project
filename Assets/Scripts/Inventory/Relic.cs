@@ -2,16 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Relic:MonoBehaviour, ICanExhibition
+
+public class Relic: MonoBehaviour,IEffector,ICanExhibition
 {
+    
+    public RelicData _relicData;
 
-    [SerializeField]
-    private RelicData _relicData;
-
-    protected sRelic _sRelic;//0이면 해금안됨
+    private sRelic _sRelic; //0이면 해금안됨
 
     private List<IEffector> _effectors;
- 
+
+    private void Awake()
+    {
+    }
+    public void SetsRelic(sRelic sRelic)
+    {
+        _sRelic = sRelic;
+    }
+
     public Sprite GiveSprite()
     {
         return _relicData._sprite;
@@ -19,6 +27,10 @@ public class Relic:MonoBehaviour, ICanExhibition
     public string GiveName()
     {
         return _relicData._name;
+    }
+    public int GiveValue()
+    {
+        return _sRelic.level;
     }
 
     public void Operate(int level)
@@ -64,4 +76,6 @@ public class Relic:MonoBehaviour, ICanExhibition
     {
         return 0;
     }
+
+
 }
