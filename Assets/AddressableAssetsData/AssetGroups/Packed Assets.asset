@@ -57,36 +57,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e9f693669af91aa45ad615fc681ed29f
-    m_Address: Assets/TextMesh Pro/Shaders
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f54d1bd14bd3ca042bd867b519fee8cc
-    m_Address: Assets/TextMesh Pro
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6ab70aee4d56447429c680537fbf93ed
-    m_Address: Assets/TextMesh Pro/Fonts
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 243e06394e614e5d99fab26083b707fa
-    m_Address: Assets/TextMesh Pro/Resources
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 731f1baa9d144a9897cb1d341c2092b8
-    m_Address: Fonts & Materials
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4ecbd10b1d8424b4093420bd77b6f8b6
-    m_Address: Assets/AddAssets/GUI/Layer Lab/GUI-TheStone/ResourceData/Fonts
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d54db0b07377bf84e9da9b285691d9a1, type: 2}
   m_SchemaSet:

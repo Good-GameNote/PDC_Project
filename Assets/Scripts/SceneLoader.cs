@@ -45,7 +45,7 @@ public void LoadScene(string sceneAddress, TMPro.TextMeshProUGUI progressText, S
            long totalSizeInBytes = (long)downloadSizeHandle.Result;
             _progressText.text = $"Total Size: {FormatBytes(totalSizeInBytes)}";
 
-            if (totalSizeInBytes > 0)
+            // if (totalSizeInBytes > 0)
             {
                 AsyncOperationHandle downloadHandle = Addressables.DownloadDependenciesAsync(_sceneAddress);
                 while (!downloadHandle.IsDone)
@@ -85,31 +85,31 @@ public void LoadScene(string sceneAddress, TMPro.TextMeshProUGUI progressText, S
                     _progressText.text = "Download failed.";
                 }
             }
-            else
-            {
-                _progressText.text = "No download required. Loading scene...";
+            // else
+            // {
+            //     _progressText.text = "No download required. Loading scene...";
 
-                AsyncOperationHandle<SceneInstance> loadSceneHandle = Addressables.LoadSceneAsync(_sceneAddress, LoadSceneMode.Single, _autoNext);
+            //     AsyncOperationHandle<SceneInstance> loadSceneHandle = Addressables.LoadSceneAsync(_sceneAddress, LoadSceneMode.Single, _autoNext);
 
-                while (!loadSceneHandle.IsDone)
-                {
-                    _progressBar.value = loadSceneHandle.PercentComplete;
-                    _progressText.text = $"Loading Scene: {loadSceneHandle.PercentComplete * 100:F2}%";
-                    yield return null;
-                }
+            //     while (!loadSceneHandle.IsDone)
+            //     {
+            //         _progressBar.value = loadSceneHandle.PercentComplete;
+            //         _progressText.text = $"Loading Scene: {loadSceneHandle.PercentComplete * 100:F2}%";
+            //         yield return null;
+            //     }
 
-                if (loadSceneHandle.Status == AsyncOperationStatus.Succeeded)
-                {
-                    _progressBar.value = loadSceneHandle.PercentComplete;
-                    _loadedScene = loadSceneHandle.Result;
-                    _progressText.text = "Press any key to continue.";
-                    _autoNext = true;
-                }
-                else
-                {
-                    _progressText.text = "Scene loading failed.";
-                }
-            }
+            //     if (loadSceneHandle.Status == AsyncOperationStatus.Succeeded)
+            //     {
+            //         _progressBar.value = loadSceneHandle.PercentComplete;
+            //         _loadedScene = loadSceneHandle.Result;
+            //         _progressText.text = "Press any key to continue.";
+            //         _autoNext = true;
+            //     }
+            //     else
+            //     {
+            //         _progressText.text = "Scene loading failed.";
+            //     }
+            // }
         }
         else
         {
