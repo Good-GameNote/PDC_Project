@@ -20,13 +20,14 @@ public class AddressableLoader : MonoBehaviour
 
     private Dictionary<string, object> _loadedResources = new ();
 
-
     void Awake()
     {
-        StartCoroutine(LoadResources<Sprite>(_spriteAddresses));
-        StartCoroutine(LoadResources<ScriptableObject>(_scriptableObjectAddresses));
-        StartCoroutine(LoadResources<AudioClip>(_audioClipAddresses));
-        StartCoroutine(LoadResources<GameObject>(_gameObjectAddresses));
+
+
+        //StartCoroutine(LoadResources<Sprite>(_spriteAddresses));
+        //StartCoroutine(LoadResources<ScriptableObject>(_scriptableObjectAddresses));
+        //StartCoroutine(LoadResources<AudioClip>(_audioClipAddresses));
+        //StartCoroutine(LoadResources<GameObject>(_gameObjectAddresses));
     }
 
     IEnumerator LoadResources<T>(string[] addresses)

@@ -10,6 +10,21 @@ using UnityEngine.UI;
 
 using static Common;
 
+public struct CP_Enter
+{
+    public CP_Enter(byte i)
+    {
+        _size = 24;
+        _index = (short)ePacket.eCP_Enter;
+        _token = new byte[TOKEN_SIZE];
+    }
+
+    public short _size;
+    public short _index;
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = TOKEN_SIZE)]
+    public byte[] _token;
+};
+
 public struct CP_Test
 {
     public CP_Test(int dummy)
@@ -60,20 +75,6 @@ public struct SP_Nick
 
 }
 
-public struct CP_Enter 
-{
-    public CP_Enter(byte i)
-    {
-        _size = 24;
-        _index = (short)ePacket.eCP_Enter;
-        _token = new byte[TOKEN_SIZE];
-    }
-
-    public short _size;
-    public short _index;
-    [MarshalAs(UnmanagedType.ByValArray, SizeConst = TOKEN_SIZE )]
-    public byte[] _token;
-};
 
 
 //struct SP_LoadPlayer 

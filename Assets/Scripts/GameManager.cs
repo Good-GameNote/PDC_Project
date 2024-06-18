@@ -20,6 +20,12 @@ public class GameManager : MonoBehaviour
     {
         Initialize();
         if (instance != null && instance != this) Destroy(gameObject);
+
+
+    }
+    private void Start()
+    {
+        
     }
 
     static void Initialize()
@@ -46,5 +52,8 @@ public class GameManager : MonoBehaviour
     public Team _team { get; private set; }
     [field: SerializeField]
     public Town _town { get; private set; }
+
+    [field: SerializeField]
+    public SceneLoader _sceneLoader { get; private set; }
     
 }
