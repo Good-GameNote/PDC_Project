@@ -10,27 +10,12 @@ using UnityEngine.UI;
 
 using static Common;
 
-public struct CP_Enter
-{
-    public CP_Enter(byte i)
-    {
-        _size = 24;
-        _index = (short)ePacket.eCP_Enter;
-        _token = new byte[TOKEN_SIZE];
-    }
-
-    public short _size;
-    public short _index;
-    [MarshalAs(UnmanagedType.ByValArray, SizeConst = TOKEN_SIZE)]
-    public byte[] _token;
-};
-
 public struct CP_Test
 {
     public CP_Test(int dummy)
     {
         _size = 20;
-        _index = (short)ePacket.eCP_Test;
+        _index = (short)eCPacket.eCP_Test;
         _StringlVariable = new byte[16];
     }
     public short _size;
@@ -56,7 +41,7 @@ public struct CP_Nick
     public CP_Nick(byte i)   
     {
         _size = 24;
-        _index = (short)ePacket.eCP_Nick;
+        _index = (short)eCPacket.eCP_Nick;
         _nickName = new byte[MAX_NICKNAME_SIZE*2];
     }
 
@@ -165,12 +150,12 @@ public class JoinTest : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance._packetManager.Recieve<SP_Nick>((int)ePacket.eSP_Nick, (p) =>
+        GameManager.Instance._packetManager.Recieve<SP_Nick>((int)eSPacket.eSP_Nick, (p) =>
         {
             Debug.Log(p._result);
         });
     
-        GameManager.Instance._packetManager.Recieve<SP_Test>((int)ePacket.eSP_Test, (p) =>
+        GameManager.Instance._packetManager.Recieve<SP_Test>((int)eSPacket.eSP_Test, (p) =>
         {
             Debug.Log(Encoding.Unicode.GetString(p._StringlVariable));
         });

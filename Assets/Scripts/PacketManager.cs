@@ -16,7 +16,7 @@ public class PacketManager : MonoBehaviour
     byte[] _Packet = new byte[1024];
 
     private IPEndPoint _ServerIpEndPoint;
-    private Action<byte[]>[] mPacketFunc = new Action<byte[]>[(int)ePacket.MAX_FUNC_SIZE];
+    private Action<byte[]>[] mPacketFunc = new Action<byte[]>[(int)eSPacket.MAX_SPACKET_SIZE];
 
     public void Send(object obj, int size)
     {
@@ -41,7 +41,7 @@ public class PacketManager : MonoBehaviour
     }
     public void Recieve<T>(int index, Action<T> function) 
     {
-        if (index < 0 || index >= (int)Common.ePacket.MAX_FUNC_SIZE)
+        if (index < 0 || index >= (int)Common.eSPacket.MAX_SPACKET_SIZE)
         {
             throw new ArgumentOutOfRangeException("index");
         }
@@ -91,7 +91,7 @@ public class PacketManager : MonoBehaviour
             sock.Receive(_Packet, 0, sock.Available, SocketFlags.None);
             short index = BitConverter.ToInt16(_Packet, 2);
 
-            if (index >= 0 && index < (short)ePacket.MAX_FUNC_SIZE)
+            if (index >= 0 && index < (short)eSPacket.MAX_SPACKET_SIZE)
             {
                 Debug.Log($"SMPIndex : {index}");
                 mPacketFunc[index](_Packet);

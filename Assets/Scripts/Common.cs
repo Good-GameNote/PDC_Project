@@ -113,27 +113,46 @@ public class Common
         eNotExist,
     };
 
-    public enum ePacket
+
+    public enum eCPacket
     {
         eCP_Test,
-        eSP_Test,
         eCP_Enter,
         eCP_Nick,
+        eCP_RecordMoney,
+        MAX_CPACKET_SIZE
+    };
+
+    public enum eSPacket
+    {
+        eSP_Test,
         eSP_Nick,
         eSP_LoadPlayer,
         eSP_LoadMercenarys,
         eSP_LoadTown,
         eSP_LoadInventory,
         eSP_LoadStages,
-        eCP_RecordMoney,
-        MAX_FUNC_SIZE
+        MAX_SPACKET_SIZE
     };
 
 
     #endregion
 
     #region struct
+    public struct CP_Enter
+    {
+        public CP_Enter(byte i)
+        {
+            _size = 24;
+            _index = (short)eCPacket.eCP_Enter;
+            _token = new byte[TOKEN_SIZE];
+        }
 
+        public short _size;
+        public short _index;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = TOKEN_SIZE)]
+        public byte[] _token;
+    };
 
 
     #endregion

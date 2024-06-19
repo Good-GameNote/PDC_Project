@@ -33,7 +33,7 @@ public class GPGSHelper : MonoBehaviour
 #if UNITY_EDITOR
                 Debug.Log("Running in the Unity Editor");
                 // 이곳에서 authCode를 서버로 전송하여 토큰 교환 및 사용자 인증을 처리
-                CP_Enter packet = new CP_Enter(0);
+                Common.CP_Enter packet = new Common.CP_Enter(0);
                 Buffer.BlockCopy(Encoding.UTF8.GetBytes(_tempToken), 0, packet._token, 0, _tempToken.Length);
 
                 GameManager.Instance._packetManager.Send(packet, packet._size);

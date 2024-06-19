@@ -15,7 +15,7 @@ struct SP_LoadStages
     public SP_LoadStages(int i)
     {
         _size = 44;
-        _index = (short)ePacket.eSP_LoadStages;
+        _index = (short)eSPacket.eSP_LoadStages;
         stages = new sStage[Common.MAX_STAGE_SIZE];
     }
     public short _size;
@@ -29,7 +29,7 @@ public class Battle : MonoBehaviour
     private void Awake()
     {
         stages = new sStage[Common.MAX_STAGE_SIZE];
-        GameManager.Instance._packetManager.Recieve<SP_LoadStages>((int)ePacket.eSP_LoadStages, (p) =>
+        GameManager.Instance._packetManager.Recieve<SP_LoadStages>((int)eSPacket.eSP_LoadStages, (p) =>
         {
             for(int i = 0; i < MAX_STAGE_SIZE; i++) 
             {

@@ -15,7 +15,7 @@ struct SP_LoadTown
     public SP_LoadTown(int i)
     {
         _size = 44;
-        _index = (short)ePacket.eSP_LoadTown;
+        _index = (short)eSPacket.eSP_LoadTown;
         buildings = new sBuilding[(int)eBuilding.MAX_BUILDING_SIZE];
     }
     public short _size;
@@ -45,7 +45,7 @@ public class Town : MonoBehaviour,ITownSubject
     private void Awake()
     {
         sBuilding = new sBuilding[(int)eBuilding.MAX_BUILDING_SIZE];
-        GameManager.Instance._packetManager.Recieve<SP_LoadTown>((int)ePacket.eSP_LoadTown, (p) =>
+        GameManager.Instance._packetManager.Recieve<SP_LoadTown>((int)eSPacket.eSP_LoadTown, (p) =>
         {
             for (int i = 0; i < (int)eBuilding.MAX_BUILDING_SIZE; i++)
             {

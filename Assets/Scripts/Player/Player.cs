@@ -27,7 +27,7 @@ struct SP_LoadPlayer
     public SP_LoadPlayer(byte i)
     {
         _size = 44;
-        _index = (short)ePacket.eSP_LoadPlayer;
+        _index = (short)eSPacket.eSP_LoadPlayer;
         _nickName = new byte[MAX_NICKNAME_SIZE];
         asset = new sAsset();
     }
@@ -45,7 +45,7 @@ struct CP_RecordMoney
     public CP_RecordMoney(byte i)
     {
         _size = 12;
-        _index = (short)ePacket.eCP_RecordMoney;
+        _index = (short)eCPacket.eCP_RecordMoney;
         moneyType = -1;
         value = -1;
         reason = -1;
@@ -67,7 +67,7 @@ public class Player : MonoBehaviour, ISubject<int[]>
     private void Awake()
     {
         _sAsset = new sAsset();
-        GameManager.Instance._packetManager.Recieve<SP_LoadPlayer>((int)ePacket.eSP_LoadPlayer, (p) =>
+        GameManager.Instance._packetManager.Recieve<SP_LoadPlayer>((int)eSPacket.eSP_LoadPlayer, (p) =>
         {
             _sAsset = p.asset;
             _nickName = Encoding.Unicode.GetString(p._nickName);
