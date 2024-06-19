@@ -86,10 +86,10 @@ public class Common
     public enum ePage
     {
         eShop,
-        eTown,
+        eTeam,
         eStage,
         eInven,
-        eTeam,
+        eTown,
         MAX_Page_SIZE
     };
 

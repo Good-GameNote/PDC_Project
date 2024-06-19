@@ -5,7 +5,7 @@ using UnityEngine;
 public class UI_Tab : MonoBehaviour,IObserver<Common.ePage>
 {
     [SerializeField]
-    int _thisButton;
+    Common.ePage _thisButton;
     [SerializeField]
     GameObject _view;
     
@@ -14,9 +14,9 @@ public class UI_Tab : MonoBehaviour,IObserver<Common.ePage>
     public void Set(Common.ePage data)
     {
 
-        _view.SetActive(_thisButton==(short)data);
+        _view.SetActive(_thisButton==data);
 
-        sizeDelta.x = _thisButton == (short)data ? 180 : 135;
+        sizeDelta.x = _thisButton == data ? 180 : 135;
 
         _rectTransform.sizeDelta = sizeDelta;
     }

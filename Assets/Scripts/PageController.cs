@@ -20,16 +20,12 @@ public class PageController : MonoBehaviour,ISubject<Common.ePage>
         observers.Add(observer);
     }
 
-    public void SetCurrentPage(int page)
+    public void SetCurrentPage(Common.ePage page)
     {
-        _currentPage = (Common.ePage)page;
+        _currentPage = page;
 
         NotifyObservers();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
 }
