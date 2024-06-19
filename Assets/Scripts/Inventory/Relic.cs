@@ -14,7 +14,7 @@ public class Relic: MonoBehaviour,IEffector,ICanExhibition
 
     private void Awake()
     {
-        foreach (Common.eEffector effectNum in _relicData._effectNums)
+        foreach (Common.eEffector effectNum in _relicData.EffectNums)
         {
             _effectors.Add(EffectorFactory.Create(effectNum));
         }
@@ -26,11 +26,11 @@ public class Relic: MonoBehaviour,IEffector,ICanExhibition
 
     public Sprite GiveSprite()
     {
-        return _relicData._sprite;
+        return _relicData.Sprite;
     }
     public string GiveName()
     {
-        return _relicData._name;
+        return _relicData.Name;
     }
     public int GiveValue()
     {

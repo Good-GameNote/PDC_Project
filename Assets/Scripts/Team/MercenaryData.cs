@@ -6,13 +6,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewMercenaryData", menuName = "MercenaryData")]
 public class MercenaryData : ScriptableObject
 {
-    [field: SerializeField] public int _index { get; private set; }
-    [field: SerializeField] public float _coolTime { get; private set; }
-    [field: SerializeField] public float _range { get; private set; }
-    [field: SerializeField] public float _damage { get; private set; }
-    [field: SerializeField] public int _criticalPer { get; private set; }
-    [field: SerializeField] public string _name { get; private set; }
-    [field: SerializeField] public string _description { get; private set; }
-    [field: SerializeField] public Sprite _sprite { get; private set; }
-
+    [field: SerializeField] public int Index { get; private set; }
+    [field: SerializeField] public int EnchantLevel { get; private set; }
+    [field: SerializeField] public float CoolTime { get; private set; }
+    [field: SerializeField] public float Range { get; private set; }
+    [field: SerializeField] public float Damage { get; private set; }
+    [field: SerializeField] public int CriticalPer { get; private set; }
+    [field: SerializeField] public string Name { get; private set; }
+    [field: SerializeField] public string Description { get; private set; }
+    [field: SerializeField] public Sprite Sprite { get; private set; }
 }

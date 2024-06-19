@@ -28,10 +28,10 @@ public class RelicResister : MonoBehaviour,ITownObserver
 
     bool ResistRelic(Relic relic)
     {
-        if (_currentCost+relic._relicData._cost>_maxCost||_currentCount>=_maxCount)
+        if (_currentCost+relic._relicData.Cost>_maxCost||_currentCount>=_maxCount)
             return false;
         _currentCount++;
-        _currentCost += relic._relicData._cost;
+        _currentCost += relic._relicData.Cost;
         _resistedRelics.Add(relic);
 
         return true;

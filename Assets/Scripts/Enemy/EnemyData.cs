@@ -6,12 +6,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewEnemyData", menuName = "EnemyData")]
 public class EnemyData : ScriptableObject
 {
-    [field: SerializeField] public int _index { get; private set; }
-    [field: SerializeField] public bool _isAir { get; private set; }
-    [field: SerializeField] public int _HP { get; private set; }
-    [field: SerializeField] public float _Speed { get; private set; }
-    [field: SerializeField] public string _name { get; private set; }
-    [field: SerializeField] public string _description { get; private set; }
-    [field: SerializeField] public Sprite _sprite { get; private set; }
+    [field: SerializeField] public int Index { get; private set; }
+    [field: SerializeField] public bool IsAir { get; private set; }
+    [field: SerializeField] public int HP { get; private set; }
+    [field: SerializeField] public float Speed { get; private set; }
+    [field: SerializeField] public string Name { get; private set; }
+    [field: SerializeField] public string Description { get; private set; }
+    [field: SerializeField] public Sprite Sprite { get; private set; }
 
 }
