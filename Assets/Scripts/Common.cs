@@ -83,6 +83,14 @@ public class Common
         MAX_BUY_SIZE
     };
 
+    public enum eEffector
+    {
+        eA, //머시기하는 이펙트
+        eB,
+        eC, 
+        eD,
+        MAX_EFFECTOR_SIZE
+    }
     public enum ePage
     {
         eShop,

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: NewRelicData 1
   m_EditorClassIdentifier: 
   <_index>k__BackingField: 1
-  <_name>k__BackingField: "\uD3C9\uD3C9\uD55C \uC9C0\uAD6C\uBCF8"
-  <_cost>k__BackingField: 0
   <_sprite>k__BackingField: {fileID: 0}
+  <_cost>k__BackingField: 3
+  <_effectNums>k__BackingField: 0000000002000000
+  <_name>k__BackingField: "\uB8E8\uB09C\uC758\uD5C8\uB9AC\uCF00\uC778"

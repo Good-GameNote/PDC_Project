@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class DefenceDecoTemplate : IHitDecorator, IEffector
+abstract class DefenceDecoTemplate : IHitDecorator
 {
     IHitDecorator deco;
 
@@ -16,8 +16,4 @@ abstract class DefenceDecoTemplate : IHitDecorator, IEffector
     public abstract float GetPriority();
 
 
-    //static IAttackDecorator CreateDeco(int index)
-    //{
-
-    //}
 }

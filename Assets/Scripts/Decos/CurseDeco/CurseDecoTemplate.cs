@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class CurseDecoTemplate:ICurseDecorator,IEffector
+abstract class CurseDecoTemplate: ICurseDecorator
 {
     ICurseDecorator deco;
 

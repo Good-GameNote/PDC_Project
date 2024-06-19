@@ -19,4 +19,5 @@ public interface ICardExhibition : ICanExhibition
 public interface ISlotExhibition : ICanExhibition
 {
     int GiveLevel();
+    int GiveSurplus();
 }

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class AttackDecoTemplate:IAttackDecorator,IEffector
+abstract class AttackDecoTemplate:IAttackDecorator
 {
     IAttackDecorator attackDecorator;
+
 
     public abstract void AttackEffect();
 
@@ -14,9 +15,7 @@ abstract class AttackDecoTemplate:IAttackDecorator,IEffector
 
     public abstract void Operate(int level);
 
-    //static IAttackDecorator CreateDeco(int index)
-    //{
-        
-    //}
 }
+
+
 

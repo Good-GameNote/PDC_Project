@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class HitDecoTemplate : IHitDecorator, IEffector
+abstract class HitDecoTemplate : IHitDecorator
 {
     IHitDecorator deco;
 

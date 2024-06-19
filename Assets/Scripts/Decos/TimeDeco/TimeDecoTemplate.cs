@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class TimeDecoTemplate : ITimeDecorator, IEffector
+abstract class TimeDecoTemplate : ITimeDecorator
 {
     ITimeDecorator deco;
 

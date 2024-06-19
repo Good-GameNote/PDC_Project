@@ -1617,7 +1617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffca21fd465951541817bd6ab8bc2f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadSceneName: MainScene
+  _loadSceneName: MainScene1
   _slider: {fileID: 362038155}
   _progressText: {fileID: 1005820698}
   _button: {fileID: 2129668645}

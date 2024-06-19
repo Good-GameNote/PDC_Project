@@ -10,10 +10,14 @@ public class Relic: MonoBehaviour,IEffector,ICanExhibition
 
     private sRelic _sRelic; //0이면 해금안됨
 
-    private List<IEffector> _effectors;
+    private List<IEffector> _effectors=new();
 
     private void Awake()
     {
+        foreach (Common.eEffector effectNum in _relicData._effectNums)
+        {
+            _effectors.Add(EffectorFactory.Create(effectNum));
+        }
     }
     public void SetsRelic(sRelic sRelic)
     {
