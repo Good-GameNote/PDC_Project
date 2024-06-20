@@ -1,28 +1,30 @@
 
-using UnityEditor.Build.Pipeline;
 
-public interface IHitDecorator : IEffector
+public interface IDeco
+{
+    void SetDeco(IDeco deco);
+}
+public interface IHitDecorator 
 {
     void HitEffect();
 }
 
-public interface IAttackDecorator: IEffector
+public interface IAttackDecorator
 {
     void AttackEffect();
 }
 
 
-public interface ITimeDecorator : IEffector
+public interface ITimeDecorator 
 {
     void TimeEffect();
 }
-
-public interface ICurseDecorator : IEffector
+public interface ICurseDecorator : IDeco
 {
-    void GetHitEffect();
+    abstract void GetHitEffect(Enemy self, Mercenary attacker , int damage ,Debuff debuff );
 }
 
-public interface IDefenceDecorator : IEffector
+public interface IDefenceDecorator 
 {
     void DefenceEffect();
 }

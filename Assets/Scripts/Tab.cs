@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_Tab : MonoBehaviour,IObserver<Common.ePage>
+public class Tab : MonoBehaviour,IObserver<Common.ePage>
 {
     [SerializeField]
     Common.ePage _thisButton;

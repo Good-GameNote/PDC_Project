@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8bccecd1e7cd1b4a91e82b7c85f5f19, type: 3}
   m_Name: NewRelicData 1
   m_EditorClassIdentifier: 
-  <_index>k__BackingField: 1
-  <_sprite>k__BackingField: {fileID: 0}
-  <_cost>k__BackingField: 3
-  <_effectNums>k__BackingField: 0000000002000000
-  <_name>k__BackingField: "\uB8E8\uB09C\uC758\uD5C8\uB9AC\uCF00\uC778"
+  <Index>k__BackingField: 0
+  <Sprite>k__BackingField: {fileID: 0}
+  <Cost>k__BackingField: 2
+  <EffectNums>k__BackingField: 00000000
+  <Name>k__BackingField: "\uB3CB\uBCF4\uAE30"

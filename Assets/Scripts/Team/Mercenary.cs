@@ -13,7 +13,6 @@ public class Mercenary : MonoBehaviour
 
     Projectile _projectile;
 
-
     void Start()
     {
         

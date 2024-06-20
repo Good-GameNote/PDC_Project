@@ -23,7 +23,7 @@ public class Common
     #region enum
     public enum eRelic
     {
-        eA,
+        e돋보기,
         eB,
         MAX_RELIC_SIZE
     };
@@ -85,7 +85,7 @@ public class Common
 
     public enum eEffector
     {
-        eA, //머시기하는 이펙트
+        e돋보기, // 3->6->9미만대미지 증폭
         eB,
         eC, 
         eD,

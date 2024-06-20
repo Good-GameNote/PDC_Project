@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Relic: MonoBehaviour,IEffector,ICanExhibition
+public class Relic: MonoBehaviour,ICanExhibition
 {
     
     public RelicData _relicData;
 
     private sRelic _sRelic; //0이면 해금안됨
 
-    private List<IEffector> _effectors=new();
+    private List<Effector> _effectors=new();
 
     private void Awake()
     {
@@ -37,20 +37,21 @@ public class Relic: MonoBehaviour,IEffector,ICanExhibition
         return _sRelic.level;
     }
 
-    public void Operate(int level)
+
+    public void Operate()
     {
-        for(int i =0;i< _effectors.Count;i++)
-        {
-            _effectors[i].Operate(_sRelic.level);
-        }
+        //for(int i =0;i< _effectors.Count;i++)
+        //{
+        //    _effectors[i].Operate();
+        //}
     }
 
-    public string GiveExplan(int level)
+    public string GiveExplan()
     {
         List<string> dumystring= new List<string>();
         for (int i = 0; i < _effectors.Count; i++)
         {
-            dumystring.Add(_effectors[i].GiveExplan(_sRelic.level));
+            dumystring.Add(_effectors[i].GiveExplan());
         }
         return CombineStrings(dumystring);
     }
@@ -75,11 +76,5 @@ public class Relic: MonoBehaviour,IEffector,ICanExhibition
         // 배열을 하나의 문자열로 합칩니다.
         return string.Join(" ", words);
     }
-
-    public float GetPriority()
-    {
-        return 0;
-    }
-
 
 }

@@ -1,23 +1,63 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class CurseDecoTemplate: ICurseDecorator
+public class enemyFactory
 {
-    ICurseDecorator deco;
+    static ICurseDecorator _curseDecorator;
 
-    public abstract void GetHitEffect();
+    static public void SetDeco(ICurseDecorator curseDecorator)
+    {
+        _curseDecorator = curseDecorator;
+    }
+}
+public abstract class CurseDecoTemplate: Effector, ICurseDecorator
+{
+    protected ICurseDecorator _deco;
 
-    public abstract string GiveExplan(int level);
-
-    public abstract void Operate(int level);
-
-    public abstract float GetPriority();
+    protected static PriorityQueue<CurseDecoTemplate> _CurseDecos = new();
 
 
-    //static IAttackDecorator CreateDeco(int index)
-    //{
+    public override void SetDeco(IDeco deco)
+    {
+        _deco = (ICurseDecorator)deco;
+    }
 
-    //}
+
+    public virtual void GetHitEffect(Enemy self, Mercenary attacker, int damage, Debuff debuff)
+    {
+        _deco.GetHitEffect(self, attacker, damage, debuff);
+    }
+    public override void Resist()
+    {
+        if (_CurseDecos.Count < 1)
+        {
+            _CurseDecos.Enqueue(new BaseGetHit());
+        }
+        _CurseDecos.Enqueue(this);
+    }
+    public override Effector GiveDeco()
+    {
+        Effector deco = null;
+        if (_CurseDecos.Count > 0)
+        {
+            _CurseDecos.Circuit((other) =>
+            {
+                Effector part = EffectorFactory.Create(other._index);
+                if(deco==null)
+                {
+                    deco = part;
+                }else
+                {
+                    deco.SetDeco(part);
+                }
+            });
+        }
+
+        return deco;
+
+    }
+
 }
 
