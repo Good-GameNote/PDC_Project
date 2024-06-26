@@ -8,7 +8,9 @@ using static Common;
 
 public struct sMercenary
 {
-    short level;
+    public short index;
+    public short level;
+    public short surplus;
 };
 
 struct SP_LoadMercenarys
@@ -26,15 +28,15 @@ struct SP_LoadMercenarys
 };
 public class Team : MonoBehaviour
 {
-    sMercenary[] _sMercenarys;
+    Mercenary[] _mercenarys;
     private void Awake()
     {
-        _sMercenarys = new sMercenary[(int)eMercenary.MAX_MERCENARY_SIZE];
+        _mercenarys = new Mercenary[(int)eMercenary.MAX_MERCENARY_SIZE];
         GameManager.Instance._packetManager.Recieve<SP_LoadMercenarys>((int)eSPacket.eSP_LoadMercenarys, (p) =>
         {
             for(int i =0; i<(int)eMercenary.MAX_MERCENARY_SIZE; i++)
             {
-                _sMercenarys[i] = p.mercenarys[i];
+                _mercenarys[i].SetsMercenary(p.mercenarys[i]);
             }
             Debug.Log(p.mercenarys);
         });

@@ -11,11 +11,20 @@ public class Mercenary : MonoBehaviour
 
     IAttackDecorator _attackDecorator;
 
-    Projectile _projectile;
+    ProjectileBase _projectile;
 
+    private void Awake() 
+    {
+        
+    }
     void Start()
     {
         
+    }
+
+    public void SetsMercenary(sMercenary sMercenary)
+    {
+        _sMercenary = sMercenary;
     }
 
     // Update is called once per frame
