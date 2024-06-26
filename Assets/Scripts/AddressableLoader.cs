@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -17,12 +18,41 @@ public class AddressableLoader : MonoBehaviour
     [SerializeField]
     string[] _gameObjectAddresses;
 
+    
 
     private Dictionary<string, object> _loadedResources = new ();
+
+    [SerializeField]
+    TMP_FontAsset tmpFont;
+    void OnTMPFontLoaded(AsyncOperationHandle<TMP_FontAsset> obj)
+    {
+        if (obj.Status == AsyncOperationStatus.Succeeded)
+        {
+            TMP_FontAsset fontAsset = obj.Result;
+            TextMeshProUGUI[] textComponents = FindObjectsOfType<TextMeshProUGUI>();
+            foreach (TextMeshProUGUI textComponent in textComponents)
+            {
+                textComponent.font = fontAsset;
+            }
+        }
+        else
+        {
+            //Debug.LogError($"Failed to load TMP font asset. Status: {obj.Status}, Address: {obj}");
+
+            TextMeshProUGUI[] textComponents = FindObjectsOfType<TextMeshProUGUI>();
+            foreach (TextMeshProUGUI textComponent in textComponents)
+            {
+                textComponent.font = tmpFont;
+            }
+        }
+    }
 
     void Awake()
     {
 
+        //Addressables.LoadAssetAsync<TMP_FontAsset>("tmpFont").Completed += OnTMPFontLoaded;
+
+     
 
         //StartCoroutine(LoadResources<Sprite>(_spriteAddresses));
         //StartCoroutine(LoadResources<ScriptableObject>(_scriptableObjectAddresses));

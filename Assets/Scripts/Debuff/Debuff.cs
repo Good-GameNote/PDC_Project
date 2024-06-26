@@ -5,17 +5,24 @@ using UnityEngine;
 
 public abstract class Debuff 
 {
-    Sprite _Sprite;
+    protected Sprite _sprite;
 
-    float _durationTime;
-    float _remainDuration;
+    protected float _durationTime;
+    protected float _remainDuration;
 
-    float _eleapse=.2f;
-    float _lapseEleampse;
-    
+    protected float _eleapse=.2f;
+    protected float _lapseEleampse;
+
+    public Debuff(float durationTime, Sprite sprite)
+    {
+        _durationTime = durationTime;
+        _sprite = sprite;
+    }
+
+ 
     public void SetDuration(float duration) {  _durationTime = duration; }
 
-    Enemy target;
+    protected Enemy _target;
     public  abstract void StartAction(Enemy target);
 
     public abstract void ContinueAction(float lapse);
@@ -37,7 +44,7 @@ public abstract class Debuff
         }
         else
         {
-            target.RemoveBuff(this);
+            _target.RemoveBuff(this);
         }
     }
 }

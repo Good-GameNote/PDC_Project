@@ -9,8 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScene.unity
     guid: 9191bf85852a9244fa144a62c2db8509
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
-    guid: fb5863465b1784249a42dd959ddee184
+    path: Assets/Scenes/MainScene JG.unity
+    guid: ac92b252087239e4fb337f8e0b4208a4
+  - enabled: 1
+    path: Assets/Scenes/MainScene IJH.unity
+    guid: 1f8b466de177b9742b581012db2a06f8
+  - enabled: 1
+    path: Assets/Scenes/BattleScene.unity
+    guid: 93f5f61a5c663e2459814879c7156cb7
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 75c2d0ea916effe4c96775a2ee68fe74,
       type: 2}
