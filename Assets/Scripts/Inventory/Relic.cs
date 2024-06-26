@@ -1,15 +1,14 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class Relic: MonoBehaviour,ICanExhibition
+public class Relic: MonoBehaviour, IObserver<IServerData>, ISlotExhibition,ISubject<ISlotExhibition>
 {
-    
+    static short[] levelupPoint = { 1, 2, 4, 6, 8, 10 };
     public RelicData _relicData;
 
-    private sRelic _sRelic; //0이면 해금안됨
-
+    private sRelic _sRelic; 
     private List<Effector> _effectors=new();
 
     private void Awake()
@@ -18,12 +17,10 @@ public class Relic: MonoBehaviour,ICanExhibition
         {
             _effectors.Add(EffectorFactory.Create(effectNum));
         }
+        GameManager.Instance._inven.ResistObserver( (short)_relicData.Index,this);
+        GameManager.Instance._inven.NotifyObservers((short)_relicData.Index);
     }
-    public void SetsRelic(sRelic sRelic)
-    {
-        _sRelic = sRelic;
-    }
-
+    public static UI_Upgrader test;
     public Sprite GiveSprite()
     {
         return _relicData.Sprite;
@@ -32,11 +29,6 @@ public class Relic: MonoBehaviour,ICanExhibition
     {
         return _relicData.Name;
     }
-    public int GiveValue()
-    {
-        return _sRelic.level;
-    }
-
 
     public void Operate()
     {
@@ -77,4 +69,36 @@ public class Relic: MonoBehaviour,ICanExhibition
         return string.Join(" ", words);
     }
 
+    public short GiveLevel()
+    {
+        return _sRelic.level;
+    }
+
+    public short GiveSurplus()
+    {
+        return _sRelic.surplus;
+    }
+
+    List<IObserver<ISlotExhibition>> observers = new();
+    public void ResistObserver(IObserver<ISlotExhibition> observer)
+    {
+        observers.Add(observer);
+    }
+    public void NotifyObservers()
+    {
+        foreach (IObserver<ISlotExhibition> observer in observers) { observer.Set(this); };
+    }
+
+    public void Set(IServerData data)
+    {
+        _sRelic.level = data.GiveLevel(); 
+        _sRelic.surplus = data.GiveSurplus();
+
+        NotifyObservers();
+    }
+
+    public short GiveIndex()
+    {
+        return (short)_relicData.Index;
+    }
 }

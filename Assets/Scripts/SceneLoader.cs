@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -8,30 +9,38 @@ using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
-    string _sceneAddress; // Addressables 씬 주소
-    TMPro.TextMeshProUGUI _progressText;   // 진행 상황을 표시할 UI 텍스트
+
+    [SerializeField]
+   public  string _sceneAddress; // Addressables 씬 주소
+
+    [SerializeField]
     Slider _progressBar;  // 진행 상황을 표시할 UI 슬라이더
-    bool _autoNext;
+
+    [SerializeField]
+    TMPro.TextMeshProUGUI _progressText;
+
+    [SerializeField]
     Button _button;
 
-public void LoadScene(string sceneAddress, TMPro.TextMeshProUGUI progressText, Slider progressBar, bool autoNext,Button button)
+
+    [SerializeField]
+    bool _autoNext;
+
+    void Start()
     {
-        _sceneAddress = sceneAddress;
-        _progressText = progressText;
-        _progressBar = progressBar;
-        _autoNext = autoNext;
-        if(autoNext==false)
-        {
-            _button = button;
-            _button.onClick.AddListener(() => {
-                if (_autoNext)
-                {
-                    _loadedScene.ActivateAsync();
-                };
-            });
-        }
+        _button.onClick.AddListener(() => {
+            if (_autoNext)
+            {
+                _loadedScene.ActivateAsync();
+            };
+        });
 
         StartCoroutine(LoadSceneAsync());
+    }
+    public void LoadScene(string sceneAddress)
+    {
+        _sceneAddress = sceneAddress;
+        gameObject.SetActive(true);
     }
     private SceneInstance _loadedScene;
 
@@ -45,7 +54,7 @@ public void LoadScene(string sceneAddress, TMPro.TextMeshProUGUI progressText, S
            long totalSizeInBytes = (long)downloadSizeHandle.Result;
             _progressText.text = $"Total Size: {FormatBytes(totalSizeInBytes)}";
 
-            if (totalSizeInBytes > 0)
+            //if (totalSizeInBytes > 0)
             {
                 AsyncOperationHandle downloadHandle = Addressables.DownloadDependenciesAsync(_sceneAddress);
                 while (!downloadHandle.IsDone)
@@ -73,6 +82,8 @@ public void LoadScene(string sceneAddress, TMPro.TextMeshProUGUI progressText, S
                 _loadedScene = loadSceneHandle.Result;
                 _progressText.text = "Press any key to continue.";
                 _autoNext= true;
+                //LoadTMPFont();
+
             }
             else
             {
@@ -100,5 +111,4 @@ public void LoadScene(string sceneAddress, TMPro.TextMeshProUGUI progressText, S
     }
 
 
-  
 }

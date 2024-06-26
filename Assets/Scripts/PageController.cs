@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PageController : MonoBehaviour,ISubject<Common.ePage>
+public class PageController : Singleton<PageController>,ISubject<Common.ePage>
 {
     Common.ePage _currentPage;
 

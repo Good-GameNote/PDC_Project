@@ -12,8 +12,15 @@ public struct Cash
     long _buyAt;
 };
 
-public struct sAsset
+
+struct SP_LoadPlayer
 {
+    public short _size;
+    public short _index;
+
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = MAX_NICKNAME_SIZE*2)]
+    public byte[] _nickName;
+
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = (int)eMoney.MAX_MONEY_SIZE)]
     public int[] _money;
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = (int)eCash.MAX_CASH_SIZE)]
@@ -22,34 +29,10 @@ public struct sAsset
     public long[] _time;
 };
 
-struct SP_LoadPlayer
+
+struct SP_RecordMoney
 {
-    public SP_LoadPlayer(byte i)
-    {
-        _size = 44;
-        _index = (short)eSPacket.eSP_LoadPlayer;
-        _nickName = new byte[MAX_NICKNAME_SIZE];
-        asset = new sAsset();
-    }
-    public short _size;
-    public short _index;
-
-    [MarshalAs(UnmanagedType.ByValArray, SizeConst = MAX_NICKNAME_SIZE)]
-    public byte[] _nickName;
-    public sAsset asset;
-};
-
-
-struct CP_RecordMoney
-{
-    public CP_RecordMoney(byte i)
-    {
-        _size = 12;
-        _index = (short)eCPacket.eCP_RecordMoney;
-        moneyType = -1;
-        value = -1;
-        reason = -1;
-    }
+    
     public short _size;
     public short _index;
 
@@ -62,44 +45,37 @@ struct CP_RecordMoney
 public class Player : MonoBehaviour, ISubject<int[]>
 {
     string _nickName;
-    sAsset _sAsset;
-
+    //(int)eTime.MAX_TIME_SIZE (int)eCash.MAX_CASH_SIZE) (int)eMoney.MAX_MONEY_SIZE)
+    public int[] _money;
+    public Cash[] _cash;
+    public long[] _time;
     private void Awake()
     {
-        _sAsset = new sAsset();
+        _money = new int[(int)eMoney.MAX_MONEY_SIZE];
+        _cash = new Cash[(int)eCash.MAX_CASH_SIZE];
+        _time = new long[(int)eTime.MAX_TIME_SIZE];
+
         GameManager.Instance._packetManager.Recieve<SP_LoadPlayer>((int)eSPacket.eSP_LoadPlayer, (p) =>
         {
-            _sAsset = p.asset;
             _nickName = Encoding.Unicode.GetString(p._nickName);
-            Debug.Log(p.asset);
+
+            _money = p._money;
+            _cash = p._cash;
+            _time = p._time;
+
+            Debug.Log(_nickName);
+        });
+        GameManager.Instance._packetManager.Recieve<SP_RecordMoney>((int)eSPacket.eSP_RecordMoney, (p) =>
+        {
+            _money[p.moneyType] += p.value;
+            NotifyObservers();
         });
     }
     // Start is called before the first frame update
     void Start()
     {
-        
     }
-
-    public void Test()
-    {
-        ChangeMoney(eMoney.eDiamond, -500, eBuy.eRelicGacha);
-    }
-    public bool ChangeMoney(eMoney type, int value, eBuy reason)
-    {
-        if (value < 0 && _sAsset._money[(int)type] < -value)
-            return false;
-
-        _sAsset._money[(int)type] += value;
-
-        CP_RecordMoney cpRecord = new CP_RecordMoney(0);
-        cpRecord.moneyType = (short)6;
-        cpRecord.value = value;
-        cpRecord.reason = (short)reason;
-        GameManager.Instance._packetManager.Send(cpRecord, cpRecord._size);
-
-        NotifyObservers();
-        return true;
-    }
+  
     List<IObserver<int[]>> _moneyObservers = new List<IObserver<int[]>>();
     public void ResistObserver(IObserver<int[]> observer)
     {
@@ -108,7 +84,9 @@ public class Player : MonoBehaviour, ISubject<int[]>
 
     public void NotifyObservers()
     {
-        foreach (IObserver<int[]> observer in _moneyObservers) { observer.Set(_sAsset._money); };
+        foreach (IObserver<int[]> observer in _moneyObservers) { 
+            observer.Set(_money);
+        };
     }
 
 

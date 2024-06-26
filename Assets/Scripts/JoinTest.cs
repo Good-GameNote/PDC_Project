@@ -194,13 +194,13 @@ public class JoinTest : MonoBehaviour
 
         GameManager.Instance._packetManager.Send(packet, packet._size);
     }
-    public void SendEnterPacket()
-    {
-        CP_Enter packet = new CP_Enter(0);
-        Buffer.BlockCopy(Encoding.UTF8.GetBytes(tokenField.text), 0, packet._token, 0, tokenField.text.Length );
+    //public void SendEnterPacket()
+    //{
+    //    CP_Enter packet = new CP_Enter(0);
+    //    Buffer.BlockCopy(Encoding.UTF8.GetBytes(tokenField.text), 0, packet._token, 0, tokenField.text.Length );
 
-        GameManager.Instance._packetManager.Send(packet, packet._size);
+    //    GameManager.Instance._packetManager.Send(packet, packet._size);
 
 
-    }
+    //}
 }

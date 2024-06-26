@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tab : MonoBehaviour,IObserver<Common.ePage>
+public class UI_Tab : MonoBehaviour,IObserver<Common.ePage>
 {
     [SerializeField]
     Common.ePage _thisButton;
@@ -26,9 +26,9 @@ public class Tab : MonoBehaviour,IObserver<Common.ePage>
         _rectTransform = GetComponent<RectTransform>();
         sizeDelta = _rectTransform.sizeDelta;
 
-        GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => GameManager.Instance._pageController.SetCurrentPage(_thisButton));
+        GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => PageController.Instance.SetCurrentPage(_thisButton));
 
 
-        GameManager.Instance._pageController.ResistObserver(this);
+        PageController.Instance.ResistObserver(this);
     }
 }

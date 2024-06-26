@@ -4,8 +4,12 @@ using System.Net;
 using UnityEngine;
 using System;
 using System.Runtime.InteropServices;
+using System.Collections;
 using System.Collections.Generic;
 using static Common;
+using TWC.OdinSerializer;
+using System.Drawing;
+using Unity.Burst.Intrinsics;
 
 public class PacketManager : MonoBehaviour
 {
@@ -13,13 +17,22 @@ public class PacketManager : MonoBehaviour
     public string _Ip;
     private int _Port = 9090;
 
-    byte[] _Packet = new byte[1024];
+    byte[] _Packet = new byte[MAX_PACKET_SIZE];
 
     private IPEndPoint _ServerIpEndPoint;
     private Action<byte[]>[] mPacketFunc = new Action<byte[]>[(int)eSPacket.MAX_SPACKET_SIZE];
 
+    readonly float sendElapse = 0.5f;
+    float sendCool ;
+
+
     public void Send(object obj, int size)
     {
+        if(sendCool < sendElapse)
+        {
+            return;
+        }
+        sendCool -= sendElapse;
         // int size = Marshal.SizeOf(typeof(T));
         byte[] arr = new byte[size];
         IntPtr ptr = Marshal.AllocHGlobal(size);
@@ -35,8 +48,7 @@ public class PacketManager : MonoBehaviour
         Marshal.Copy(ptr, arr, 0, size);
         Marshal.FreeHGlobal(ptr);
 
-       // _PacketQueue.Enqueue(arr);
-
+        //_sendQueue.Enqueue(arr);
         sock.Send(arr, 0, size, SocketFlags.None);
     }
     public void Recieve<T>(int index, Action<T> function) 
@@ -77,27 +89,76 @@ public class PacketManager : MonoBehaviour
 
     void Awake()
     {
+        sendCool = sendElapse;
         InitClient();
+      
+        sock.BeginReceive(_Packet, 0, _Packet.Length, SocketFlags.None, new AsyncCallback(OnReceive), sock);
+        
+    }
+    void OnReceive(IAsyncResult ar)
+    {
+        try
+        {
+            Socket client = (Socket)ar.AsyncState ; // 
+            
+            int bytesRead = client.EndReceive(ar);
+
+            if (bytesRead > 0)
+            {
+                byte[] tempBuffer = new byte[bytesRead];
+                Buffer.BlockCopy(_Packet, 0, tempBuffer, 0, bytesRead);
+                _executionQueue.Enqueue(tempBuffer);
+                   
+                
+            }
+            client.BeginReceive(_Packet, 0, _Packet.Length, SocketFlags.None, new AsyncCallback(OnReceive), client);
+        }
+        catch (SocketException e)
+        {
+            Debug.Log("SocketException: " + e.ToString());
+        }
     }
 
 
+    //private static readonly Queue<byte[]> _sendQueue = new ();
+    private static readonly Queue<byte[]> _executionQueue = new Queue<byte[]>();
 
-
-
-    private void Update()
+    byte[] _recieveBuffer;
+    byte[] _sendBuffer;
+    public void Update()
     {
-        if (sock.Available != 0)
+        if(sendCool< sendElapse)
         {
-            sock.Receive(_Packet, 0, sock.Available, SocketFlags.None);
-            short index = BitConverter.ToInt16(_Packet, 2);
+            sendCool += Time.deltaTime;
+        }
+        if (_executionQueue.Count > 0)
+        {
+            _recieveBuffer = _executionQueue.Dequeue();
+            short index = BitConverter.ToInt16(_recieveBuffer, 2);
 
             if (index >= 0 && index < (short)eSPacket.MAX_SPACKET_SIZE)
             {
-                Debug.Log($"SMPIndex : {index}");
-                mPacketFunc[index](_Packet);
+                Debug.Log($"SPIndex : {index}");
+                mPacketFunc[index](_recieveBuffer);
             }
         }
     }
+
+
+    //private void Update()
+    //{
+    //    if (sock.Available != 0)
+    //    {
+    //        sock.Receive(_Packet, 0, sock.Available, SocketFlags.None);
+    //        short index = BitConverter.ToInt16(_Packet, 2);
+
+    //        if (index >= 0 && index < (short)eSPacket.MAX_SPACKET_SIZE)
+    //        {
+    //            Debug.Log($"SPIndex : {index}");
+    //            mPacketFunc[index](_Packet);
+    //        }
+    //    }
+    //}
 
 
     void CloseClient()

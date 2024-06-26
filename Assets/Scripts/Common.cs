@@ -1,10 +1,5 @@
 ﻿
 
-using System.Net.Sockets;
-using System;
-using Unity.VisualScripting;
-using System.Runtime.InteropServices;
-
 public class Common
 {
 
@@ -24,9 +19,28 @@ public class Common
     public enum eRelic
     {
         e돋보기,
-        eB,
+        eRelicB,
+        eRelicC,
+        eRelicD,
+        eRelicE,
+        eRelicF,
+        eRelicG,
+        eRelicH,
+        eRelicI,
+        eRelicJ,
+        eRelicK,
+        eRelicL,
+
         MAX_RELIC_SIZE
     };
+
+    public enum eEnemyState
+    {
+        eStun,
+        eAir,
+        eHide,
+        MAX_ENEMY_STATE_SIZE
+    }
 
     public enum eBuilding
     {
@@ -73,24 +87,8 @@ public class Common
     };
 
 
-  
-    public enum eBuy
-    {
-        eRelicGacha,
-        eRelicAdvancedGacha,
-        eMercenaryUp,
-        eTowerUp,
-        MAX_BUY_SIZE
-    };
 
-    public enum eEffector
-    {
-        e돋보기, // 3->6->9미만대미지 증폭
-        eB,
-        eC, 
-        eD,
-        MAX_EFFECTOR_SIZE
-    }
+
     public enum ePage
     {
         eShop,
@@ -114,12 +112,22 @@ public class Common
     };
 
 
+    public enum eEffector
+    {
+        e돋보기, // 3->6->9미만대미지 증폭
+        eB,
+        eC,
+        eD,
+        MAX_EFFECTOR_SIZE
+    }
+
     public enum eCPacket
     {
         eCP_Test,
         eCP_Enter,
         eCP_Nick,
-        eCP_RecordMoney,
+        eCP_Gacha,
+        eCP_Upgrade,
         MAX_CPACKET_SIZE
     };
 
@@ -132,28 +140,13 @@ public class Common
         eSP_LoadTown,
         eSP_LoadInventory,
         eSP_LoadStages,
+        eSP_Gacha,
+        eSP_Upgrade,
+        eSP_RecordMoney,
         MAX_SPACKET_SIZE
     };
 
 
     #endregion
 
-    #region struct
-    public struct CP_Enter
-    {
-        public CP_Enter(byte i)
-        {
-            _size = 24;
-            _index = (short)eCPacket.eCP_Enter;
-            _token = new byte[TOKEN_SIZE];
-        }
-
-        public short _size;
-        public short _index;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = TOKEN_SIZE)]
-        public byte[] _token;
-    };
-
-
-    #endregion
 }

@@ -1,6 +1,8 @@
 
 public interface ICanExhibition
 {
+
+    short GiveIndex();
     UnityEngine.Sprite GiveSprite();
     string GiveName();
 }
@@ -13,11 +15,17 @@ public interface ICardExhibition : ICanExhibition
     string GiveExplan(int level);
 }
 
+public interface IServerData
+{
+    short GiveLevel();
+    short GiveSurplus();
+}
+
+
+
 /// <summary>
 /// 용병 및 유물 슬롯
 /// </summary>
-public interface ISlotExhibition : ICanExhibition
+public interface ISlotExhibition : ICanExhibition, IServerData
 {
-    int GiveLevel();
-    int GiveSurplus();
 }

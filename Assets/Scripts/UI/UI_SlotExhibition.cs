@@ -3,34 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_SlotExhibition : MonoBehaviour
+public class UI_SlotExhibition : MonoBehaviour, IObserver<ISlotExhibition>
 {
   
     [SerializeField]
     Image _portrait;
     
     [SerializeField]
-    TMPro.TextMeshProUGUI _name;
+    Text _name;
 
     [SerializeField]
-    TMPro.TextMeshProUGUI _level;
+    Text _level;
     [SerializeField]
-    TMPro.TextMeshProUGUI _surPlus;
+    Text _surPlus;
+    [SerializeField]
+    Button _button;
+    short _index;
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
-        ISlotExhibition obj = GetComponent<ISlotExhibition>();   
-        SetUI(obj);
-    }
 
-    public void SetUI(ISlotExhibition data)
+        _button = GetComponent<Button>();
+        //_button.onClick.AddListener(() => { UI_Upgrader.Instance.Upgrade(_index); });
+        ISubject<ISlotExhibition> _subject= GetComponent<ISubject<ISlotExhibition>>();
+        _subject.ResistObserver(this);
+        _subject.NotifyObservers();
+    }
+    public void Set(ISlotExhibition data)
     {
         _portrait.sprite = data.GiveSprite();
         _name.text = data.GiveName();
         _level.text = data.GiveLevel().ToString();
         _surPlus.text = data.GiveSurplus().ToString();
-
+        _index = data.GiveIndex();
     }
 
 }

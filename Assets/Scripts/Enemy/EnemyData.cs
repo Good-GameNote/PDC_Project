@@ -7,7 +7,8 @@ using UnityEngine;
 public class EnemyData : ScriptableObject
 {
     [field: SerializeField] public int Index { get; private set; }
-    [field: SerializeField] public bool IsAir { get; private set; }
+    [field: SerializeField] public short IsAir { get; private set; }
+    [field: SerializeField] public short IsHide { get; private set; }
     [field: SerializeField] public int HP { get; private set; }
     [field: SerializeField] public float Speed { get; private set; }
     [field: SerializeField] public string Name { get; private set; }

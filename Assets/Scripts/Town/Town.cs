@@ -47,17 +47,16 @@ public class Town : MonoBehaviour,ITownSubject
         sBuilding = new sBuilding[(int)eBuilding.MAX_BUILDING_SIZE];
         GameManager.Instance._packetManager.Recieve<SP_LoadTown>((int)eSPacket.eSP_LoadTown, (p) =>
         {
+            sBuilding = p.buildings;
             for (int i = 0; i < (int)eBuilding.MAX_BUILDING_SIZE; i++)
             {
-                sBuilding[i] = p.buildings[i];
                 if (sBuilding[i].level != 0)
                 {
                     _count++;
                     _totalLevel += sBuilding[i].level;
                 }
-
-                Debug.Log(p.buildings);
             }
+            Debug.Log(p.buildings);
         });
     }
     // Start is called before the first frame update
