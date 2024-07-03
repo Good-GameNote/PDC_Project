@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Debuff 
+public abstract class Debuff :MonoBehaviour
 {
     protected Sprite _sprite;
 

@@ -85,7 +85,12 @@ public class Common
         eNickChange,
         MAX_TIME_SIZE
     };
-
+    public enum eOption
+    {
+        eUsingDeck,
+        eSellectStage,
+        MAX_Option_SIZE
+    };
 
 
 
@@ -109,6 +114,10 @@ public class Common
         eTooLong,
         eTooMany,
         eNotExist,
+        eLackCost,
+        eLackSlot,
+        eOverMaxLevel,
+        eLackCard,
     };
 
 
@@ -128,6 +137,8 @@ public class Common
         eCP_Nick,
         eCP_Gacha,
         eCP_Upgrade,
+        eCP_RegistRelic,
+        eCP_ChangeDeck,
         MAX_CPACKET_SIZE
     };
 

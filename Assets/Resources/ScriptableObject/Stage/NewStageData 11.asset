@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d64780039261642b29540521550ddf, type: 3}
+  m_Name: NewStageData 11
+  m_EditorClassIdentifier: 
+  <Enemys>k__BackingField:
+  - {fileID: 11400000, guid: 8fdb6ec7082beed4dab2a7ae2124e013, type: 2}
+  - {fileID: 11400000, guid: e94ba826fa08adc4ba980d920ae7f406, type: 2}
+  <Rewards>k__BackingField:
+  - {fileID: 11400000, guid: 1f2425b76c503f041839488d14d08dcc, type: 2}
+  - {fileID: 11400000, guid: 0073741e53b829d4490ac74a231831ad, type: 2}

@@ -80,6 +80,10 @@ public class Player : MonoBehaviour, ISubject<int[]>
     public void ResistObserver(IObserver<int[]> observer)
     {
         _moneyObservers.Add(observer);
+        if(_moneyObservers.Count>=1)//등록할때 마다 숫자 올려줘야함
+        {
+            NotifyObservers();
+        }
     }
 
     public void NotifyObservers()

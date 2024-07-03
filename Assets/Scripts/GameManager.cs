@@ -22,7 +22,7 @@ public class GameManager : Singleton<GameManager>
         {
             if(p._result!= (short)All_ERROR.eSuccess)
             {
-                _warning.Show((All_ERROR)p._result);
+                Warning.Instance.Show((All_ERROR)p._result);
                 return;
             }
             switch((ePage)p._type)
@@ -31,14 +31,13 @@ public class GameManager : Singleton<GameManager>
                     _inven.GachaResult(p);
                     break;
             }
-
         });
 
         _packetManager.Recieve<SP_Upgrade>((int)eSPacket.eSP_Upgrade, (p) =>
         {
             if (p._result != (short)All_ERROR.eSuccess)
             {
-                _warning.Show((All_ERROR)p._result);
+                Warning.Instance.Show((All_ERROR)p._result);
                 return;
             }
             switch ((ePage)p._type)
@@ -77,8 +76,6 @@ public class GameManager : Singleton<GameManager>
     [field: SerializeField]
     public Town _town { get; private set; }
 
-    [field: SerializeField]
-    public Warning _warning { get; set; }
 
     //[field: SerializeField]
     //public SceneLoader _sceneLoader { get; private set; }
@@ -153,4 +150,20 @@ public struct SP_Upgrade
     public short _result;
     public short _type;
     public short _puchasIndex;
+};
+public struct CP_ChangeDeck
+{
+    public CP_ChangeDeck(int i)
+    {
+        _size = (short)System.Runtime.InteropServices.Marshal.SizeOf(typeof(CP_ChangeDeck));
+        _index = (short)Common.eCPacket.eCP_ChangeDeck;
+        _type = 0;
+        _deckNum = 1;
+    }
+    public short _size;
+    public short _index;
+
+
+    public short _type;
+    public short _deckNum;
 };

@@ -7,14 +7,13 @@ public class Enemy : MonoBehaviour
 {
     [field: SerializeField]
     public EnemyData _enemyData {  get; private set; }
-    ICurseDecorator _curseDeco;
 
+    ICurseDecorator _curseDeco;
 
     public int _HP { get; private set; }
 
     public float _speed { get; private set; }
 
-ICurseDecorator _curseDecorator;
 
 
     List<Debuff> _debuffs = new();

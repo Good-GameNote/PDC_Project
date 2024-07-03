@@ -527,7 +527,8 @@ namespace TWC
 			byte[] bytes = System.IO.File.ReadAllBytes(_filePath);
 			
 			TileWorldCreatorSaveableData _saveable = TWC.OdinSerializer.SerializationUtility.DeserializeValue<TileWorldCreatorSaveableData>(bytes, DataFormat.Binary);
-			twcAsset = _saveable.AssignToAsset(twcAsset);
+            
+            //twcAsset = _saveable.AssignToAsset(twcAsset);
 			
 			generatedBlueprintMaps = new Dictionary<string, WorldMap>();	
 			ExecuteAllBlueprintLayers();

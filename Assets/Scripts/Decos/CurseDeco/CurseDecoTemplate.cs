@@ -31,32 +31,34 @@ public abstract class CurseDecoTemplate: Effector, ICurseDecorator
     }
     public override void Resist()
     {
+        
+        _CurseDecos.Enqueue(this);
+    }
+    public override void DeResist()
+    {
+        _CurseDecos.Remove(this);
+    }
+    public override Effector GiveDeco()
+    {
         if (_CurseDecos.Count < 1)
         {
             _CurseDecos.Enqueue(new BaseGetHit());
         }
-        _CurseDecos.Enqueue(this);
-    }
-    public override Effector GiveDeco()
-    {
         Effector deco = null;
-        if (_CurseDecos.Count > 0)
+        
+        _CurseDecos.Circuit((other) =>
         {
-            _CurseDecos.Circuit((other) =>
+            Effector part = EffectorFactory.Create(other._index);
+            if(deco==null)
             {
-                Effector part = EffectorFactory.Create(other._index);
-                if(deco==null)
-                {
-                    deco = part;
-                }else
-                {
-                    deco.SetDeco(part);
-                }
-            });
-        }
-
+                deco = part;
+            }else
+            {
+                deco.SetDeco(part);
+            }
+        });
+        
         return deco;
-
     }
 
 }

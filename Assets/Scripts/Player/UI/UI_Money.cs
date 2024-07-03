@@ -17,7 +17,6 @@ public class UI_Money : MonoBehaviour, IObserver<int[]>
     private void Awake()
     {
         GameManager.Instance._player.ResistObserver(this);
-        GameManager.Instance._player.NotifyObservers();
     }
     public void Set(int[] data)
     {        

@@ -15,6 +15,8 @@ public abstract class Effector:IComparable<Effector>,IDeco
     }
 
     public abstract void Resist();
+
+    public abstract void DeResist();
     public abstract Effector GiveDeco();
 
     //static PriorityQueue<ICurseDecorator> _queue = new();

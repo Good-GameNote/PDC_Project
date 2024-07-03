@@ -28,4 +28,5 @@ public interface IServerData
 /// </summary>
 public interface ISlotExhibition : ICanExhibition, IServerData
 {
+    Common.ePage GiveType();
 }

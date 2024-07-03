@@ -4,7 +4,7 @@ using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 
-public class Warning : MonoBehaviour
+public class Warning : Singleton<Warning>
 {
 
     [SerializeField]
@@ -13,13 +13,10 @@ public class Warning : MonoBehaviour
     RectTransform _warningRectTransform;
 
     string[] _translatesText = {"성공","재화가 부족합니다.","레벨이 부족합니다.","이미 존재합니다.",
-        "비속어가 있습니다.","너무 깁니다.","너무많습니다.","존재하지 않습니다"};
+        "비속어가 있습니다.","너무 깁니다.","너무많습니다.","존재하지 않습니다","코스트가 부족합니다","슬롯이 부족합니다.","이미 최대 레벨입니다.",
+        "보유 재료가 부족합니다"};
     Color _warningColor;
 
-    private void Awake()
-    {
-        GameManager.Instance._warning = this;
-    }
     private Coroutine myCoroutine;
     public void Show(Common.All_ERROR errorType)
     {

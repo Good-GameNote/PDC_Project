@@ -8,33 +8,54 @@ using static Common;
 
 public struct sStage
 {
-    short Achievement;
+    public short index;
+    public short Achievement;
 };
 struct SP_LoadStages
-{
-    public SP_LoadStages(int i)
-    {
-        _size = 44;
-        _index = (short)eSPacket.eSP_LoadStages;
-        stages = new sStage[Common.MAX_STAGE_SIZE];
-    }
+{    
     public short _size;
     public short _index;
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = Common.MAX_STAGE_SIZE)]
     public sStage[] stages;
+
+    public short highestStage ;
+    public short curStage;
 };
-public class Battle : MonoBehaviour
+public class Battle : MonoBehaviour, ISubject<Stage>
 {
-    sStage[] stages;
+    [SerializeField]
+    Stage[] stages;
+
+    public Stage sellectStage { get; private set; }
+    short highestStage;
+    public void NotifyObservers()
+    {
+        foreach(var observer in observers)
+        {
+            observer?.Set(sellectStage);
+        }
+    }
+    List<IObserver<Stage>> observers = new ();
+    public void ResistObserver(IObserver<Stage> observer)
+    {
+        observers.Add(observer);
+        if(observers.Count >= 1)
+        {
+            NotifyObservers();
+        }
+    }
+
     private void Awake()
     {
-        stages = new sStage[Common.MAX_STAGE_SIZE];
+        //stages = new Stage[Common.MAX_STAGE_SIZE];
         GameManager.Instance._packetManager.Recieve<SP_LoadStages>((int)eSPacket.eSP_LoadStages, (p) =>
         {
             for(int i = 0; i < MAX_STAGE_SIZE; i++) 
             {
-                stages[i] = p.stages[i];
+                stages[i].stage = p.stages[i];
             }
+            sellectStage = stages[p.curStage];
+            highestStage = p.highestStage;
             Debug.Log(p.stages);
         });
     }
@@ -43,6 +64,5 @@ public class Battle : MonoBehaviour
     {
         
     }
-
     
 }

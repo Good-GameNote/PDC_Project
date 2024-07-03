@@ -40,6 +40,10 @@ public class Town : MonoBehaviour,ITownSubject
     public void ResistObserver(ITownObserver observer)
     {
         observers.Add(observer);
+        if(observers.Count >=1 )
+        {
+            NotifyObservers();
+        }
     }
 
     private void Awake()

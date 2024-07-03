@@ -10,3 +10,5 @@ public interface ITownObserver
     void Set(short count, short totalLevel);
 }
 
+
+

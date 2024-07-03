@@ -26,13 +26,14 @@ public class PacketManager : MonoBehaviour
     float sendCool ;
 
 
-    public void Send(object obj, int size)
+    public bool Send(object obj, int size)
     {
         if(sendCool < sendElapse)
         {
-            return;
+            return false;
         }
         sendCool -= sendElapse;
+
         // int size = Marshal.SizeOf(typeof(T));
         byte[] arr = new byte[size];
         IntPtr ptr = Marshal.AllocHGlobal(size);
@@ -49,7 +50,9 @@ public class PacketManager : MonoBehaviour
         Marshal.FreeHGlobal(ptr);
 
         //_sendQueue.Enqueue(arr);
+        Debug.Log($"cp index = {BitConverter.ToInt16(arr, 2)}");
         sock.Send(arr, 0, size, SocketFlags.None);
+        return true;
     }
     public void Recieve<T>(int index, Action<T> function) 
     {
@@ -99,17 +102,13 @@ public class PacketManager : MonoBehaviour
     {
         try
         {
-            Socket client = (Socket)ar.AsyncState ; // 
-            
+            Socket client = (Socket)ar.AsyncState ; //             
             int bytesRead = client.EndReceive(ar);
-
             if (bytesRead > 0)
             {
                 byte[] tempBuffer = new byte[bytesRead];
                 Buffer.BlockCopy(_Packet, 0, tempBuffer, 0, bytesRead);
                 _executionQueue.Enqueue(tempBuffer);
-                   
-                
             }
             client.BeginReceive(_Packet, 0, _Packet.Length, SocketFlags.None, new AsyncCallback(OnReceive), client);
         }
@@ -143,23 +142,6 @@ public class PacketManager : MonoBehaviour
             }
         }
     }
-
-
-    //private void Update()
-    //{
-    //    if (sock.Available != 0)
-    //    {
-    //        sock.Receive(_Packet, 0, sock.Available, SocketFlags.None);
-    //        short index = BitConverter.ToInt16(_Packet, 2);
-
-    //        if (index >= 0 && index < (short)eSPacket.MAX_SPACKET_SIZE)
-    //        {
-    //            Debug.Log($"SPIndex : {index}");
-    //            mPacketFunc[index](_Packet);
-    //        }
-    //    }
-    //}
-
 
     void CloseClient()
     {

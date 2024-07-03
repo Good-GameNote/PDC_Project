@@ -1,18 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Common;
 
-public class UI_Upgrader : Singleton<UI_Upgrader>
+public class UI_Upgrader : MonoBehaviour, ISlotMenu
 {
+
     [SerializeField]
-    ePage type;
-  
-        public void Upgrade(int index)
+    UnityEngine.UI.Button _button;
+    private void Awake()
+    {
+        _button.onClick.AddListener(() => { Upgrade(UI_ClickSlotMenu.Instance._purchas); });
+        UI_ClickSlotMenu.Instance.Resist(this);
+    }
+
+    public void Show(ISlotExhibition purchas)
+    {
+        
+    }
+
+    public void Upgrade(ISlotExhibition data)
     {
         CP_Upgrade packet = new CP_Upgrade(0);
-        packet._type = (short)type;
-        packet._purchasIndex = (short)index;
+        packet._type = (short)data.GiveType();
+        packet._purchasIndex = data.GiveIndex();
         GameManager.Instance._packetManager.Send(packet, packet._size);
     }
 }

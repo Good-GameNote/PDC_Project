@@ -8,9 +8,11 @@ public class PriorityQueue<T> where T : IComparable<T>
 
     public int Count => heap.Count;
 
-
-    public void Enqueue(T item)
+    public bool Enqueue(T item)
     {
+        if (heap.Contains(item))
+            return false;
+
         heap.Add(item);
         int i = heap.Count - 1;
         while (i > 0)
@@ -21,40 +23,95 @@ public class PriorityQueue<T> where T : IComparable<T>
             Swap(i, parentIndex);
             i = parentIndex;
         }
+        return true;
     }
-
-    public T Dequeue()
+   
+    public bool Remove(T item)
     {
-        if (heap.Count == 0)
-            throw new InvalidOperationException("The queue is empty.");
+        int index = heap.IndexOf(item);
+        if (index == -1)
+            return false;
 
-        T root = heap[0];
-        heap[0] = heap[heap.Count - 1];
-        heap.RemoveAt(heap.Count - 1);
-
-        int i = 0;
-        while (true)
+        int lastIndex = heap.Count - 1;
+        if (index != lastIndex)
         {
-            int leftChildIndex = 2 * i + 1;
-            int rightChildIndex = 2 * i + 2;
-            int smallestIndex = i;
+            heap[index] = heap[lastIndex];
+            heap.RemoveAt(lastIndex);
 
-            if (leftChildIndex < heap.Count && heap[leftChildIndex].CompareTo(heap[smallestIndex]) < 0)
-                smallestIndex = leftChildIndex;
+            // 위로 이동
+            int parentIndex = (index - 1) / 2;
+            if (index > 0 && heap[index].CompareTo(heap[parentIndex]) < 0)
+            {
+                while (index > 0)
+                {
+                    parentIndex = (index - 1) / 2;
+                    if (heap[index].CompareTo(heap[parentIndex]) >= 0)
+                        break;
+                    Swap(index, parentIndex);
+                    index = parentIndex;
+                }
+            }
+            // 아래로 이동
+            else
+            {
+                while (true)
+                {
+                    int leftChildIndex = 2 * index + 1;
+                    int rightChildIndex = 2 * index + 2;
+                    int smallestIndex = index;
 
-            if (rightChildIndex < heap.Count && heap[rightChildIndex].CompareTo(heap[smallestIndex]) < 0)
-                smallestIndex = rightChildIndex;
+                    if (leftChildIndex < heap.Count && heap[leftChildIndex].CompareTo(heap[smallestIndex]) < 0)
+                        smallestIndex = leftChildIndex;
 
-            if (smallestIndex == i)
-                break;
+                    if (rightChildIndex < heap.Count && heap[rightChildIndex].CompareTo(heap[smallestIndex]) < 0)
+                        smallestIndex = rightChildIndex;
 
-            Swap(i, smallestIndex);
-            i = smallestIndex;
+                    if (smallestIndex == index)
+                        break;
+
+                    Swap(index, smallestIndex);
+                    index = smallestIndex;
+                }
+            }
+        }
+        else
+        {
+            heap.RemoveAt(lastIndex);
         }
 
-        return root;
+        return true;
     }
+    //public T Dequeue()
+    //{
+    //    if (heap.Count == 0)
+    //        throw new InvalidOperationException("The queue is empty.");
 
+    //    T root = heap[0];
+    //    heap[0] = heap[heap.Count - 1];
+    //    heap.RemoveAt(heap.Count - 1);
+
+    //    int i = 0;
+    //    while (true)
+    //    {
+    //        int leftChildIndex = 2 * i + 1;
+    //        int rightChildIndex = 2 * i + 2;
+    //        int smallestIndex = i;
+
+    //        if (leftChildIndex < heap.Count && heap[leftChildIndex].CompareTo(heap[smallestIndex]) < 0)
+    //            smallestIndex = leftChildIndex;
+
+    //        if (rightChildIndex < heap.Count && heap[rightChildIndex].CompareTo(heap[smallestIndex]) < 0)
+    //            smallestIndex = rightChildIndex;
+
+    //        if (smallestIndex == i)
+    //            break;
+
+    //        Swap(i, smallestIndex);
+    //        i = smallestIndex;
+    //    }
+
+    //    return root;
+    //}
     private void Swap(int i, int j)
     {
         T temp = heap[i];
@@ -62,19 +119,19 @@ public class PriorityQueue<T> where T : IComparable<T>
         heap[j] = temp;
     }
 
-    public bool TryPeek(out T result)
-    {
-        if (heap.Count > 0)
-        {
-            result = heap[0];
-            return true;
-        }
-        else
-        {
-            result = default(T);
-            return false;
-        }
-    }
+    //public bool TryPeek(out T result)
+    //{
+    //    if (heap.Count > 0)
+    //    {
+    //        result = heap[0];
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        result = default(T);
+    //        return false;
+    //    }
+    //}
 
     public void Circuit(Action<T> action)
     {
