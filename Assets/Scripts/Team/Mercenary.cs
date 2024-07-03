@@ -32,4 +32,8 @@ public class Mercenary : MonoBehaviour
     {
         
     }
+
+    public virtual void Attack(IAttackDecorator attackDecorator)
+    {
+    }
 }
