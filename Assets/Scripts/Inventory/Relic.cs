@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Common;
 
 public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubject<ISlotExhibition>
 {
@@ -18,6 +19,8 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
 
     private RegistSate State;
 
+
+    static List<Relic> _resistedRelics = new();
 
     private void Awake()
     {
@@ -41,15 +44,30 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
         return _relicData.Name;
     }
 
-    public void Operate()
+    public void Resited()
     {
-        //for(int i =0;i< _effectors.Count;i++)
-        //{
-        //    _effectors[i].Operate();
-        //}
+        for (int i = 0; i < _effectors.Count; i++)
+        {
+            _effectors[i].Resist();
+        }
+
+        _resistedRelics.Add(this);
+
+    }
+    public void DeResited()
+    {
+
+        if (!_resistedRelics.Contains(this))
+            return;
+        for (int i = 0; i < _effectors.Count; i++)
+        {
+            _effectors[i].DeResist();
+        }
+
+
+        _resistedRelics.Remove(this);
     }
 
-    
     public string GiveExplan()
     {
         List<string> dumystring= new List<string>();

@@ -14,7 +14,7 @@ public class Inception : CurseDecoTemplate
             {
                 if (Random.Range(0, 100000) < 5000)
                 {
-                    self.SetPosition(new Vector3(0, 0, 0));// 현재 스테이지한테서 가져와야함
+                    self.SetInitPosition( );
                 }
 
             }

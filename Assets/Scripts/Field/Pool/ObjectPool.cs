@@ -4,7 +4,9 @@ using UnityEngine;
 
 public interface IPool<T>
 {
-    T Get(int type);
+    T Get(int type);//특정타입
+
+    T Get();//랜덤타입
     void Release(T obj, int type);
 }
 
@@ -14,23 +16,24 @@ public abstract class ObjectPool<T> : MonoBehaviour, IPool<T> where T : MonoBeha
     protected  Queue<T>[] poolQueue ;
 
     [SerializeField]
-    protected T[] prefabs;
+    protected T[] _prefabs;
 
-    protected void Init()
+    protected void Init(T[] prefabs)
     {
-        poolQueue = new Queue<T>[prefabs.Length];
-        for (int i = 0; i < prefabs.Length; i++)
+        _prefabs = prefabs;
+
+        poolQueue = new Queue<T>[_prefabs.Length];
+        for (int i = 0; i < _prefabs.Length; i++)
         {
-            var obj = Instantiate(prefabs[i], transform);
-            obj.gameObject.SetActive(false);
-            poolQueue[i].Enqueue(obj);
-        }    
+            poolQueue[i]= new Queue<T>();
+            
+        } 
     }
 
 
     public void Clear()
     {
-        for (int i = 0; i < prefabs.Length; i++)
+        for (int i = 0; i < _prefabs.Length; i++)
         {
             while (poolQueue[i].Count > 0)
             {
@@ -42,7 +45,7 @@ public abstract class ObjectPool<T> : MonoBehaviour, IPool<T> where T : MonoBeha
 
     public T Get(int type)
     {
-        if(type<0||type>=prefabs.Length)
+        if(type<0||type>=_prefabs.Length)
         {
             Debug.LogWarning($"ObjectPool:: T Get(int type) , type = {type}");
             return null;
@@ -50,7 +53,23 @@ public abstract class ObjectPool<T> : MonoBehaviour, IPool<T> where T : MonoBeha
 
         if (poolQueue[type].Count == 0)
         {
-            var obj = GameObject.Instantiate(prefabs[type], transform);
+            var obj = GameObject.Instantiate(_prefabs[type], transform);
+            return obj;
+        }
+        else
+        {
+            var obj = poolQueue[type].Dequeue();
+            obj.gameObject.SetActive(true);
+            return obj;
+        }
+    }
+    public T Get()
+    {
+        int type = Random.Range(0, _prefabs.Length);
+
+        if (poolQueue[type].Count == 0)
+        {
+            var obj = GameObject.Instantiate(_prefabs[type], transform);
             return obj;
         }
         else

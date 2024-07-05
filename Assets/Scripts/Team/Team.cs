@@ -9,8 +9,8 @@ using static Common;
 public struct sMercenary
 {
     public short index;
-    public short level;
-    public short surplus;
+    //public short level;
+    //public short surplus;
 };
 
 struct SP_LoadMercenarys
@@ -34,11 +34,11 @@ public class Team : MonoBehaviour
         _mercenarys = new Mercenary[(int)eMercenary.MAX_MERCENARY_SIZE];
         GameManager.Instance._packetManager.Recieve<SP_LoadMercenarys>((int)eSPacket.eSP_LoadMercenarys, (p) =>
         {
-            for(int i =0; i<(int)eMercenary.MAX_MERCENARY_SIZE; i++)
-            {
-                _mercenarys[i].SetsMercenary(p.mercenarys[i]);
-            }
-            Debug.Log(p.mercenarys);
+            //for(int i =0; i<(int)eMercenary.MAX_MERCENARY_SIZE; i++)
+            //{
+            //    _mercenarys[i].SetsMercenary(p.mercenarys[i]);
+            //}
+            //Debug.Log(p.mercenarys);
         });
     }
     // Start is called before the first frame update

@@ -38,6 +38,8 @@ public abstract class CurseDecoTemplate: Effector, ICurseDecorator
     {
         _CurseDecos.Remove(this);
     }
+
+
     public override Effector GiveDeco()
     {
         if (_CurseDecos.Count < 1)

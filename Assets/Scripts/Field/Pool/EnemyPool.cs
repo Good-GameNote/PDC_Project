@@ -5,15 +5,18 @@ using UnityEngine;
 public class EnemyPool : ObjectPool<Enemy>
 {
     [SerializeField]
-    Enemy[] Enemeys;
+    Enemy[] Enemys;
 
     private void Awake()
     {
-
-        prefabs = new Enemy[]
+        EnemyData[] datas = GameManager.Instance._battle.sellectStage.Enemys;
+        Enemy[] curStageEnemys = new Enemy[datas.Length];
+        for (int i =0; i< datas.Length; i++)
         {
+            curStageEnemys[i] = Enemys[datas[i].Index];
+        }
+        Init(curStageEnemys );
 
-        };
     }
 
 

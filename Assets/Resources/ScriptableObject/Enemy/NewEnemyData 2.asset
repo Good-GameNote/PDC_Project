@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc45254378150094bacf7a91da37a1fe, type: 3}
   m_Name: NewEnemyData 2
   m_EditorClassIdentifier: 
-  <Index>k__BackingField: 0
+  <Index>k__BackingField: 2
   <IsAir>k__BackingField: 0
   <IsHide>k__BackingField: 0
   <HP>k__BackingField: 0
   <Speed>k__BackingField: 0
   <Name>k__BackingField: 
   <Description>k__BackingField: 
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 3929453942698372637, guid: 2f951e0110ae4597a5d8d5d6d54528e4,
+    type: 3}

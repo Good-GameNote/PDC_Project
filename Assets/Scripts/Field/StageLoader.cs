@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TWC;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class mapInfo
@@ -16,10 +17,10 @@ public class StageLoader : Singleton<StageLoader>
 {
     [SerializeField]
     TileWorldCreator twc;
-    mapInfo[] _mapInfos = new mapInfo[]
+    static mapInfo[] _mapInfos = new mapInfo[]
     {
-        new(2, new Vector3(23,0,99),new Vector3(5,0,117) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
+        new(3, new Vector3(2.45f,1f,93.5f),new Vector3(8.5f,1f,108.5f) ),
+        new (9, new Vector3(7.5f,1,108.5f),new Vector3(16.5f,1f,93.5f) ),
          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
         new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
@@ -133,28 +134,43 @@ public class StageLoader : Singleton<StageLoader>
         "sea",
     };
 
+    [SerializeField]
+    NavMeshSurface _path;
+
     public mapInfo CurrentMapInfo { get; private  set; }
 
     private void Awake()
     {
-        //short index = GameManager.Instance._battle.sellectStage.stage.index;
+        short index = GameManager.Instance._battle.sellectStage.stage.index;
+        //short index = 1;
+        CurrentMapInfo = _mapInfos[index];
+        twc.SetCustomRandomSeed(_mapInfos[index]._seed);
+        string name = _stageNames[index / 10];
+        var filepath = Application.dataPath + $"/Resources/Twm/{name}.json";
+        twc.LoadBlueprintStackAndExecute(filepath);
 
-        //CurrentMapInfo = _mapInfos[index];
-        //twc.SetCustomRandomSeed(_mapInfos[index]._seed);
-
-        //string name = _stageNames[index / 10];
-        //var _path = Application.dataPath + $"/Resources/Twm/{name}.json";
-        //twc.LoadBlueprintStackAndExecute(_path);
+       twc.ExecuteAllBuildLayers(false);
     }
     public void OnEnable()
     {
         twc.OnBlueprintLayersComplete += BuildMap;
+        twc.OnBuildLayersComplete += BuildMap2;
     }
 
 
     void BuildMap(TileWorldCreator _twc)
     {
         _twc.ExecuteAllBuildLayers(false);
+    }
+    [SerializeField]
+    Field _field;
+    void BuildMap2(TileWorldCreator _twc)
+    {
+        _path.BuildNavMesh();
+
+        _field.StartWave();
+
+
     }
 
 

@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
     [field: SerializeField]
     public EnemyData _enemyData {  get; private set; }
 
-    ICurseDecorator _curseDeco;
+    IDeco _curseDeco;
 
     public int _HP { get; private set; }
 
@@ -19,6 +20,12 @@ public class Enemy : MonoBehaviour
     List<Debuff> _debuffs = new();
 
     short[] _states;
+
+    [SerializeField]
+    NavMeshAgent _agent;
+    [SerializeField]
+    SpriteRenderer _renderer ;
+
     private void Awake()
     {
         _HP = _enemyData.HP; 
@@ -26,7 +33,11 @@ public class Enemy : MonoBehaviour
         _states = new short[(int)Common.eEnemyState.MAX_ENEMY_STATE_SIZE];
         _states[(int)Common.eEnemyState.eAir] = _enemyData.IsAir;
         _states[(int)Common.eEnemyState.eHide] = _enemyData.IsHide;
-
+        _renderer.sprite = _enemyData.Sprite;
+        
+        _agent = GetComponent<NavMeshAgent>();
+        _agent.updateRotation = false;
+        //_curseDeco = _curseDeco.GiveDeco();
     }
  
     public void GetDamage(int damage)
@@ -67,7 +78,6 @@ public class Enemy : MonoBehaviour
         }
 
          _speed = (100 / (100 + _speedChangeRate)) * fixedSlowSpeed;
-
     }
 
     public void ChangeState(Common.eEnemyState state, short change)//1 or -1
@@ -75,14 +85,19 @@ public class Enemy : MonoBehaviour
         _states[(int)state] += change;
     }
 
-    public void SetPosition(Vector3 pos)
+    public void SetInitPosition()
     {
-        transform.position = pos;
+        _agent.Warp(StageLoader.Instance.CurrentMapInfo._enemySpot);
+    }
+    private void OnEnable()
+    {
+        SetInitPosition();
+
+        _agent.SetDestination(Catsle.Instance.transform.position);
     }
 
     void Start()
     {
-
 
     }
 
