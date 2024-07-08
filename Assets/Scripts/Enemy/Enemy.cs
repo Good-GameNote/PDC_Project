@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour,IIsDetacted,IGetHit
     SpriteRenderer _renderer ;
 
     CurseEffect _curseDeco;
-    public bool IsDetacted(bool[] stats )
+    public bool IsDetacted(Common.eEnemyState[] stats )
     {
 
         return true;

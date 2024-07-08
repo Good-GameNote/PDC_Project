@@ -20,10 +20,12 @@ public class Mercenary : MonoBehaviour
 
     ProjectileBase _projectile;
     MercenaryAI _mercenaryAI;
+    Transform _myTarget;
 
     private void Awake() 
     {
         _mercenaryAI = GetComponentInChildren<MercenaryAI>();
+        _mercenaryAI.SetCanSee(_mercenaryData);
     }
     void Start()
     {
@@ -87,6 +89,7 @@ public class Mercenary : MonoBehaviour
 
     public void LostTarget()
     {
+        // _myTarget = _mercenaryAI._enemiesList[0];
     }
 
     public virtual void Attack()

@@ -6,23 +6,23 @@ using UnityEngine.Events;
 public class MercenaryAI : MonoBehaviour
 {
     public LayerMask layerMask;
-    public UnityEvent<Transform> OnEnemyEnterRange;
-    public UnityEvent<Transform> OnEnemyExitRange;
     public List<Transform> _enemiesList = new();
 
     private float _range;
-    private CircleCollider2D _perceptionCollider;
+    private SphereCollider _perceptionCollider;
+    IIsDetacted _isDetacted;
+    Common.eEnemyState[] _canSee;
 
     private void OnEnable() 
     {
         if(_perceptionCollider == null)
         {
-            bool isGetCollider = TryGetComponent<CircleCollider2D>(out _perceptionCollider);
+            bool isGetCollider = TryGetComponent<SphereCollider>(out _perceptionCollider);
             if(isGetCollider == false)
             {
-                gameObject.AddComponent<CircleCollider2D>();
+                gameObject.AddComponent<SphereCollider>();
             }
-            _perceptionCollider.GetComponent<CircleCollider2D>();
+            _perceptionCollider.GetComponent<SphereCollider>();
         }
         _perceptionCollider.isTrigger = true;
         _perceptionCollider.radius = _range;
@@ -33,23 +33,30 @@ public class MercenaryAI : MonoBehaviour
         
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void SetCanSee(MercenaryData mercenaryData)
+    {
+        _canSee = mercenaryData.ThingCanSee;
+    }
+
+    void OnTriggerEnter(Collider other)
     {
         if ((layerMask & (1 << other.gameObject.layer)) != 0)
         {
             Transform enemyTransform = other.transform;
-            _enemiesList.Add(enemyTransform);
-            OnEnemyEnterRange?.Invoke(enemyTransform);
+            enemyTransform.gameObject.TryGetComponent<IIsDetacted>(out _isDetacted);
+            if(_isDetacted.IsDetacted(_canSee))
+            {
+                _enemiesList.Add(enemyTransform);
+            }
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit(Collider other)
     {
         if ((layerMask & (1 << other.gameObject.layer)) != 0)
         {
             Transform enemyTransform = other.transform;
             _enemiesList.Remove(enemyTransform);
-            OnEnemyExitRange?.Invoke(enemyTransform);
         }
     }
 

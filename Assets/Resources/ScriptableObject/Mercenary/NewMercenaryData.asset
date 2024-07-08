@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1490c3f366e43478a7c6a5e8cf151b, type: 3}
   m_Name: NewMercenaryData
   m_EditorClassIdentifier: 
-  <_index>k__BackingField: 0
-  <_coolTime>k__BackingField: 15
-  <_range>k__BackingField: 55
-  <_damage>k__BackingField: 25
-  <_criticalPer>k__BackingField: 5
-  <_name>k__BackingField: "\uD14C\uC2A4\uD2B8\uC6A9\uBCD1"
-  <_description>k__BackingField: "\uD14C\uC2A4\uD2B8\uB97C\uD558\uAE30\uC704\uD55C\uC6A9\uBCD1"
-  <_sprite>k__BackingField: {fileID: 0}
+  <Index>k__BackingField: 0
+  <EnchantLevel>k__BackingField: 0
+  <CoolTime>k__BackingField: 0
+  <Range>k__BackingField: 0
+  <Damage>k__BackingField: 0
+  <CriticalPer>k__BackingField: 0
+  <Name>k__BackingField: 
+  <Description>k__BackingField: 
+  <Sprite>k__BackingField: {fileID: 0}
+  <ThingCanSee>k__BackingField: 0100000002000000

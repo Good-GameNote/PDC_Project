@@ -24,4 +24,5 @@ public class FireArrowMercenary : Mercenary
     {
         GameObject ArrowGO = Instantiate(_fireArrowPrefab, transform);
     }
+    
 }

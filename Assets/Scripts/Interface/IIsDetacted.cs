@@ -3,5 +3,5 @@ using System.Collections.Generic;
 
 internal interface IIsDetacted
 {
-    bool IsDetacted(bool[] thingsCanSee);
+    bool IsDetacted(Common.eEnemyState[] thingsCanSee);
 }
