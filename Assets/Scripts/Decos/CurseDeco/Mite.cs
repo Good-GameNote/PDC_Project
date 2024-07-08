@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class Mite : CurseDecoTemplate
 {
-
-    public override void GetHitEffect(Enemy self, Mercenary attacker, int damage, Debuff debuff)
+    public Mite(CurseEffect deco) : base(deco)
     {
-        if(self._HP== self._enemyData.HP)
+    }
+
+    public override void GetHitEffectDetail(ref Enemy self,ref Mercenary attacker, ref int damage,ref Debuff debuff)
+    {
+        if (self._HP == self._enemyData.HP)
         {
             damage = (int)(damage * 1.1f);
         }
-        _deco.GetHitEffect(self, attacker, damage, debuff);
     }
 
     public override float GetPriority()

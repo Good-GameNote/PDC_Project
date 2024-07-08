@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 using static Common;
 
@@ -21,6 +23,28 @@ struct SP_LoadStages
     public short highestStage ;
     public short curStage;
 };
+
+
+public struct CP_StageProcess
+{
+    public CP_StageProcess(int i)
+    {
+        _size = (short)System.Runtime.InteropServices.Marshal.SizeOf(typeof(CP_StageProcess));
+        _index = (short)Common.eCPacket.eCP_StageProcess;
+        _encrypted = new byte[ENCRYPTED_SIZE];
+        _stage = 0;
+        _achieve = 0;
+    }
+    public short _size;
+    public short _index;
+
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = Common.ENCRYPTED_SIZE)]
+    public byte[] _encrypted;
+    public short _stage;
+    public short _achieve;
+};
+
+
 public class Battle : MonoBehaviour, ISubject<Stage>
 {
     [SerializeField]
@@ -62,7 +86,25 @@ public class Battle : MonoBehaviour, ISubject<Stage>
     // Start is called before the first frame update
     void Start()
     {
-        
     }
     
+    public void Clear(short achivement)
+    {
+     
+            CP_StageProcess cp = new CP_StageProcess(0);
+
+            byte[] plainText = Encoding.UTF8.GetBytes(GameManager.Instance._player.NickName);
+            cp._encrypted = Crypto.Encrypt(plainText);
+
+
+            //byte[] decrypted = Crypto.Decrypt(cp._encrypted);
+            //string result = Encoding.UTF8.GetString(decrypted);
+
+            cp._stage = highestStage;
+            cp._achieve = achivement;
+            highestStage++;
+
+            GameManager.Instance._packetManager.Send(cp, cp._size);
+
+    }
 }

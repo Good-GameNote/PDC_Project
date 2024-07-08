@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Resources;
 using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine;
@@ -48,7 +45,21 @@ public class GameManager : Singleton<GameManager>
             }
 
         });
+        _packetManager.Recieve<SP_CanI>((int)eSPacket.eSP_CanI, (p) =>
+        {
+            if (p._result != (short)All_ERROR.eSuccess)
+            {
+                Warning.Instance.Show((All_ERROR)p._result);
+                return;
+            }
+            switch ((eCanI)p._type)
+            {
+                case eCanI.eEnterBattle:
+                     GotoBattle.Instance.Enter();
+                    break;
+            }
 
+        });
 
 
     }
@@ -151,7 +162,7 @@ public struct SP_Upgrade
     public short _type;
     public short _puchasIndex;
 };
-public struct CP_ChangeDeck
+public struct CP_ChangeDeck//가벼운거 통보용
 {
     public CP_ChangeDeck(int i)
     {
@@ -166,4 +177,25 @@ public struct CP_ChangeDeck
 
     public short _type;
     public short _deckNum;
+};
+public struct CP_CanI 
+{
+    public CP_CanI(byte i)
+    {
+        _size = (short)Marshal.SizeOf(typeof(CP_CanI));
+        _index = (short)eCPacket.eCP_CanI;
+        _type = 0;
+    }
+    public short _size;
+    public short _index;
+    public short _type;
+};
+
+public struct SP_CanI
+{
+    public short _size;
+    public short _index;
+
+    public short _type;
+    public short _result;
 };

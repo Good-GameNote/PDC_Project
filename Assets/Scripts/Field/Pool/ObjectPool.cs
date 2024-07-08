@@ -4,9 +4,9 @@ using UnityEngine;
 
 public interface IPool<T>
 {
-    T Get(int type);//특정타입
+    T Get(int type, ref Vector3 position);//특정타입
 
-    T Get();//랜덤타입
+    T Get(ref Vector3 position);//랜덤타입
     void Release(T obj, int type);
 }
 
@@ -26,7 +26,7 @@ public abstract class ObjectPool<T> : MonoBehaviour, IPool<T> where T : MonoBeha
         for (int i = 0; i < _prefabs.Length; i++)
         {
             poolQueue[i]= new Queue<T>();
-            
+     
         } 
     }
 
@@ -43,7 +43,7 @@ public abstract class ObjectPool<T> : MonoBehaviour, IPool<T> where T : MonoBeha
         }
     }
 
-    public T Get(int type)
+    public T Get(int type, ref Vector3 position)
     {
         if(type<0||type>=_prefabs.Length)
         {
@@ -53,7 +53,7 @@ public abstract class ObjectPool<T> : MonoBehaviour, IPool<T> where T : MonoBeha
 
         if (poolQueue[type].Count == 0)
         {
-            var obj = GameObject.Instantiate(_prefabs[type], transform);
+            var obj = GameObject.Instantiate(_prefabs[type], position, Quaternion.identity,transform);
             return obj;
         }
         else
@@ -63,13 +63,13 @@ public abstract class ObjectPool<T> : MonoBehaviour, IPool<T> where T : MonoBeha
             return obj;
         }
     }
-    public T Get()
+    public T Get(ref Vector3 position)
     {
         int type = Random.Range(0, _prefabs.Length);
 
         if (poolQueue[type].Count == 0)
         {
-            var obj = GameObject.Instantiate(_prefabs[type], transform);
+            var obj = GameObject.Instantiate(_prefabs[type], position, Quaternion.identity,transform);
             return obj;
         }
         else

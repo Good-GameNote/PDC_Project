@@ -2,24 +2,13 @@
 using System;
 using static Common;
 using System.Collections.Generic;
+using UnityEngine;
 
-public abstract class Effector:IComparable<Effector>,IDeco
+public abstract class Effector :  IComparable<Effector>
 {
-    public eEffector _index { get; protected set; }
 
     protected short _level;
 
-    public void SetLevel(short level)
-    {
-        _level = level;
-    }
-
-    public abstract void Resist();
-
-    public abstract void DeResist();
-    public abstract Effector GiveDeco();
-
-    //static PriorityQueue<ICurseDecorator> _queue = new();
     public abstract string GiveExplan();
 
     public abstract float GetPriority();
@@ -39,16 +28,28 @@ public abstract class Effector:IComparable<Effector>,IDeco
         }
         return result;
     }
-    public abstract void SetDeco(IDeco deco);
-}
-public static class EffectorFactory
-{
-    static public Effector Create(eEffector index)
+
+
+
+
+    public eEffector Index { get; protected set; }
+
+
+
+    public static void Resist(eEffector num , eEffector[] group, List<eEffector> resistedNums)
     {
-        switch (index)
+        foreach (eEffector e in group)
         {
-            case eEffector.e돋보기: return new ReadingGlasses();
+            if (e == num)
+            {
+                resistedNums.Add(num);
+            }
         }
-        return null;
     }
+
+    public static void DeResist(List<eEffector> resistedNums, eEffector index)
+    {
+        resistedNums.Remove(index);
+    }
+
 }

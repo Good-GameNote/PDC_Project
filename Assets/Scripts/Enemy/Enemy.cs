@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour,IIsDetacted,IGetHit
 {
     [field: SerializeField]
     public EnemyData _enemyData {  get; private set; }
 
-    IDeco _curseDeco;
 
     public int _HP { get; private set; }
 
@@ -26,6 +25,12 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     SpriteRenderer _renderer ;
 
+    CurseEffect _curseDeco;
+    public bool IsDetacted(bool[] stats )
+    {
+
+        return true;
+    }
     private void Awake()
     {
         _HP = _enemyData.HP; 
@@ -37,9 +42,16 @@ public class Enemy : MonoBehaviour
         
         _agent = GetComponent<NavMeshAgent>();
         _agent.updateRotation = false;
-        //_curseDeco = _curseDeco.GiveDeco();
+        _curseDeco = CurseDecoTemplate.GiveCurseEffector();
+
     }
  
+    public void GetHit( Mercenary attacker, int damage, Debuff debuff)
+    {
+        _curseDeco.GetHitEffect( this, attacker, damage, debuff);
+    }
+
+
     public void GetDamage(int damage)
     {
         _HP -= damage;
@@ -48,7 +60,7 @@ public class Enemy : MonoBehaviour
             _HP = 0;
         }
     }
-   
+
 
     public void GetDebuff(Debuff debuff)
     {
@@ -91,7 +103,6 @@ public class Enemy : MonoBehaviour
     }
     private void OnEnable()
     {
-        SetInitPosition();
 
         _agent.SetDestination(Catsle.Instance.transform.position);
     }

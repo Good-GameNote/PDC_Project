@@ -81,37 +81,37 @@ public class PriorityQueue<T> where T : IComparable<T>
 
         return true;
     }
-    //public T Dequeue()
-    //{
-    //    if (heap.Count == 0)
-    //        throw new InvalidOperationException("The queue is empty.");
+    public T Dequeue()
+    {
+        if (heap.Count == 0)
+            throw new InvalidOperationException("The queue is empty.");
 
-    //    T root = heap[0];
-    //    heap[0] = heap[heap.Count - 1];
-    //    heap.RemoveAt(heap.Count - 1);
+        T root = heap[0];
+        heap[0] = heap[heap.Count - 1];
+        heap.RemoveAt(heap.Count - 1);
 
-    //    int i = 0;
-    //    while (true)
-    //    {
-    //        int leftChildIndex = 2 * i + 1;
-    //        int rightChildIndex = 2 * i + 2;
-    //        int smallestIndex = i;
+        int i = 0;
+        while (true)
+        {
+            int leftChildIndex = 2 * i + 1;
+            int rightChildIndex = 2 * i + 2;
+            int smallestIndex = i;
 
-    //        if (leftChildIndex < heap.Count && heap[leftChildIndex].CompareTo(heap[smallestIndex]) < 0)
-    //            smallestIndex = leftChildIndex;
+            if (leftChildIndex < heap.Count && heap[leftChildIndex].CompareTo(heap[smallestIndex]) < 0)
+                smallestIndex = leftChildIndex;
 
-    //        if (rightChildIndex < heap.Count && heap[rightChildIndex].CompareTo(heap[smallestIndex]) < 0)
-    //            smallestIndex = rightChildIndex;
+            if (rightChildIndex < heap.Count && heap[rightChildIndex].CompareTo(heap[smallestIndex]) < 0)
+                smallestIndex = rightChildIndex;
 
-    //        if (smallestIndex == i)
-    //            break;
+            if (smallestIndex == i)
+                break;
 
-    //        Swap(i, smallestIndex);
-    //        i = smallestIndex;
-    //    }
+            Swap(i, smallestIndex);
+            i = smallestIndex;
+        }
 
-    //    return root;
-    //}
+        return root;
+    }
     private void Swap(int i, int j)
     {
         T temp = heap[i];

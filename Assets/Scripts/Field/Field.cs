@@ -7,12 +7,13 @@ public class Field : MonoBehaviour
 {
     //18초 마다 다음 라운드 시작.
     //라운드 시작시 20마리를 0.5초 마다 생성.
-    //몬스터 풀에서 현재 라운드에 맞는 몬스터 배열을 활성화 할필요 있음.
+
 
     short _curRound = 0;
     short _roundEleapse=18;
     float _enemySponEleapse = 0.5f;
 
+    
 
     [SerializeField]
     short _enemyCountByRound=20;
@@ -32,6 +33,9 @@ public class Field : MonoBehaviour
 
     IEnumerator RoundUpper()
     {
+
+        yield return new WaitForSeconds(3);
+
         while (_curRound<21)
         {
             _curRound++;
@@ -49,7 +53,7 @@ public class Field : MonoBehaviour
         while (_curRemainEnemyCount>0)
         {
             _curRemainEnemyCount--;
-            pool.Get();
+            pool.Get(ref StageLoader.Instance.CurrentMapInfo._enemySpot);
             yield return new WaitForSeconds(_enemySponEleapse);
         }
 

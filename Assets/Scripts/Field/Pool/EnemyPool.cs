@@ -18,8 +18,4 @@ public class EnemyPool : ObjectPool<Enemy>
         Init(curStageEnemys );
 
     }
-
-
-
-
 }
