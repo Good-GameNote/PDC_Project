@@ -1,67 +1,49 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using Unity.VisualScripting;
+using static Common;
 
-public class enemyFactory
+public abstract class CurseDecoTemplate :  CurseEffect
 {
-    static ICurseDecorator _curseDecorator;
+    public PriorityQueue<CurseEffect> _curseDecos = new();
 
-    static public void SetDeco(ICurseDecorator curseDecorator)
+    public override void GetHitEffect(Enemy self, Mercenary attacker, int damage, Debuff debuff)
     {
-        _curseDecorator = curseDecorator;
+        _curseDecos.Circuit((deco) => {deco.GetHitEffectDetail(ref self, ref attacker, ref damage, ref debuff );});
+
     }
-}
-public abstract class CurseDecoTemplate: Effector, ICurseDecorator
-{
-    protected ICurseDecorator _deco;
 
-    protected static PriorityQueue<CurseDecoTemplate> _CurseDecos = new();
-
-
-    public override void SetDeco(IDeco deco)
+    public CurseDecoTemplate(CurseEffect deco)
     {
-        _deco = (ICurseDecorator)deco;
+        _curseDecos.Enqueue(deco);
+        _curseDecos.Enqueue(this);
     }
 
 
-    public virtual void GetHitEffect(Enemy self, Mercenary attacker, int damage, Debuff debuff)
-    {
-        _deco.GetHitEffect(self, attacker, damage, debuff);
-    }
-    public override void Resist()
-    {
-        
-        _CurseDecos.Enqueue(this);
-    }
-    public override void DeResist()
-    {
-        _CurseDecos.Remove(this);
-    }
+    public static eEffector[] curseNums = new eEffector[] {eEffector.e돋보기 };
+
+    public static List<eEffector> resistedNums = new ();
 
 
-    public override Effector GiveDeco()
+    public static CurseEffect GiveCurseEffector()
     {
-        if (_CurseDecos.Count < 1)
+        CurseEffect curseEffect = new BaseGetHit();
+
+        foreach (eEffector num in curseNums)
         {
-            _CurseDecos.Enqueue(new BaseGetHit());
-        }
-        Effector deco = null;
-        
-        _CurseDecos.Circuit((other) =>
-        {
-            Effector part = EffectorFactory.Create(other._index);
-            if(deco==null)
+            switch (num)
             {
-                deco = part;
-            }else
-            {
-                deco.SetDeco(part);
+                case eEffector.e돋보기: curseEffect = new ReadingGlasses( curseEffect);
+                    break;
+
+
             }
-        });
-        
-        return deco;
+        }
+
+        return curseEffect;
     }
+
 
 }
 

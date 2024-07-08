@@ -44,7 +44,7 @@ struct SP_RecordMoney
 
 public class Player : MonoBehaviour, ISubject<int[]>
 {
-    string _nickName;
+    public string NickName { get; private set; }
     //(int)eTime.MAX_TIME_SIZE (int)eCash.MAX_CASH_SIZE) (int)eMoney.MAX_MONEY_SIZE)
     public int[] _money;
     public Cash[] _cash;
@@ -57,13 +57,13 @@ public class Player : MonoBehaviour, ISubject<int[]>
 
         GameManager.Instance._packetManager.Recieve<SP_LoadPlayer>((int)eSPacket.eSP_LoadPlayer, (p) =>
         {
-            _nickName = Encoding.Unicode.GetString(p._nickName);
+            NickName = Encoding.Unicode.GetString(p._nickName);
 
             _money = p._money;
             _cash = p._cash;
             _time = p._time;
 
-            Debug.Log(_nickName);
+            Debug.Log(NickName);
         });
         GameManager.Instance._packetManager.Recieve<SP_RecordMoney>((int)eSPacket.eSP_RecordMoney, (p) =>
         {
@@ -103,6 +103,6 @@ public class Player : MonoBehaviour, ISubject<int[]>
 
     public void NotifyProfileObservers()
     {
-        foreach (IObserver<string> observer in _profileObservers) { observer.Set(_nickName); };
+        foreach (IObserver<string> observer in _profileObservers) { observer.Set(NickName); };
     }
 }

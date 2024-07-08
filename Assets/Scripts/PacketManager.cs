@@ -28,6 +28,9 @@ public class PacketManager : MonoBehaviour
 
     public bool Send(object obj, int size)
     {
+        try
+        {
+
         if(sendCool < sendElapse)
         {
             return false;
@@ -52,6 +55,11 @@ public class PacketManager : MonoBehaviour
         //_sendQueue.Enqueue(arr);
         Debug.Log($"cp index = {BitConverter.ToInt16(arr, 2)}");
         sock.Send(arr, 0, size, SocketFlags.None);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error: {ex.Message}");
+        }
         return true;
     }
     public void Recieve<T>(int index, Action<T> function) 

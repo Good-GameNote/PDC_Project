@@ -12,7 +12,6 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
 
     public sRelic[] _sRelic { get; private set; }
 
-    private List<Effector> _effectors=new();
 
     static public Relic CurrentRelic { get; private set; }
     UnityEngine.UI.Button _button;
@@ -20,18 +19,13 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
     private RegistSate State;
 
 
-    static List<Relic> _resistedRelics = new();
-
     private void Awake()
     {
         sRelic[] _sRelic = new sRelic[1];
         State = GetComponentInParent<RegistSate>();
         _button = gameObject.AddComponent<UnityEngine.UI.Button>();
         _button.onClick.AddListener(() => { CurrentRelic = this; UI_ClickSlotMenu.Instance.ClickThis(transform, this); });
-        foreach (Common.eEffector effectNum in _relicData.EffectNums)
-        {
-            _effectors.Add(EffectorFactory.Create(effectNum));
-        }
+
         GameManager.Instance._inven.ResistObserver((short)_relicData.Index, this);
     }
 
@@ -46,28 +40,26 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
 
     public void Resited()
     {
-        for (int i = 0; i < _effectors.Count; i++)
+        foreach(eEffector num in _relicData.EffectNums)
         {
-            _effectors[i].Resist();
+            Effector.Resist(num, CurseDecoTemplate.curseNums, CurseDecoTemplate.resistedNums);
+
         }
+        
 
-        _resistedRelics.Add(this);
 
+        
     }
+
     public void DeResited()
     {
-
-        if (!_resistedRelics.Contains(this))
-            return;
-        for (int i = 0; i < _effectors.Count; i++)
+        foreach (eEffector num in _relicData.EffectNums)
         {
-            _effectors[i].DeResist();
+            Effector.DeResist(CurseDecoTemplate.resistedNums, num);
+
         }
-
-
-        _resistedRelics.Remove(this);
     }
-
+    /*
     public string GiveExplan()
     {
         List<string> dumystring= new List<string>();
@@ -98,6 +90,7 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
         // 배열을 하나의 문자열로 합칩니다.
         return string.Join(" ", words);
     }
+    */
 
     public short GiveLevel()
     {

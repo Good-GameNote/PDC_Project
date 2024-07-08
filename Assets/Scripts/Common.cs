@@ -9,6 +9,7 @@ public class Common
 
     public const int MAX_STAGE_SIZE = 100;
 
+    public const int ENCRYPTED_SIZE = 32;
 
     public static readonly int screenWide = 360;
     public static readonly int screenHeight = 640;
@@ -92,6 +93,11 @@ public class Common
         MAX_Option_SIZE
     };
 
+    public enum eCanI
+    {
+        eEnterBattle,
+        MAX_Page_SIZE
+    };
 
 
     public enum ePage
@@ -118,6 +124,7 @@ public class Common
         eLackSlot,
         eOverMaxLevel,
         eLackCard,
+        eLackEnergy,
     };
 
 
@@ -139,6 +146,8 @@ public class Common
         eCP_Upgrade,
         eCP_RegistRelic,
         eCP_ChangeDeck,
+        eCP_StageProcess,
+        eCP_CanI,
         MAX_CPACKET_SIZE
     };
 
@@ -154,6 +163,7 @@ public class Common
         eSP_Gacha,
         eSP_Upgrade,
         eSP_RecordMoney,
+        eSP_CanI,
         MAX_SPACKET_SIZE
     };
 

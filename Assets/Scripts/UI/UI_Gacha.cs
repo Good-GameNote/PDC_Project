@@ -13,7 +13,9 @@ public class UI_Gacha : MonoBehaviour
         _button = GetComponent<Button>();
         _button.onClick.AddListener(() =>
         {
-            switch(type)
+
+            GameManager.Instance._battle.Clear(1);
+            switch (type)
             {
                 case Common.ePage.eInven:
                     GameManager.Instance._inven.Gach();

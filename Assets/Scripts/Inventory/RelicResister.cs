@@ -10,6 +10,7 @@ public class RelicResister : Singleton<RelicResister>,ITownObserver,ISlotMenu
     short _currentCost;
     short _currentCount;
 
+    List<Relic> _resistedRelics = new();
 
 
     [SerializeField]
@@ -51,16 +52,20 @@ public class RelicResister : Singleton<RelicResister>,ITownObserver,ISlotMenu
         _currentCount++;
         _currentCost += relic._relicData.Cost;
 
+        _resistedRelics.Add(relic);
         relic.Resited();
         return Common.All_ERROR.eSuccess;
     }
 
     public void DereRelic(Relic relic)
     {
-      
+        if (!_resistedRelics.Contains(relic))
+            return;
+
         _currentCount--;
         _currentCost -= relic._relicData.Cost;
 
+        _resistedRelics.Remove(relic);
         relic.DeResited();
     }
 
