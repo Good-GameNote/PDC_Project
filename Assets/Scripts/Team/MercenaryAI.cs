@@ -8,15 +8,20 @@ public class MercenaryAI : MonoBehaviour
     public LayerMask layerMask;
     public UnityEvent<Transform> OnEnemyEnterRange;
     public UnityEvent<Transform> OnEnemyExitRange;
+    public List<Transform> _enemiesList = new();
 
     private float _range;
-    private List<Transform> _enemiesList = new();
     private CircleCollider2D _perceptionCollider;
 
     private void OnEnable() 
     {
         if(_perceptionCollider == null)
         {
+            bool isGetCollider = TryGetComponent<CircleCollider2D>(out _perceptionCollider);
+            if(isGetCollider == false)
+            {
+                gameObject.AddComponent<CircleCollider2D>();
+            }
             _perceptionCollider.GetComponent<CircleCollider2D>();
         }
         _perceptionCollider.isTrigger = true;

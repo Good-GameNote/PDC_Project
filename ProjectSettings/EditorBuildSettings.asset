@@ -11,9 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene JG.unity
     guid: ac92b252087239e4fb337f8e0b4208a4
-  - enabled: 0
-    path: Assets/Scenes/MainScene IJH.unity
-    guid: 1f8b466de177b9742b581012db2a06f8
   - enabled: 1
     path: Assets/Scenes/BattleScene.unity
     guid: 93f5f61a5c663e2459814879c7156cb7

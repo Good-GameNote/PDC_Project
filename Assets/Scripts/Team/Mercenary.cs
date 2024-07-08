@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Mercenary : MonoBehaviour
 {
+    public enum MercenaryState
+    {
+        Create, Idle, Attack, Sell
+    }
+    [SerializeField]
+    public MercenaryState _myState = MercenaryState.Create;
+
     [SerializeField]
     MercenaryData _mercenaryData;
 
@@ -12,14 +19,54 @@ public class Mercenary : MonoBehaviour
     IAttackDecorator _attackDecorator;
 
     ProjectileBase _projectile;
+    MercenaryAI _mercenaryAI;
 
     private void Awake() 
     {
-        
+        _mercenaryAI = GetComponentInChildren<MercenaryAI>();
     }
     void Start()
     {
         
+    }
+    /// <summary>
+    /// 용병의 상태변경시 해야하는 행동 나열
+    /// </summary>
+    /// <param name="state"></param>
+    void ChangeState(MercenaryState state)
+    {
+        if(_myState == state) return;
+        _myState = state;
+        switch (_myState)
+        {
+            case MercenaryState.Create:
+            break;
+            case MercenaryState.Idle:
+            break;
+            case MercenaryState.Attack:
+            break;
+            case MercenaryState.Sell:
+            break;
+        }
+    }
+
+    /// <summary>
+    /// 항시 감지되는 상태변경시 초기화해야하는 내용
+    /// </summary>
+    void StateProcess()
+    {
+        switch (_myState)
+        {
+            case MercenaryState.Create:
+            ChangeState(MercenaryState.Idle);
+            break;
+            case MercenaryState.Idle:
+            break;
+            case MercenaryState.Attack:
+            break;
+            case MercenaryState.Sell:
+            break;
+        }
     }
 
     public void SetsMercenary(sMercenary sMercenary)
@@ -30,10 +77,19 @@ public class Mercenary : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        StateProcess();
     }
 
-    public virtual void Attack(IAttackDecorator attackDecorator)
+    public void TargetInRange()
+    {
+        // _mercenaryAI.GetEnemiesInRange
+    }
+
+    public void LostTarget()
+    {
+    }
+
+    public virtual void Attack()
     {
     }
 }

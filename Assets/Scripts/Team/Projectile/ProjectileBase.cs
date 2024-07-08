@@ -16,7 +16,16 @@ public abstract class ProjectileBase : MonoBehaviour
     // 투사체의 적 관통 수
     protected short _penetration;
     protected Splash _splash;
-    protected IMoving _moving;
+    public Splash Splash 
+    { 
+        get => _splash; 
+        set => _splash = value; 
+    }
+    protected IMission _mission;
     
-    public abstract void EnemyTarget();
+    public abstract void AfterLaunch();
+    public void SetSplash(Splash splash)
+    {
+        _splash = splash;
+    }
 }
