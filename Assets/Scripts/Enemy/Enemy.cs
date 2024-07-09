@@ -115,10 +115,12 @@ public class Enemy : MonoBehaviour,IIsDetacted,IGetHit
     // Update is called once per frame
     void Update()
     {
-        foreach ( Debuff debuff in _debuffs )
+        for(int i =0 ; i< _debuffs.Count; i++)
         {
-            debuff.Activation();
+            if(_debuffs[i]==null) continue;
+            _debuffs[i].Activation();
+        
         }
-
+        
     }
 }

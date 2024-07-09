@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2021789857724591212}
   - component: {fileID: 8153942024496475208}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 6508106552616236161}
   - component: {fileID: -3947215358641078320}
   - component: {fileID: 3752428549686690656}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: testEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 0
   m_AutoRepath: 0
-  m_Height: 1
+  m_Height: 0.3
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0

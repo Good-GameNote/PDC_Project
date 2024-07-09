@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class ProjectileBase : MonoBehaviour
 {
-    public int damage;
+    public int _damage;
     // 투사체의 공격범위
     protected float _attackRange;
     // 투사체의 이동속도
-    protected float _movement;
+    protected float _movement = 10.0f;
     // 투사체가 공중공격이 가능한지 여부
     protected bool _canAirAttack;
     // 투사체의 지속시간
@@ -22,10 +22,30 @@ public abstract class ProjectileBase : MonoBehaviour
         set => _splash = value; 
     }
     protected IMission _mission;
+    protected Mercenary _mercenary;
+    protected Transform _targetTransform;
     
-    public abstract void AfterLaunch();
+    public abstract void Move();
+
+    public void Initialize(int damage, Transform targetTransform)
+    {
+        _damage = damage;
+        _targetTransform = targetTransform;
+    }
+
+    private void Update() 
+    {
+        if(_targetTransform == null) return;
+
+        Move();
+    }
     public void SetSplash(Splash splash)
     {
         _splash = splash;
+    }
+
+    private void OnEnable() 
+    {
+        if(_mercenary == null) transform.parent.TryGetComponent(out _mercenary);
     }
 }

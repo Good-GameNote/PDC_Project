@@ -5,24 +5,20 @@ using UnityEngine;
 public class FireArrowMercenary : Mercenary
 {
     [SerializeField]
-    private GameObject _fireArrowPrefab;
+    private ProjectileBase _fireArrowPrefab;
 
     void Start()
     {
         
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Attack();
-        }
-    }
-
     public override void Attack()
     {
-        GameObject ArrowGO = Instantiate(_fireArrowPrefab, transform);
+        if(_mercenaryAI._enemiesList.Count <= 0) return;
+        // _mercenaryAI._enemiesList[0] == null
+//Instantiate(_fireArrowPrefab, transform);
+        ProjectileBase arrowGO = ProjectilePool.Instance.Get( _mercenaryData.Index ,  transform.position);
+        arrowGO.Initialize(_mercenaryData.Damage, _mercenaryAI._enemiesList[0]);
     }
     
 }

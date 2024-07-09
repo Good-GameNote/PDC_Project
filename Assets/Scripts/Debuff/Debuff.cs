@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Debuff :MonoBehaviour
+public abstract class Debuff
 {
     protected Sprite _sprite;
 
@@ -15,12 +15,13 @@ public abstract class Debuff :MonoBehaviour
 
     public Debuff(float durationTime, Sprite sprite)
     {
-        _durationTime = durationTime;
+        _remainDuration= _durationTime = durationTime;
+       // SetDuration(_durationTime);
         _sprite = sprite;
     }
 
  
-    public void SetDuration(float duration) {  _durationTime = duration; }
+    //public void SetDuration(float duration) {  _remainDuration = duration; }
 
     protected Enemy _target;
     public  abstract void StartAction(Enemy target);
