@@ -19,8 +19,8 @@ public class StageLoader : Singleton<StageLoader>
     TileWorldCreator twc;
     static mapInfo[] _mapInfos = new mapInfo[]
     {
-        new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,0.5f,108.5f) ),
-        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,0.5f,93.5f) ),
+        new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
+        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
         new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
