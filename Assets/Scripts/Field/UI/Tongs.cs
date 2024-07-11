@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Draw : MonoBehaviour, IPointerDownHandler,  IDragHandler, IPointerUpHandler
+public class Tongs : MonoBehaviour, IPointerDownHandler,  IDragHandler, IPointerUpHandler
 {
     [SerializeField]
-    UnityEngine.UI.Image dummy;
+    UnityEngine.UI.Image _dummy;
+    [SerializeField]
+    UnityEngine.UI.Image _range;
 
     Vector3 _initPoint = Vector3.zero;
     [SerializeField]
@@ -21,12 +23,11 @@ public class Draw : MonoBehaviour, IPointerDownHandler,  IDragHandler, IPointerU
         Debug.Log("돈잇는지 검사");
 
         _employee = MercenaryPool.Instance.Get(ref _initPoint);
-        dummy.sprite = _employee._mercenaryData.Sprite;
-        curPoint = Vector3.zero;
+        _dummy.sprite = _employee._mercenaryData.Sprite;
+        _range.transform.localScale = Vector3.one * _employee._mercenaryData.Range;
+
+        SetState(false);
     }
-
-
-
 
 
     LayerMask _ground=1<<(int)Common.eLayer.Ground;
@@ -41,66 +42,72 @@ public class Draw : MonoBehaviour, IPointerDownHandler,  IDragHandler, IPointerU
 
     RaycastHit hit;
 
-    bool CanHold()
+    Color _red = new Color(1,0,0,0.5f);
+    Color _green = new Color(0, 1, 0, 0.5f);
+
+
+
+    bool _canHold;
+
+    void SetState(bool canHold)
+    {
+        _canHold = canHold;
+        if (_canHold)
+        {
+            _dummy.color = _green;
+            _range.color = _green;
+
+            curPoint = hit.point;
+        }
+        else
+        {
+            _dummy.color = _red;
+            _range.color = _red;
+        }
+    }
+    bool CheckCanHold()
     {
         curPoint = hit.point;
         curPoint.y = 0;
         curPoint.z -= 0.2f;
         int obstacleCount = Physics.OverlapSphereNonAlloc(hit.point, Common.MERCENARY_SIZE, _obstacleCol, _obstacle);
         int obstacleCount2 = Physics.OverlapSphereNonAlloc(curPoint, Common.MERCENARY_SIZE * 2.5f, _obstacleCol, _obstacle);
+
         return obstacleCount < 1 && obstacleCount2 < 1;
     }
+
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = eventData.position;
 
         Ray ray = Camera.main.ScreenPointToRay(eventData.position);
+        bool result = false;
         if (Physics.Raycast(ray, out hit, maxDistance, _ground))
         {
-           
-            if (CanHold())
-            {
-                dummy.color = Color.green;
-                curPoint = hit.point;
-   
-            }
-            else
-            {
-                dummy.color = Color.red;
-                curPoint = Vector3.zero;
-            }
+            result =CheckCanHold();
         }
-        else
-        {
-            curPoint = Vector3.zero;
-            dummy.color = Color.red;
-        }
+        SetState(result);
     }
 
 
     public void OnPointerUp(PointerEventData eventData)
     {
 
-        dummy.sprite = _originSprite;
-        transform.localPosition = Vector3.zero;
-        dummy.color = new Color(1, 1, 1, 0);
-
-
-        bool isPass = curPoint != Vector3.zero;
-        while (!isPass)
+        while (!_canHold)
         {
             Vector3 randomPos = new Vector3(Random.Range(0, Field.Instance._Wide) + 0.5f, 10f, Random.Range(90, 90 + Field.Instance._height) + 0.5f);
             if (Physics.Raycast(randomPos, Vector3.down, out hit, maxDistance, _ground))
             {
-                if (CanHold())
-                {
-                    isPass = true;
-                    curPoint = hit.point;
-                }
+                SetState( CheckCanHold());                
             }
         }
-        curPoint.y = 1.5f;
+        curPoint.y = 1.3f;
         _employee.transform.position = curPoint;
+
+        _dummy.sprite = _originSprite;
+        transform.localPosition = Vector3.zero;
+        _range.transform.localScale = Vector3.zero;
+        _dummy.color = new Color(1, 1, 1, 0);
     }
 
 
