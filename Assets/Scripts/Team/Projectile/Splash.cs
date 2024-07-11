@@ -42,7 +42,7 @@ public class CircleSplash : Splash
     public override void Excute(IGetHit getHit, Mercenary mercenary, int damage, Debuff debuff)
     {
         Debug.Log($"DD");
-        _enemyColliders = Physics.OverlapSphere(transform.position, SplashRange, LayerMask.NameToLayer("Monster"));
+        _enemyColliders = Physics.OverlapSphere(transform.position, SplashRange, 1<<(int)Common.eLayer.Enemy);
         foreach (var enemy in _enemyColliders)
         {
             if(enemy != null)

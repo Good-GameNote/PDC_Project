@@ -16755,7 +16755,7 @@ MonoBehaviour:
       Data: 0
     - Name: colliderTypeVariantA
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: colliderTypeVariantB
       Entry: 3
       Data: 0
@@ -16764,7 +16764,7 @@ MonoBehaviour:
       Data: UnityEngine.LayerMask, UnityEngine.CoreModule
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 6
     - Name: 
       Entry: 8
       Data: 
@@ -16848,7 +16848,7 @@ MonoBehaviour:
       Data: hill
     - Name: foldout
       Entry: 5
-      Data: false
+      Data: true
     - Name: active
       Entry: 5
       Data: true
@@ -16909,7 +16909,7 @@ MonoBehaviour:
       Data: 0
     - Name: colliderTypeVariantA
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: colliderTypeVariantB
       Entry: 3
       Data: 0
@@ -16918,7 +16918,7 @@ MonoBehaviour:
       Data: UnityEngine.LayerMask, UnityEngine.CoreModule
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 9
     - Name: 
       Entry: 8
       Data: 
@@ -17217,7 +17217,7 @@ MonoBehaviour:
       Data: 0
     - Name: colliderTypeVariantA
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: colliderTypeVariantB
       Entry: 3
       Data: 0
@@ -17226,7 +17226,7 @@ MonoBehaviour:
       Data: UnityEngine.LayerMask, UnityEngine.CoreModule
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -17310,7 +17310,7 @@ MonoBehaviour:
       Data: waterPlant
     - Name: foldout
       Entry: 5
-      Data: true
+      Data: false
     - Name: active
       Entry: 5
       Data: true
@@ -17634,7 +17634,7 @@ MonoBehaviour:
       Data: UnityEngine.LayerMask, UnityEngine.CoreModule
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -17712,7 +17712,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 45
+      Data: 35
     - Name: 
       Entry: 4
       Data: 0
@@ -17727,13 +17727,13 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 4
       Data: 0
     - Name: 
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -17778,10 +17778,10 @@ MonoBehaviour:
       Data: true
     - Name: minRndUniformScale
       Entry: 4
-      Data: 0.8
+      Data: 0.9
     - Name: maxRndUniformScale
       Entry: 4
-      Data: 1.2
+      Data: 2
     - Name: minRndScale
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -17894,14 +17894,24 @@ MonoBehaviour:
       Entry: 10
       Data: 6
     - Name: randomChildPrefabs
-      Entry: 6
+      Entry: 7
+      Data: 113|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: count
       Entry: 3
       Data: 1
     - Name: radius
       Entry: 4
-      Data: 0.4
+      Data: 1
     - Name: useSubdividedMap
       Entry: 5
       Data: false
@@ -17910,7 +17920,7 @@ MonoBehaviour:
       Data: UnityEngine.LayerMask, UnityEngine.CoreModule
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -18006,7 +18016,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 4
       Data: 1
@@ -18048,16 +18058,16 @@ MonoBehaviour:
       Data: 
     - Name: rndScaling
       Entry: 5
-      Data: true
+      Data: false
     - Name: uniformScaling
       Entry: 5
       Data: true
     - Name: minRndUniformScale
       Entry: 4
-      Data: 0.5
+      Data: 1
     - Name: maxRndUniformScale
       Entry: 4
-      Data: 0.8
+      Data: 1
     - Name: minRndScale
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -18126,7 +18136,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 113|TWC.Actions.InstantiateObjects, TileWorldCreator
+      Data: 114|TWC.Actions.InstantiateObjects, TileWorldCreator
     - Name: guid
       Entry: 2
       Data: 66660902992d45a39fd9a2eadce8aeaa
@@ -18171,7 +18181,7 @@ MonoBehaviour:
       Data: 7
     - Name: randomChildPrefabs
       Entry: 7
-      Data: 114|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
+      Data: 115|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
         mscorlib
     - Name: 
       Entry: 12

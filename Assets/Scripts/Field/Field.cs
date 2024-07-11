@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Field : MonoBehaviour
+public class Field :  Singleton<Field>
 {
     //18초 마다 다음 라운드 시작.
     //라운드 시작시 20마리를 0.5초 마다 생성.
@@ -13,8 +13,10 @@ public class Field : MonoBehaviour
     short _roundEleapse=18;
     float _enemySponEleapse = 0.5f;
 
-    
-
+    [field: SerializeField]
+    public short _Wide { get; private set; }
+    [field: SerializeField]
+    public short _height { get; private set; }
     [SerializeField]
     short _enemyCountByRound=20;
 

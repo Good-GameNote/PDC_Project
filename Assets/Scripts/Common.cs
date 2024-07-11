@@ -14,9 +14,24 @@ public class Common
     public static readonly int screenWide = 360;
     public static readonly int screenHeight = 640;
 
+    public const float MERCENARY_SIZE = 0.35f;
 
 
     #region enum
+
+    public enum eLayer
+    {
+        Default = 0,
+        TransparentFX = 1,
+        IgnoreRaycast = 2,
+        Obstacle = 3,
+        Water = 4,
+        UI = 5,
+        EnemyPath = 6,
+        Enemy = 7,
+        Mercenary = 8,
+        Ground = 9,
+    }
     public enum eRelic
     {
         e돋보기,

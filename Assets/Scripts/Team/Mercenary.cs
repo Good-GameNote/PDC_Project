@@ -6,7 +6,7 @@ using UnityEngine;
 public class Mercenary : MonoBehaviour
 {
     [SerializeField]
-    protected MercenaryData _mercenaryData;
+    public MercenaryData _mercenaryData;
 
     sMercenary _sMercenary;
 

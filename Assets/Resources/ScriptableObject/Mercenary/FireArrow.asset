@@ -20,5 +20,6 @@ MonoBehaviour:
   <CriticalPer>k__BackingField: 0
   <Name>k__BackingField: F
   <Description>k__BackingField: FF
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 733702307, guid: 30b8ab2f0fe5449591d63bc81c734cd9,
+    type: 3}
   <ThingCanSee>k__BackingField: 0100000002000000

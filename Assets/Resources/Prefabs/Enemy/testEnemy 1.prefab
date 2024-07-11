@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4356718672612465770}
   - component: {fileID: 6508106552616236161}
   - component: {fileID: -3947215358641078320}
-  - component: {fileID: -6769734503957408783}
+  - component: {fileID: 7502850965928935991}
   m_Layer: 12
   m_Name: testEnemy 1
   m_TagString: Untagged
@@ -158,8 +158,8 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
---- !u!135 &-6769734503957408783
-SphereCollider:
+--- !u!136 &7502850965928935991
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -173,9 +173,11 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 2
   m_Radius: 0.3
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
