@@ -149,6 +149,7 @@ public class Common
         eB,
         eC,
         eD,
+        e갈래화살,
         MAX_EFFECTOR_SIZE
     }
 

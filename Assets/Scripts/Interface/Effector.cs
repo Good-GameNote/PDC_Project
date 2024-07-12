@@ -2,8 +2,6 @@
 using System;
 using static Common;
 using System.Collections.Generic;
-using UnityEngine;
-
 public abstract class Effector :  IComparable<Effector>
 {
 
@@ -51,5 +49,18 @@ public abstract class Effector :  IComparable<Effector>
     {
         resistedNums.Remove(index);
     }
+
+    //public static void Choice(eEffector num, eEffector[] group,  Effector effect)
+    //{
+    //    //A 데코인지 H데코인지 판단 
+    //    foreach (eEffector e in group)
+    //    {
+    //        if (e == num)
+    //        {
+    //            effect
+    //        }
+    //    }
+    //}
+
 
 }

@@ -45,11 +45,8 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
             Effector.Resist(num, CurseDecoTemplate.curseNums, CurseDecoTemplate.resistedNums);
 
         }
-        
-
-
-        
     }
+
 
     public void DeResited()
     {

@@ -1,21 +1,25 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using static Common;
 
-abstract class AttackDecoTemplate:IAttackDecorator
+public abstract class AttackDecoTemplate : AttackEffect
 {
-    IAttackDecorator attackDecorator;
+    public PriorityQueue<AttackEffect> _curseDecos = new();
+
+    public AttackDecoTemplate(AttackEffect deco)
+    {
+        _curseDecos.Enqueue(deco);
+        _curseDecos.Enqueue(this);
+    }
 
 
-    public abstract void AttackEffect();
+    public static eEffector[] curseNums = new eEffector[] { eEffector.e갈래화살 };
 
-    public abstract float GetPriority();
+    public static AttackEffect GiveCurseEffector()
+    {
+        return null;
+    }
 
-    public abstract string GiveExplan(int level);
-
-    public abstract void Operate(int level);
 
 }
-
-
-

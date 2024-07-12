@@ -5,14 +5,12 @@ public interface IHitDecorator
     void HitEffect();
 }
 
-public interface IAttackDecorator
+public abstract class AttackEffect:Effector
 {
-    void AttackEffect();
 }
 
 public abstract class CurseEffect:Effector
 {
-    
     public abstract void GetHitEffect(Enemy self, Mercenary attacker, int damage, Debuff debuff);
     public abstract void GetHitEffectDetail(ref Enemy self, ref Mercenary attacker, ref int damage, ref Debuff debuff);
 

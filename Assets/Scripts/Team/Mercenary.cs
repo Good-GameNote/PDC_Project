@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Mercenary : MonoBehaviour
+public abstract class Mercenary : MonoBehaviour,IClickable
 {
     [SerializeField]
     public MercenaryData _mercenaryData;
@@ -22,11 +22,25 @@ public class Mercenary : MonoBehaviour
         _mercenaryAI.SetCanSee(_mercenaryData);
         _mercenaryAI.SetRange(_mercenaryData.Range);
     }
+
+    protected short _star;
+
+    static protected List<Mercenary>[][] _countByStar = new List<Mercenary>[(int)Common.eMercenary.MAX_MERCENARY_SIZE][];
     private void OnEnable() 
     {
         StartCoroutine(SetCooltime());
+        _countByStar[_mercenaryData.Index][_star].Add(this);
     }
 
+    static protected int[] _magnificationByStar= new int[4];
+
+
+
+    private void OnDisable()
+    {
+        _countByStar[_mercenaryData.Index][_star].Remove(this);
+
+    }
     public void SetsMercenary(sMercenary sMercenary)
     {
         _sMercenary = sMercenary;
@@ -57,5 +71,24 @@ public class Mercenary : MonoBehaviour
 
     public virtual void Attack()
     {
+    }
+
+
+    public void OnBeginDrag(Vector3 hit)
+    {
+        Debug.Log($"111 {hit}");
+        UI_MercenaryAction.Instance.TakeInfo(this,  Vector3.up*40+ Input.mousePosition);
+    }
+
+    public void OnDrag(Vector3 hit)
+    {
+        Debug.Log($"222 {hit}");
+
+    }
+
+    public void OnEndDrag(Vector3 hit)
+    {
+        Debug.Log($"%%% {hit}");
+
     }
 }

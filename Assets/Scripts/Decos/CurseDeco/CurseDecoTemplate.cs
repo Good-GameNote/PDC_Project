@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using static Common;
 
 public abstract class CurseDecoTemplate :  CurseEffect
@@ -11,7 +10,6 @@ public abstract class CurseDecoTemplate :  CurseEffect
     public override void GetHitEffect(Enemy self, Mercenary attacker, int damage, Debuff debuff)
     {
         _curseDecos.Circuit((deco) => {deco.GetHitEffectDetail(ref self, ref attacker, ref damage, ref debuff );});
-
     }
 
     public CurseDecoTemplate(CurseEffect deco)
@@ -30,7 +28,7 @@ public abstract class CurseDecoTemplate :  CurseEffect
     {
         CurseEffect curseEffect = new BaseGetHit();
 
-        foreach (eEffector num in curseNums)
+        foreach (eEffector num in resistedNums)
         {
             switch (num)
             {
