@@ -7,7 +7,9 @@ public class Inception : CurseDecoTemplate
     public Inception(CurseEffect deco) : base(deco)
     {
     }
-
+    public Inception() : base()
+    {
+    }
 
     public override float GetPriority()
     {

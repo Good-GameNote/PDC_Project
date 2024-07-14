@@ -47,9 +47,14 @@ public class TongsFor3D : Singleton<TongsFor3D>
                 isDragging = true;
                 _clicked.OnBeginDrag(hit.point);
             }
-
+ 
         }
-        if (!isDragging) return;
+        if (Input.GetMouseButtonUp(0)&&!isFind)
+        { 
+            UI_MercenaryAction.Instance.gameObject.SetActive(false);
+        }
+
+            if (!isDragging) return;
 
 
         // 마우스 버튼을 누른 상태에서 이동할 때
@@ -94,6 +99,10 @@ public class TongsFor3D : Singleton<TongsFor3D>
                     isDragging = true;
                     _clicked.OnBeginDrag(hit.point);
                 }
+            }
+            if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled && !isFind)
+            {
+                UI_MercenaryAction.Instance.gameObject.SetActive(false);
             }
             if (!isDragging) return;
 

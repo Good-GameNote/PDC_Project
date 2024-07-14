@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using static Common;
-
+﻿
 public abstract class AttackDecoTemplate : AttackEffect
 {
     public PriorityQueue<AttackEffect> _curseDecos = new();
@@ -13,13 +9,14 @@ public abstract class AttackDecoTemplate : AttackEffect
         _curseDecos.Enqueue(this);
     }
 
-
-    public static eEffector[] curseNums = new eEffector[] { eEffector.e갈래화살 };
-
-    public static AttackEffect GiveCurseEffector()
+    public AttackDecoTemplate()
     {
-        return null;
     }
 
+    public override void Choice(Mercenary sellectedMercernary)
+    {
+        sellectedMercernary.UpStarGrade(out AttackEffect origin);
+        origin = new ForkedArrow(origin);
+    }
 
 }

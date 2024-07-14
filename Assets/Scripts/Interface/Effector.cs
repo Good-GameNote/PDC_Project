@@ -32,35 +32,18 @@ public abstract class Effector :  IComparable<Effector>
 
     public eEffector Index { get; protected set; }
 
+    public abstract void Choice(Mercenary sellected);
+
+    public static Effector[] Effectors = new Effector[] {
+        //curse
+        new ReadingGlasses() , new Inception(), new Mite(), 
+        
+        //attack
+        new ForkedArrow(),
 
 
-    public static void Resist(eEffector num , eEffector[] group, List<eEffector> resistedNums)
-    {
-        foreach (eEffector e in group)
-        {
-            if (e == num)
-            {
-                resistedNums.Add(num);
-            }
-        }
-    }
-
-    public static void DeResist(List<eEffector> resistedNums, eEffector index)
-    {
-        resistedNums.Remove(index);
-    }
-
-    //public static void Choice(eEffector num, eEffector[] group,  Effector effect)
-    //{
-    //    //A 데코인지 H데코인지 판단 
-    //    foreach (eEffector e in group)
-    //    {
-    //        if (e == num)
-    //        {
-    //            effect
-    //        }
-    //    }
-    //}
-
+        //Hit
+        new ForkedArrow(),
+    };
 
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Common;
 
@@ -38,24 +39,8 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
         return _relicData.Name;
     }
 
-    public void Resited()
-    {
-        foreach(eEffector num in _relicData.EffectNums)
-        {
-            Effector.Resist(num, CurseDecoTemplate.curseNums, CurseDecoTemplate.resistedNums);
+ 
 
-        }
-    }
-
-
-    public void DeResited()
-    {
-        foreach (eEffector num in _relicData.EffectNums)
-        {
-            Effector.DeResist(CurseDecoTemplate.resistedNums, num);
-
-        }
-    }
     /*
     public string GiveExplan()
     {

@@ -1,12 +1,18 @@
 using System;
 
-public interface IHitDecorator 
+public abstract class HitEffect : Effector
 {
-    void HitEffect();
+    public override void Choice(Mercenary effect)
+    {
+
+    }
 }
 
 public abstract class AttackEffect:Effector
 {
+
+
+
 }
 
 public abstract class CurseEffect:Effector
@@ -14,6 +20,10 @@ public abstract class CurseEffect:Effector
     public abstract void GetHitEffect(Enemy self, Mercenary attacker, int damage, Debuff debuff);
     public abstract void GetHitEffectDetail(ref Enemy self, ref Mercenary attacker, ref int damage, ref Debuff debuff);
 
+    public override void Choice(Mercenary effect)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 
 

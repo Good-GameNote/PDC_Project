@@ -25,4 +25,6 @@ public class BaseGetHit : CurseEffect
             self.GetDebuff(debuff);
         }
     }
+
+
 }

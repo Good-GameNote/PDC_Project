@@ -10,7 +10,7 @@ public class RelicResister : Singleton<RelicResister>,ITownObserver,ISlotMenu
     short _currentCost;
     short _currentCount;
 
-    List<Relic> _resistedRelics = new();
+    public List<Relic> _resistedRelics = new();
 
 
     [SerializeField]
@@ -18,6 +18,8 @@ public class RelicResister : Singleton<RelicResister>,ITownObserver,ISlotMenu
     
     private void Awake()
     {
+
+        DontDestroyOnLoad(this);
         UI_ClickSlotMenu.Instance.Resist(this);
         _button.onClick.AddListener(() => {
             Relic.CurrentRelic.ChangeState( true);
@@ -27,6 +29,7 @@ public class RelicResister : Singleton<RelicResister>,ITownObserver,ISlotMenu
         GameManager.Instance._town.ResistObserver(this);
 
     }
+
     public void Show(ISlotExhibition purchas)
     {
         _button.gameObject.SetActive(purchas.GiveType()==Common.ePage.eInven);
@@ -53,7 +56,6 @@ public class RelicResister : Singleton<RelicResister>,ITownObserver,ISlotMenu
         _currentCost += relic._relicData.Cost;
 
         _resistedRelics.Add(relic);
-        relic.Resited();
         return Common.All_ERROR.eSuccess;
     }
 
@@ -64,9 +66,7 @@ public class RelicResister : Singleton<RelicResister>,ITownObserver,ISlotMenu
 
         _currentCount--;
         _currentCost -= relic._relicData.Cost;
-
         _resistedRelics.Remove(relic);
-        relic.DeResited();
     }
 
 }

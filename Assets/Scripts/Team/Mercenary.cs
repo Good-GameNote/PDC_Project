@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+
 
 public abstract class Mercenary : MonoBehaviour,IClickable
 {
@@ -10,11 +10,15 @@ public abstract class Mercenary : MonoBehaviour,IClickable
 
     sMercenary _sMercenary;
 
-    IAttackDecorator _attackDecorator;
-
     ProjectileBase _projectile;
     protected MercenaryAI _mercenaryAI;
-    
+
+
+    static protected List<Mercenary>[][] _countByStar = new List<Mercenary>[(int)Common.eMercenary.MAX_MERCENARY_SIZE][]
+    {
+        new List<Mercenary>[Common.MAX_STAR] { new (), new (),new (),new() },
+        new List<Mercenary>[Common.MAX_STAR] { new (), new (),new (),new() },
+    };
 
     private void Awake() 
     {
@@ -23,16 +27,16 @@ public abstract class Mercenary : MonoBehaviour,IClickable
         _mercenaryAI.SetRange(_mercenaryData.Range);
     }
 
-    protected short _star;
 
-    static protected List<Mercenary>[][] _countByStar = new List<Mercenary>[(int)Common.eMercenary.MAX_MERCENARY_SIZE][];
+    static protected int[] _magnificationByStar= new int[Common.MAX_STAR];
+
+    protected short _star;
     private void OnEnable() 
     {
         StartCoroutine(SetCooltime());
         _countByStar[_mercenaryData.Index][_star].Add(this);
     }
 
-    static protected int[] _magnificationByStar= new int[4];
 
 
 
@@ -41,6 +45,34 @@ public abstract class Mercenary : MonoBehaviour,IClickable
         _countByStar[_mercenaryData.Index][_star].Remove(this);
 
     }
+
+    AttackEffect _attackEffect = new BaseAttack();
+
+    public void UpStarGrade(out AttackEffect deco)
+    { 
+        deco = _attackEffect;
+        _countByStar[_mercenaryData.Index][_star].Remove(this);
+        for(int i =0; i<2; i++)
+        {
+            Mercenary offering = _countByStar[_mercenaryData.Index][_star][0];
+            _countByStar[_mercenaryData.Index][_star].Remove(offering);
+
+            MercenaryPool.Instance.Release(offering, _mercenaryData.Index);
+
+        }
+
+
+        _star++;
+        _countByStar[_mercenaryData.Index][_star].Add(this);
+    }
+    public void Sell()
+    {
+
+        _countByStar[_mercenaryData.Index][_star].Remove(this);
+        MercenaryPool.Instance.Release(this, _mercenaryData.Index);
+    }
+
+    public abstract Common.eEffector[] CanStarUp();
     public void SetsMercenary(sMercenary sMercenary)
     {
         _sMercenary = sMercenary;

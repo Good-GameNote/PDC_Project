@@ -7,6 +7,9 @@ public class ReadingGlasses : CurseDecoTemplate
     public ReadingGlasses(CurseEffect deco) : base(deco)
     {
     }
+    public ReadingGlasses() : base()
+    {
+    }
 
     public int Amplification(int damage)
     {

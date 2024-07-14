@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Tongs : MonoBehaviour, IPointerDownHandler,  IDragHandler, IPointerUpHandler
+public class Tongs : Singleton<Tongs>, IPointerDownHandler,  IDragHandler, IPointerUpHandler
 {
     [SerializeField]
     UnityEngine.UI.Image _dummy;
@@ -18,17 +18,33 @@ public class Tongs : MonoBehaviour, IPointerDownHandler,  IDragHandler, IPointer
     void Start()
     {
     }
+    bool _isMove;
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("돈잇는지 검사");
+        if(!_isMove)
+        {
+            Debug.Log("돈잇는지 검사");
 
-        _employee = MercenaryPool.Instance.Get(ref _initPoint);
+            _employee = MercenaryPool.Instance.Get(ref _initPoint);
+
+        }
+        else
+        {
+
+            transform.position = eventData.position;
+        }
+
         _dummy.sprite = _employee._mercenaryData.Sprite;
         _range.transform.localScale = Vector3.one * _employee._mercenaryData.Range;
 
         SetState(false);
     }
+    public void OnEmployeeSet(Mercenary emplyeee)
+    {
 
+        _employee = emplyeee;
+        _isMove = true;
+    }
 
     LayerMask _ground=1<<(int)Common.eLayer.Ground;
 
@@ -108,6 +124,7 @@ public class Tongs : MonoBehaviour, IPointerDownHandler,  IDragHandler, IPointer
         transform.localPosition = Vector3.zero;
         _range.transform.localScale = Vector3.zero;
         _dummy.color = new Color(1, 1, 1, 0);
+        _isMove = false;
     }
 
 

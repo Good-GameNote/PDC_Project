@@ -17,24 +17,29 @@ public abstract class CurseDecoTemplate :  CurseEffect
         _curseDecos.Enqueue(deco);
         _curseDecos.Enqueue(this);
     }
-
-
-    public static eEffector[] curseNums = new eEffector[] {eEffector.e돋보기 };
-
-    public static List<eEffector> resistedNums = new ();
-
+    public CurseDecoTemplate()
+    {
+    }
 
     public static CurseEffect GiveCurseEffector()
     {
         CurseEffect curseEffect = new BaseGetHit();
 
-        foreach (eEffector num in resistedNums)
+        foreach (Relic r in RelicResister.Instance._resistedRelics)
         {
+            eEffector num = r._relicData.EffectNum;
+
             switch (num)
             {
-                case eEffector.e돋보기: curseEffect = new ReadingGlasses( curseEffect);
+                case eEffector.e돋보기: 
+                    curseEffect = new ReadingGlasses( curseEffect);
                     break;
-
+                case eEffector.e인셉션:
+                    curseEffect = new Inception(curseEffect);
+                    break;
+                case eEffector.e10퍼추댐:
+                    curseEffect = new Mite(curseEffect);
+                    break;
 
             }
         }

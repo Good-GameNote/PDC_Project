@@ -18,5 +18,4 @@ public class MercenaryData : ScriptableObject
     [field: SerializeField] public Common.eEnemyState[] ThingCanSee { get; private set; }
 
 
-
 }

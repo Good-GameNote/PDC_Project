@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class DefenceDecoTemplate : IHitDecorator
+abstract class DefenceDecoTemplate 
 {
-    IHitDecorator deco;
 
 
     public abstract string GiveExplan(int level);

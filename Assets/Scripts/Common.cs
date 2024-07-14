@@ -16,6 +16,7 @@ public class Common
 
     public const float MERCENARY_SIZE = 0.35f;
 
+    public const int MAX_STAR = 4;
 
     #region enum
 
@@ -146,9 +147,8 @@ public class Common
     public enum eEffector
     {
         e돋보기, // 3->6->9미만대미지 증폭
-        eB,
-        eC,
-        eD,
+        e인셉션,
+        e10퍼추댐,
         e갈래화살,
         MAX_EFFECTOR_SIZE
     }

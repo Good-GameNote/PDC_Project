@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class HitDecoTemplate : IHitDecorator
+abstract class HitDecoTemplate : HitEffect
 {
-    IHitDecorator deco;
 
 
     public abstract string GiveExplan(int level);
@@ -12,8 +11,6 @@ abstract class HitDecoTemplate : IHitDecorator
     public abstract void HitEffect();
 
     public abstract void Operate(int level);
-
-    public abstract float GetPriority();
 
 
 
