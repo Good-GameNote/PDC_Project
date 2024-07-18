@@ -21,6 +21,7 @@ public class GPGSHelper : MonoBehaviour
     }
     internal void ProcessAuthentication(SignInStatus status)
     {
+        Debug.Log("@@@@@@@@@@@@@@@@@@@@");
         if(status == SignInStatus.Success)
         {
             string name = PlayGamesPlatform.Instance.GetUserDisplayName();
@@ -34,8 +35,13 @@ public class GPGSHelper : MonoBehaviour
                     // 이곳에서 authCode를 서버로 전송하여 토큰 교환 및 사용자 인증을 처리
                     CP_Enter cp = new CP_Enter(0);
                     Buffer.BlockCopy(Encoding.UTF8.GetBytes(authCode), 0, cp._token, 0, authCode.Length);
-                    Crypto.Testing(cp._token);
+
+                    Crypto.Testing(Encoding.UTF8.GetBytes("qwerasdfzxcv"));
+                    byte[] plainText = Encoding.UTF8.GetBytes(authCode);
+                    cp._test = Crypto.Encrypt(plainText);
+
                     GameManager.Instance._packetManager.Send(cp, cp._size);
+                    Crypto.Testing(cp._token);
                 }
                 else
                 {
@@ -48,8 +54,12 @@ public class GPGSHelper : MonoBehaviour
             Debug.Log("Running in the Unity Editor");
             CP_Enter packet = new CP_Enter(0);
             Buffer.BlockCopy(Encoding.UTF8.GetBytes(_tempToken), 0, packet._token, 0, _tempToken.Length);
-            Crypto.Testing(packet._token);
+            Crypto.Testing(Encoding.UTF8.GetBytes("qwerasdfzxcv"));
+            byte[] plainText = Encoding.UTF8.GetBytes(_tempToken);
+            packet._test = Crypto.Encrypt(plainText);
             GameManager.Instance._packetManager.Send(packet, packet._size);
+
+            Crypto.Testing(packet._token);
         }
         
     }

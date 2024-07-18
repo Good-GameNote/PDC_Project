@@ -67,7 +67,7 @@ public class Inventory : MonoBehaviour, IIndexableSubject<sRelic[]>
 
     public void ChangeDeck(short deckNum)
     {
-        CP_ChangeDeck cp = new CP_ChangeDeck(0);
+        CP_ChangeOption cp = new CP_ChangeOption(0);
         cp._type = (short)eOption.eUsingDeck;
         cp._deckNum = deckNum;
         GameManager.Instance._packetManager.Send(cp, cp._size);

@@ -22,30 +22,7 @@ public class AddressableLoader : MonoBehaviour
 
     private Dictionary<string, object> _loadedResources = new ();
 
-    [SerializeField]
-    TMP_FontAsset tmpFont;
-    void OnTMPFontLoaded(AsyncOperationHandle<TMP_FontAsset> obj)
-    {
-        if (obj.Status == AsyncOperationStatus.Succeeded)
-        {
-            TMP_FontAsset fontAsset = obj.Result;
-            TextMeshProUGUI[] textComponents = FindObjectsOfType<TextMeshProUGUI>();
-            foreach (TextMeshProUGUI textComponent in textComponents)
-            {
-                textComponent.font = fontAsset;
-            }
-        }
-        else
-        {
-            //Debug.LogError($"Failed to load TMP font asset. Status: {obj.Status}, Address: {obj}");
 
-            TextMeshProUGUI[] textComponents = FindObjectsOfType<TextMeshProUGUI>();
-            foreach (TextMeshProUGUI textComponent in textComponents)
-            {
-                textComponent.font = tmpFont;
-            }
-        }
-    }
 
     void Awake()
     {

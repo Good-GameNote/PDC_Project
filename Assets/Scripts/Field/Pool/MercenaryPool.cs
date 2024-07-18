@@ -5,8 +5,5 @@ using UnityEngine;
 public class MercenaryPool : ObjectPool<Mercenary>
 {
 
-    private void Awake()
-    {
-        Init(_prefabs);
-    }
+
 }

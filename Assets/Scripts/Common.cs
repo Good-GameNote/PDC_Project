@@ -86,6 +86,7 @@ public class Common
         MAX_MONEY_SIZE
     };
 
+
     public enum eCash
     {
         eAds,

@@ -2,25 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_CardSellecter : MonoBehaviour
+public abstract class UI_CardSellecter : MonoBehaviour
 {
     [SerializeField]
-    UI_Card[] _cards;
+    protected UI_Card[] _cards;
 
-    Common.eEffector[] _list;
-    public void SetCard( Common.eEffector[] list)
+    protected ICardExhibition[] _list;//섞어야할때쓸것
+
+    public void SetCard(ICardExhibition[] list = null)
     {
-
+        if(list == null) { gameObject.SetActive(false); return; }
         gameObject.SetActive(true);
         _list = list;
         for(int i =0;i <_cards.Length; i++)
         {
             _cards[i].gameObject.SetActive(false);
             if (i >= list.Length) break;
-            _cards[i].SetNum(list[i]);
+            _cards[i].SetICardExhibition( list[i]);
+            _cards[i].SetNotify(Action);
         }
-
     }
+    //  UI_MercenaryAction.Instance.Choice(Effector.Effectors[idx]);
+    
+    public abstract void Action(short idx);
 
     private void OnEnable()
     {
@@ -30,5 +34,5 @@ public class UI_CardSellecter : MonoBehaviour
     {
         Time.timeScale = 1;
     }
-
 }
+

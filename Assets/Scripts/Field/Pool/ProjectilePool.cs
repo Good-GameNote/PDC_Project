@@ -5,10 +5,6 @@ using UnityEngine;
 public class ProjectilePool : ObjectPool<ProjectileBase>
 {
 
-    private void Awake()
-    {
-        Init( _prefabs);
 
-    }
 }
 

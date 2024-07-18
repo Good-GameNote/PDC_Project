@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class EnemyPool : ObjectPool<Enemy>
 {
-    [SerializeField]
-    Enemy[] Enemys;
 
-    private void Awake()
+    protected override void Awake()
     {
-        EnemyData[] datas = GameManager.Instance._battle.sellectStage.Enemys;
-        Enemy[] curStageEnemys = new Enemy[datas.Length];
+        base.Awake();
+        EnemyData[] datas = GameManager.Instance._battle.sellectStage.Enemys;//스테이지에 나올애들 추림
+        short[] usingIdx = new short[datas.Length];
         for (int i =0; i< datas.Length; i++)
         {
-            curStageEnemys[i] = Enemys[datas[i].Index];
+            usingIdx[i] =(short) datas[i].Index;
         }
-        Init(curStageEnemys );
+
+        LimitPool(usingIdx);
+
+
 
     }
 }

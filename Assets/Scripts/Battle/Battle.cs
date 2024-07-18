@@ -29,17 +29,21 @@ public struct CP_StageProcess
 {
     public CP_StageProcess(int i)
     {
-        _size = (short)System.Runtime.InteropServices.Marshal.SizeOf(typeof(CP_StageProcess));
+        _size = (short)Marshal.SizeOf(typeof(CP_StageProcess));
         _index = (short)Common.eCPacket.eCP_StageProcess;
         _encrypted = new byte[ENCRYPTED_SIZE];
         _stage = 0;
         _achieve = 0;
+        _type = 0;
+        _value = 0;
     }
     public short _size;
     public short _index;
 
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = Common.ENCRYPTED_SIZE)]
     public byte[] _encrypted;
+    public int _value;
+    public short _type;
     public short _stage;
     public short _achieve;
 };
@@ -51,14 +55,55 @@ public class Battle : MonoBehaviour, ISubject<Stage>
     Stage[] stages;
 
     public Stage sellectStage { get; private set; }
-    short highestStage;
-    public void NotifyObservers()
+
+    public void ChangeStage(short stageNum)
     {
-        foreach(var observer in observers)
+        if(stageNum>HighestStage)
         {
-            observer?.Set(sellectStage);
+            Debug.Log("최고스테이지보다 높을수 없습니다.");
+            return;
         }
+
+        CP_ChangeOption cp = new CP_ChangeOption(0);
+        cp._type = (short)eOption.eSellectStage;
+        cp._deckNum = stageNum;
+        GameManager.Instance._packetManager.Send(cp, cp._size);
+
+        sellectStage = stages[stageNum];
+        NotifyObservers();
     }
+
+    public void ChangeStage(bool isNext)
+    {
+        short nextStage = sellectStage.stage.index;
+        if (isNext)
+        {
+            nextStage++;
+        } else
+        {
+            nextStage--;
+        }
+        if (nextStage > HighestStage)
+        {
+            Debug.Log("최고스테이지보다 높을수 없습니다.");
+            return;
+        }else if(nextStage<0)
+        {
+            Debug.Log("최저스테이지보다 낮을수 없습니다.");
+            return;
+        }
+
+        sellectStage = stages[nextStage];
+
+        CP_ChangeOption cp = new CP_ChangeOption(0);
+        cp._type = (short)eOption.eSellectStage;
+        cp._deckNum = nextStage;
+        GameManager.Instance._packetManager.Send(cp, cp._size);
+        NotifyObservers();
+    }
+
+    public short HighestStage { get; private set; }
+
     List<IObserver<Stage>> observers = new ();
     public void ResistObserver(IObserver<Stage> observer)
     {
@@ -69,9 +114,29 @@ public class Battle : MonoBehaviour, ISubject<Stage>
         }
     }
 
+    List<IObserver<short>> HighStageObservers = new();
+    public void ResistObserver(IObserver<short> observer)
+    {
+        HighStageObservers.Add(observer);
+        if (observers.Count >= 1)
+        {
+            NotifyObservers();
+        }
+    }
+    public void NotifyObservers()
+    {
+        foreach (var observer in observers)
+        {
+            observer?.Set(sellectStage);
+        }
+        foreach (var observer in HighStageObservers)
+        {
+            observer?.Set(HighestStage);
+        }
+
+    }
     private void Awake()
     {
-        //stages = new Stage[Common.MAX_STAGE_SIZE];
         GameManager.Instance._packetManager.Recieve<SP_LoadStages>((int)eSPacket.eSP_LoadStages, (p) =>
         {
             for(int i = 0; i < MAX_STAGE_SIZE; i++) 
@@ -79,7 +144,7 @@ public class Battle : MonoBehaviour, ISubject<Stage>
                 stages[i].stage = p.stages[i];
             }
             sellectStage = stages[p.curStage];
-            highestStage = p.highestStage;
+            HighestStage = p.highestStage;
             Debug.Log(p.stages);
         });
     }
@@ -87,24 +152,26 @@ public class Battle : MonoBehaviour, ISubject<Stage>
     void Start()
     {
     }
-    
-    public void Clear(short achivement)
+
+    public void Clear( short achivement, Reward reward)
     {
-     
-            CP_StageProcess cp = new CP_StageProcess(0);
 
-            byte[] plainText = Encoding.UTF8.GetBytes(GameManager.Instance._player.NickName);
-            cp._encrypted = Crypto.Encrypt(plainText);
+        CP_StageProcess cp = new CP_StageProcess(0);
 
+        byte[] plainText = Encoding.UTF8.GetBytes(GameManager.Instance._player.NickName);
+        cp._encrypted = Crypto.Encrypt(plainText);
+        sellectStage.stage.Achievement = achivement;
 
-            //byte[] decrypted = Crypto.Decrypt(cp._encrypted);
-            //string result = Encoding.UTF8.GetString(decrypted);
+        cp._stage = sellectStage.stage.index;
+        cp._achieve = achivement;
+        cp._type = (short)reward.Type;
+        cp._value = reward.Value;
+        if(HighestStage == sellectStage.stage.index)
+        {
+            HighestStage++;
+        }
 
-            cp._stage = highestStage;
-            cp._achieve = achivement;
-            highestStage++;
-
-            GameManager.Instance._packetManager.Send(cp, cp._size);
+        GameManager.Instance._packetManager.Send(cp, cp._size);
 
     }
 }

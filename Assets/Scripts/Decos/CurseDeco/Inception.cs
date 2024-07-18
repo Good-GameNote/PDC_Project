@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class Inception : CurseDecoTemplate
@@ -16,10 +15,6 @@ public class Inception : CurseDecoTemplate
         return 25;
     }
 
-    public override string GiveExplan()
-    {
-        return $"적을 기절시킬때 5%확률로 처음 위치로 돌려보냅니다.";
-    }
 
 
     public override void GetHitEffectDetail(ref Enemy self,ref Mercenary attacker,ref int damage,ref Debuff debuff)
@@ -38,5 +33,19 @@ public class Inception : CurseDecoTemplate
         }
     }
 
+    public override short GiveIndex()
+    {
+        return (short)Common.eEffector.e인셉션;
+    }
 
+    public override string GiveExplan(int level)
+    {
+        return $"적을 기절시킬때 5%확률로 처음 위치로 돌려보냅니다.";
+    }
+
+
+    public override string GiveName()
+    {
+        return "인셉션";
+    }
 }

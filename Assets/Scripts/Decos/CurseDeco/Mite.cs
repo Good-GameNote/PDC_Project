@@ -19,9 +19,19 @@ public class Mite : CurseDecoTemplate
         return 25;
     }
 
-    public override string GiveExplan()
+
+    public override short GiveIndex()
+    {
+        return (short)Common.eEffector.e10퍼추댐;
+    }
+
+    public override string GiveExplan(int level)
     {
         return $"체력이 가득찬 적이 10% 강한 피해를 입습니다.";
     }
 
+    public override string GiveName()
+    {
+        return "진드기";
+    }
 }

@@ -2,12 +2,11 @@
 using System;
 using static Common;
 using System.Collections.Generic;
-public abstract class Effector :  IComparable<Effector>
+using UnityEngine;
+public abstract class Effector :  IComparable<Effector>,ICardExhibition
 {
 
     protected short _level;
-
-    public abstract string GiveExplan();
 
     public abstract float GetPriority();
 
@@ -30,9 +29,18 @@ public abstract class Effector :  IComparable<Effector>
 
 
 
-    public eEffector Index { get; protected set; }
-
     public abstract void Choice(Mercenary sellected);
+
+    public abstract string GiveExplan(int level);
+
+    public Sprite GiveSprite()
+    {
+        return GameManager.Instance._addressableLoader.GetLoadedResource<Sprite>(GiveName());
+    }
+
+    public abstract string GiveName();
+
+    public abstract short GiveIndex();
 
     public static Effector[] Effectors = new Effector[] {
         //curse

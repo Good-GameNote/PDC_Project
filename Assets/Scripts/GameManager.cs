@@ -93,6 +93,7 @@ public class GameManager : Singleton<GameManager>
 
 }
 
+
 public struct CP_Enter
 {
     public CP_Enter(byte i)
@@ -100,15 +101,14 @@ public struct CP_Enter
         _size = (short)Marshal.SizeOf(typeof(CP_Enter));
         _index = (short)eCPacket.eCP_Enter;
         _token = new byte[TOKEN_SIZE];
-        _test = new byte[TOKEN_SIZE];
+        _test = new byte[ENCRYPTED_SIZE];
 
-        Buffer.BlockCopy(Encoding.UTF8.GetBytes("asdfqwerzxcv"), 0, _test, 0, 12);
     }
     public short _size;
     public short _index;
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = TOKEN_SIZE)]
     public byte[] _token;
-    [MarshalAs(UnmanagedType.ByValArray, SizeConst = TOKEN_SIZE)]
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = ENCRYPTED_SIZE)]
     public byte[] _test;
 };
 
@@ -162,11 +162,11 @@ public struct SP_Upgrade
     public short _type;
     public short _puchasIndex;
 };
-public struct CP_ChangeDeck//가벼운거 통보용
+public struct CP_ChangeOption//가벼운거 통보용
 {
-    public CP_ChangeDeck(int i)
+    public CP_ChangeOption(int i)
     {
-        _size = (short)System.Runtime.InteropServices.Marshal.SizeOf(typeof(CP_ChangeDeck));
+        _size = (short)System.Runtime.InteropServices.Marshal.SizeOf(typeof(CP_ChangeOption));
         _index = (short)Common.eCPacket.eCP_ChangeDeck;
         _type = 0;
         _deckNum = 1;
@@ -199,3 +199,4 @@ public struct SP_CanI
     public short _type;
     public short _result;
 };
+

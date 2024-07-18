@@ -21,16 +21,16 @@ public class StageLoader : Singleton<StageLoader>
     {
         new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
         new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
+     new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
+        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
+     new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
+        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
+     new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
+        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
+     new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
+        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
+     new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
+        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
        new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
         new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
@@ -136,12 +136,14 @@ public class StageLoader : Singleton<StageLoader>
 
     [SerializeField]
     NavMeshSurface _path;
-
+    [SerializeField]
+    TMPro.TextMeshProUGUI _tStage;
     public mapInfo CurrentMapInfo { get; private  set; }
 
     private void Awake()
     {
         short index = GameManager.Instance._battle.sellectStage.stage.index;
+        _tStage.text =$"Stage {index + 1}" ;
         //short index = 1;
         CurrentMapInfo = _mapInfos[index];
         twc.SetCustomRandomSeed(_mapInfos[index]._seed);

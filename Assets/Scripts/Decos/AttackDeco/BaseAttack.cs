@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine;
+
 public class BaseAttack : AttackEffect
 {
     public override void Choice(Mercenary sellected)
@@ -11,9 +13,19 @@ public class BaseAttack : AttackEffect
         return 25;
     }
 
-    public override string GiveExplan()
+    public override string GiveExplan(int level)
     {
-        return "";
+        throw new System.NotImplementedException();
     }
- 
+
+    public override short GiveIndex()
+    {
+        return (short)Common.eEffector.MAX_EFFECTOR_SIZE;
+    }
+
+    public override string GiveName()
+    {
+        throw new System.NotImplementedException();
+    }
+
 }

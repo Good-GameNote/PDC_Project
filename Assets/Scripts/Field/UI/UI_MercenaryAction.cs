@@ -56,7 +56,8 @@ public class UI_MercenaryAction : Singleton<UI_MercenaryAction>
     }
     [SerializeField]
     UI_CardSellecter _cardSellector;
-    Common.eEffector[] list;
+
+    ICardExhibition[] _list;
     Mercenary _sellected;
     public void TakeInfo(Mercenary sellected, Vector3 position)
     {        
@@ -64,22 +65,22 @@ public class UI_MercenaryAction : Singleton<UI_MercenaryAction>
         rect.position = position;
         _sellected = sellected;
 
-        list= _sellected.CanStarUp();
-        
-        
-        _upgradeButton.gameObject.SetActive (list != null);
+        _list = _sellected.CanStarUp();
+
+        _upgradeButton.gameObject.SetActive (_list != null);
 
     }
 
     public void ViewMenu()
     {
         _cardSellector.gameObject.SetActive (true);
-        _cardSellector.SetCard(list);
+        _cardSellector.SetCard(_list);
     }
 
     public void Choice(Effector effect)
     {
         effect.Choice(_sellected);
+
         _cardSellector.gameObject.SetActive(false);
         
     }

@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
+
+
 
 public class Field :  Singleton<Field>
 {
@@ -33,6 +36,8 @@ public class Field :  Singleton<Field>
         StartCoroutine(RoundUpper());
     }
 
+    [SerializeField]
+    TMPro.TextMeshProUGUI _tRound;
     IEnumerator RoundUpper()
     {
 
@@ -41,12 +46,15 @@ public class Field :  Singleton<Field>
         while (_curRound<21)
         {
             _curRound++;
+            
+            _tRound.text =$"Wave {_curRound} / 20" ;
             _curRemainEnemyCount = _enemyCountByRound;
             StartCoroutine(ExcutePool());
 
             yield return new WaitForSeconds(_roundEleapse);            
             
         }
+        Clear();
     }
     [SerializeField]
     EnemyPool pool;
@@ -59,6 +67,39 @@ public class Field :  Singleton<Field>
             yield return new WaitForSeconds(_enemySponEleapse);
         }
 
+    }
+
+    
+
+    [SerializeField]
+    Reward[] _rewards;
+
+    [SerializeField]
+    UI_End _ender;
+
+    ICardExhibition[] _posts = new Reward[3];
+    void Clear()
+    {
+        Stage info = GameManager.Instance._battle.sellectStage;
+
+        float stage = (info.stage.index+1) *0.2f; //현 스테이지 *0.2
+        short achivement = Catsle.Instance.GiveAchivement(); //달성도
+        
+
+        for (int i =0; i<3; i++)
+        {
+            int rewardIdx = Random.Range(0, info.Rewards.Length);
+
+            Reward post = _rewards [(int)info.Rewards[rewardIdx]];
+            post.SetValue(stage * achivement/3);
+            if(i==0)
+            {
+                GameManager.Instance._battle.Clear(achivement, post);
+            }
+            _posts[i] = post;
+
+        }
+        _ender.IsClear(_posts, achivement);
     }
 
 }

@@ -123,6 +123,9 @@ public class PacketManager : MonoBehaviour
         catch (SocketException e)
         {
             Debug.Log("SocketException: " + e.ToString());
+        }catch(Exception e)
+        {
+            Debug.Log("Exception: " + e.ToString());
         }
     }
 

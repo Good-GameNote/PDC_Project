@@ -6,7 +6,7 @@ abstract class HitDecoTemplate : HitEffect
 {
 
 
-    public abstract string GiveExplan(int level);
+    //public abstract string GiveExplan(int level);
 
     public abstract void HitEffect();
 

@@ -17,17 +17,23 @@ public abstract class ObjectPool<T> : Singleton<ObjectPool<T>>, IPool<T> where T
 
     [SerializeField]
     protected T[] _prefabs;
-
-    protected void Init(T[] prefabs)
+    short[] _usingIdx;
+    protected virtual void Awake()
     {
-        _prefabs = prefabs;
 
         poolQueue = new Queue<T>[_prefabs.Length];
+        _usingIdx = new short[_prefabs.Length];
         for (int i = 0; i < _prefabs.Length; i++)
         {
-            poolQueue[i]= new Queue<T>();
-     
-        } 
+            poolQueue[i] = new Queue<T>();
+            _usingIdx[i] =(short) i;
+        }
+
+    }
+   
+    protected void LimitPool(short[] usingIdx)
+    {
+        _usingIdx = usingIdx;
     }
 
 
@@ -65,7 +71,9 @@ public abstract class ObjectPool<T> : Singleton<ObjectPool<T>>, IPool<T> where T
     }
     public T Get(ref Vector3 position)
     {
-        int type = Random.Range(0, _prefabs.Length);
+        int arrIdx = Random.Range(0, _usingIdx.Length);
+
+        int type = _usingIdx[arrIdx];
 
         if (poolQueue[type].Count == 0)
         {
@@ -86,4 +94,6 @@ public abstract class ObjectPool<T> : Singleton<ObjectPool<T>>, IPool<T> where T
         obj.gameObject.SetActive(false);
         poolQueue[type].Enqueue(obj);
     }
+
+
 }

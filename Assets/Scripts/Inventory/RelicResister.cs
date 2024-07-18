@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class RelicResister : Singleton<RelicResister>,ITownObserver,ISlotMenu
+public class RelicResister : Singleton<RelicResister>,IObserver<short>,ISlotMenu
 {
     short _maxCost;
     short _maxCount;
@@ -18,15 +19,24 @@ public class RelicResister : Singleton<RelicResister>,ITownObserver,ISlotMenu
     
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
 
-        DontDestroyOnLoad(this);
+            DontDestroyOnLoad(this);
+        }
+
         UI_ClickSlotMenu.Instance.Resist(this);
         _button.onClick.AddListener(() => {
             Relic.CurrentRelic.ChangeState( true);
 
         });
 
-        GameManager.Instance._town.ResistObserver(this);
+        GameManager.Instance._battle.ResistObserver(this);
 
     }
 
@@ -36,11 +46,7 @@ public class RelicResister : Singleton<RelicResister>,ITownObserver,ISlotMenu
     }
 
 
-    public void Set(short count, short totalLevel)//ITownObserver
-    {
-        _maxCount =(short) (count / 2);
-        _maxCost =(short)( totalLevel / 3);
-    }
+
 
     public Common.All_ERROR ResistRelic(Relic relic, bool sendPacket)
     {
@@ -69,4 +75,11 @@ public class RelicResister : Singleton<RelicResister>,ITownObserver,ISlotMenu
         _resistedRelics.Remove(relic);
     }
 
+    public void Set(short data)
+    {
+        int mc = (data / 2) +10;
+         _maxCost =  (short)mc;
+        int mc2 = (data / 20) + 1;
+        _maxCount = (short)mc2;
+    }
 }

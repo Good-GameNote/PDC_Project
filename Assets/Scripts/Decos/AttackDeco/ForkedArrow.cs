@@ -16,11 +16,20 @@ public class ForkedArrow : AttackDecoTemplate
         return 25;
     }
 
-    public override string GiveExplan()
+
+    public override short GiveIndex()
     {
-        return $"적을 .";
+        return (short)Common.eEffector.e갈래화살;
+    }
+
+    public override string GiveExplan(int level)
+    {
+        throw new System.NotImplementedException();
     }
 
 
-
+    public override string GiveName()
+    {
+        return "갈래화살";
+    }
 }

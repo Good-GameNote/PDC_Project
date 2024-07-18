@@ -72,7 +72,7 @@ public abstract class Mercenary : MonoBehaviour,IClickable
         MercenaryPool.Instance.Release(this, _mercenaryData.Index);
     }
 
-    public abstract Common.eEffector[] CanStarUp();
+    public abstract ICardExhibition[] CanStarUp();
     public void SetsMercenary(sMercenary sMercenary)
     {
         _sMercenary = sMercenary;
@@ -89,9 +89,10 @@ public abstract class Mercenary : MonoBehaviour,IClickable
          Attack();
         while(true)
         {
-            if(_mercenaryAI._enemiesList.Count <= 0) yield return null;
 
             _remainTime -= Time.deltaTime;
+            if (_mercenaryAI._enemiesList.Count <= 0) yield return null;
+
             if(_remainTime <= 0)
             {
                 Attack();

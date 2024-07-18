@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine;
+
 public class BaseGetHit : CurseEffect
 {
 
@@ -7,10 +9,7 @@ public class BaseGetHit : CurseEffect
         return 25;
     }
 
-    public override string GiveExplan()
-    {
-        return "";
-    }
+
 
     public override void GetHitEffect(Enemy self, Mercenary attacker, int damage, Debuff debuff)
     {
@@ -26,5 +25,19 @@ public class BaseGetHit : CurseEffect
         }
     }
 
+    public override short GiveIndex()
+    {
+        return (short)Common.eEffector.MAX_EFFECTOR_SIZE;
+    }
 
+    public override string GiveExplan(int level)
+    {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override string GiveName()
+    {
+        throw new System.NotImplementedException();
+    }
 }

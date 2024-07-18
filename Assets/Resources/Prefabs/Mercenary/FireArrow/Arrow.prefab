@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5268158474098713099}
   - component: {fileID: 8348491599981107365}
-  - component: {fileID: 1438021425999382393}
+  - component: {fileID: 3932190429289198782}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -131,8 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 0
---- !u!136 &1438021425999382393
-CapsuleCollider:
+--- !u!135 &3932190429289198782
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -149,8 +149,6 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Radius: 0.2
-  m_Height: 2
-  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

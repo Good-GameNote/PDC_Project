@@ -24,12 +24,12 @@ public abstract class ProjectileBase : MonoBehaviour
     protected IMission _mission;
     protected Mercenary _mercenary;
     protected Transform _targetTransform;
-    
+
+    Mercenary orner;
     public abstract void Move();
 
-    public void Initialize(int damage, Transform targetTransform)
+    public void Initialize( Transform targetTransform, Mercenary orner)
     {
-        _damage = damage;
         _targetTransform = targetTransform;
     }
 

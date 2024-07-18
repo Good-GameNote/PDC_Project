@@ -5,11 +5,11 @@ using static Common;
 
 public class FireArrowMercenary : Mercenary
 {
-    static eEffector[][] _characteristic= new eEffector[][]
+    static ICardExhibition[][] _characteristic= new ICardExhibition[][]
     {
-    new eEffector[] { eEffector.e갈래화살,eEffector.e갈래화살},
-    new eEffector[] { eEffector.e갈래화살 },
-    new eEffector[] { eEffector.e갈래화살 }
+        new ICardExhibition[] { Effector.Effectors[(int)eEffector.e갈래화살] ,Effector.Effectors[(int)eEffector.e갈래화살]},
+        new ICardExhibition[] { Effector.Effectors[(int)eEffector.e갈래화살] },
+        new ICardExhibition[] { Effector.Effectors[(int)eEffector.e갈래화살] }
     };
 
     [SerializeField]
@@ -17,7 +17,7 @@ public class FireArrowMercenary : Mercenary
 
 
 
-    public override eEffector[] CanStarUp()
+    public override ICardExhibition[] CanStarUp()
     {
         if (_countByStar[_mercenaryData.Index][_star].Count<3|| _star>=3)
         {
@@ -38,7 +38,7 @@ public class FireArrowMercenary : Mercenary
         // _mercenaryAI._enemiesList[0] == null
 //Instantiate(_fireArrowPrefab, transform);
         ProjectileBase arrowGO = ProjectilePool.Instance.Get( _mercenaryData.Index ,  transform.position);
-        arrowGO.Initialize(_mercenaryData.Damage, _mercenaryAI._enemiesList[0]);
+        arrowGO.Initialize(_mercenaryAI._enemiesList[0], this);
     }
 
 }

@@ -12,7 +12,7 @@ public class Crypto
     public static void Testing(byte[] pkey)
     {
         Test = new byte[32];
-        Buffer.BlockCopy(pkey, 0, Test, 0,  Common.TOKEN_SIZE);
+        Buffer.BlockCopy(pkey, 0, Test, 0,  pkey.Length);
     }
 
     public static byte[] Encrypt(byte[] data)

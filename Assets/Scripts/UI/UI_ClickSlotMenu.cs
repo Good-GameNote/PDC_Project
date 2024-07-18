@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class UI_ClickSlotMenu : Singleton<UI_ClickSlotMenu>
 {
+
     public ISlotExhibition _purchas { get; private set; }
     Transform _parentTrf;
 
 
     List< ISlotMenu> _slotMenus = new List< ISlotMenu >();
 
+    RectTransform _rectTransform;
+    private void Awake()
+    {
+        _rectTransform = GetComponent<RectTransform>();
+
+    }
     public void Resist(ISlotMenu menu)
     {
         _slotMenus.Add( menu );
@@ -17,6 +24,7 @@ public class UI_ClickSlotMenu : Singleton<UI_ClickSlotMenu>
 
     public void ClickThis(Transform obj , ISlotExhibition purchas)
     {
+        _rectTransform.anchoredPosition = Vector3.zero;
         if (obj != _parentTrf)
         {
             gameObject.SetActive(true);

@@ -11,7 +11,7 @@ public class Stage : ScriptableObject
     public EnemyData[] Enemys { get; private set; }
 
     [field: SerializeField]
-    public Reward[] Rewards { get; private set; }
+    public Common.eMoney[] Rewards { get; private set; }
 
     public sStage stage;
     
