@@ -5,7 +5,7 @@ public class Common
 
     public const int MAX_PACKET_SIZE = 1024;
     public const int MAX_NICKNAME_SIZE = 10;//닉네임 최대 글자수
-    public const int TOKEN_SIZE = 20;
+    public const int TEST_SIZE = 48;
 
     public const int MAX_STAGE_SIZE = 100;
 

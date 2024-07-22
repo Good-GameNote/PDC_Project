@@ -18,15 +18,10 @@ public class UI_MercenaryAction : Singleton<UI_MercenaryAction>
     UnityEngine.UI.Button _sellButton;
     private void Awake()
     {
-        _upgradeButton.onClick.AddListener(()=> { ViewMenu();  });
+        _upgradeButton.onClick.AddListener(()=> { ViewMenu(); gameObject.SetActive(false); });
 
         EventTrigger trigger = _moveButton.gameObject.AddComponent<EventTrigger>();
 
-        AddEventTrigger(trigger,EventTriggerType.PointerDown, (data) =>
-        {
-            Tongs.Instance.OnEmployeeSet(_sellected);
-            Tongs.Instance.OnPointerDown((PointerEventData)data);
-        });
         AddEventTrigger(trigger, EventTriggerType.PointerDown, (data) =>
         {
             Tongs.Instance.OnEmployeeSet(_sellected);
@@ -39,9 +34,13 @@ public class UI_MercenaryAction : Singleton<UI_MercenaryAction>
         AddEventTrigger(trigger, EventTriggerType.PointerUp, (data) =>
         {
             Tongs.Instance.OnPointerUp((PointerEventData)data);
+            gameObject.SetActive(false);
         });
 
-        _sellButton.onClick.AddListener(() => { _sellected.Sell(); });
+
+
+        _sellButton.onClick.AddListener(() => { _sellected.Sell(); gameObject.SetActive(false); });
+
     }
 
     private void AddEventTrigger(EventTrigger trigger, EventTriggerType type, UnityEngine.Events.UnityAction<BaseEventData> action)

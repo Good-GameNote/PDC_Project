@@ -15,6 +15,6 @@ MonoBehaviour:
   <Index>k__BackingField: 5
   <Sprite>k__BackingField: {fileID: 21300000, guid: 75646df37c90342aa9d861c1a8834922,
     type: 3}
-  <Cost>k__BackingField: 0
-  <EffectNums>k__BackingField: 00000000
+  <Cost>k__BackingField: 10
+  <EffectNum>k__BackingField: 0
   <Name>k__BackingField: "\uB9C8\uBD09\uCD98"

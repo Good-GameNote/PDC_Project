@@ -142,19 +142,24 @@ public class StageLoader : Singleton<StageLoader>
 
     private void Awake()
     {
+
         short index = GameManager.Instance._battle.sellectStage.stage.index;
         _tStage.text =$"Stage {index + 1}" ;
         //short index = 1;
         CurrentMapInfo = _mapInfos[index];
         twc.SetCustomRandomSeed(_mapInfos[index]._seed);
         string name = _stageNames[index / 10];
-        var filepath = Application.dataPath + $"/Resources/Twm/{name}.json";
-        twc.LoadBlueprintStackAndExecute(filepath);
+   
+        string filePath = $"Twm/{name}";
+
+        twc.LoadBlueprintStackAndExecute(filePath);
 
        twc.ExecuteAllBuildLayers(false);
+
     }
     public void OnEnable()
     {
+
         twc.OnBlueprintLayersComplete += BuildMap;
         twc.OnBuildLayersComplete += BuildMap2;
     }
@@ -169,7 +174,6 @@ public class StageLoader : Singleton<StageLoader>
     void BuildMap2(TileWorldCreator _twc)
     {
         _path.BuildNavMesh();
-
         _field.StartWave();
 
 

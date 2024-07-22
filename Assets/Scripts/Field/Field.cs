@@ -32,8 +32,9 @@ public class Field :  Singleton<Field>
 
     public void StartWave()
     {
-
+      
         StartCoroutine(RoundUpper());
+
     }
 
     [SerializeField]
@@ -45,6 +46,7 @@ public class Field :  Singleton<Field>
 
         while (_curRound<21)
         {
+
             _curRound++;
             
             _tRound.text =$"Wave {_curRound} / 20" ;
@@ -55,6 +57,7 @@ public class Field :  Singleton<Field>
             
         }
         Clear();
+
     }
     [SerializeField]
     EnemyPool pool;
@@ -80,6 +83,7 @@ public class Field :  Singleton<Field>
     ICardExhibition[] _posts = new Reward[3];
     void Clear()
     {
+
         Stage info = GameManager.Instance._battle.sellectStage;
 
         float stage = (info.stage.index+1) *0.2f; //현 스테이지 *0.2
@@ -88,6 +92,7 @@ public class Field :  Singleton<Field>
 
         for (int i =0; i<3; i++)
         {
+
             int rewardIdx = Random.Range(0, info.Rewards.Length);
 
             Reward post = _rewards [(int)info.Rewards[rewardIdx]];
@@ -99,7 +104,9 @@ public class Field :  Singleton<Field>
             _posts[i] = post;
 
         }
+
         _ender.IsClear(_posts, achivement);
+
     }
 
 }

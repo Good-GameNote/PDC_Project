@@ -35,6 +35,7 @@ public class UI_End : MonoBehaviour
 
         _cardSellecter.SetCard(rewards);
 
+
     }
     private void OnEnable()
     {

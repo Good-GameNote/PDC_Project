@@ -522,17 +522,24 @@ namespace TWC
 		/// <param name="_filePath"></param>
 		public void LoadBlueprintStackAndExecute(string _filePath)
 		{
-			if (!System.IO.File.Exists(_filePath)) return;
-		
-			byte[] bytes = System.IO.File.ReadAllBytes(_filePath);
-			
-			TileWorldCreatorSaveableData _saveable = TWC.OdinSerializer.SerializationUtility.DeserializeValue<TileWorldCreatorSaveableData>(bytes, DataFormat.Binary);
+
+            TextAsset textAsset = Resources.Load<TextAsset>(_filePath);
+
+            if (textAsset == null) return;
+            byte[] bytes = textAsset.bytes;
+
+
+            //if (!System.IO.File.Exists(_filePath)) return;
+            //byte[] bytes = System.IO.File.ReadAllBytes(_filePath);
+
+            TileWorldCreatorSaveableData _saveable = TWC.OdinSerializer.SerializationUtility.DeserializeValue<TileWorldCreatorSaveableData>(bytes, DataFormat.Binary);
             
             //twcAsset = _saveable.AssignToAsset(twcAsset);
 			
 			generatedBlueprintMaps = new Dictionary<string, WorldMap>();	
 			ExecuteAllBlueprintLayers();
-		}
+
+        }
 		
 		/// <summary>
 		/// Load the blueprint layer stack
@@ -540,9 +547,13 @@ namespace TWC
 		/// <param name="_filePath"></param>
 		public void LoadBlueprintStack(string _filePath)
 		{
-			if (!System.IO.File.Exists(_filePath)) return;
+            TextAsset textAsset = Resources.Load<TextAsset>(_filePath);
+
+            if (textAsset == null) return;
+            byte[] bytes = textAsset.bytes;
+   //         if (!System.IO.File.Exists(_filePath)) return;
 		
-			byte[] bytes = System.IO.File.ReadAllBytes(_filePath);
+			//byte[] bytes = System.IO.File.ReadAllBytes(_filePath);
 
 
 			TileWorldCreatorSaveableData _saveable = TWC.OdinSerializer.SerializationUtility.DeserializeValue<TileWorldCreatorSaveableData>(bytes, DataFormat.Binary);
@@ -559,7 +570,8 @@ namespace TWC
 		/// </summary>
 		public void ExecuteAllBlueprintLayers()
 		{
-			_executedBlueprintLayersCount = 0;
+
+            _executedBlueprintLayersCount = 0;
 	
 	
 			int _seed = System.Environment.TickCount;
@@ -620,12 +632,12 @@ namespace TWC
 		
 		void ExecuteBlueprintLayer(int _layerIndex)
 		{
-	
-			
-			if (!twcAsset.mapBlueprintLayers[_layerIndex].active)
+
+
+            if (!twcAsset.mapBlueprintLayers[_layerIndex].active)
 				return;
-				
-			bool[,] _map = new bool[twcAsset.mapWidth, twcAsset.mapHeight];
+
+            bool[,] _map = new bool[twcAsset.mapWidth, twcAsset.mapHeight];
 	
 			// Generate new random seed for every single layer
 			if (!twcAsset.useRandomSeed && twcAsset.useNewRandomSeedForEveryLayer)

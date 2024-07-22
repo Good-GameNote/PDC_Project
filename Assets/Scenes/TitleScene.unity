@@ -855,7 +855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe072922e2056b42a51d74e38aef749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tempToken: rt
+  _tempToken: 1234567890123456789
 --- !u!1 &1789115594
 GameObject:
   m_ObjectHideFlags: 0

@@ -100,15 +100,15 @@ public struct CP_Enter
     {
         _size = (short)Marshal.SizeOf(typeof(CP_Enter));
         _index = (short)eCPacket.eCP_Enter;
-        _token = new byte[TOKEN_SIZE];
-        _test = new byte[ENCRYPTED_SIZE];
+        _token = new byte[ENCRYPTED_SIZE];
+        _test = new byte[TEST_SIZE];
 
     }
     public short _size;
     public short _index;
-    [MarshalAs(UnmanagedType.ByValArray, SizeConst = TOKEN_SIZE)]
-    public byte[] _token;
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = ENCRYPTED_SIZE)]
+    public byte[] _token;
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = TEST_SIZE)]
     public byte[] _test;
 };
 

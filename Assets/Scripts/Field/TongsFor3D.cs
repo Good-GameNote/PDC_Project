@@ -18,15 +18,15 @@ public class TongsFor3D : Singleton<TongsFor3D>
     float remainCallTime;
     void Update()
     {
-
-#if UNITY_EDITOR || UNITY_STANDALONE
         HandleMouseInput();
-#elif UNITY_IOS || UNITY_ANDROID
-            HandleTouchInput();
-#endif
+//#if UNITY_EDITOR 
+//        HandleMouseInput();
+//#elif  UNITY_ANDROID
+//            HandleTouchInput();
+//#endif
 
     }
-    LayerMask layerMask = 1 << (int)Common.eLayer.Mercenary | 1 << (int)Common.eLayer.Enemy;
+    LayerMask layerMask = 1 << (int)Common.eLayer.Mercenary | 1 << (int)Common.eLayer.Enemy ;
     void HandleMouseInput()
     {
 
@@ -39,6 +39,7 @@ public class TongsFor3D : Singleton<TongsFor3D>
         // 마우스 버튼 클릭 감지
         if (Input.GetMouseButtonDown(0))
         {
+
             if (!isFind) return;
             hit.transform.TryGetComponent(out _clicked);
             if (_clicked != null)
@@ -49,12 +50,12 @@ public class TongsFor3D : Singleton<TongsFor3D>
             }
  
         }
-        if (Input.GetMouseButtonUp(0)&&!isFind)
-        { 
+
+        if (Input.GetMouseButtonUp(0) && !isFind)
+        {
             UI_MercenaryAction.Instance.gameObject.SetActive(false);
         }
-
-            if (!isDragging) return;
+        if (!isDragging) return;
 
 
         // 마우스 버튼을 누른 상태에서 이동할 때
@@ -88,41 +89,45 @@ public class TongsFor3D : Singleton<TongsFor3D>
             Touch touch = Input.GetTouch(0);
             ray = Camera.main.ScreenPointToRay(touch.position);
             isFind = Physics.Raycast(ray, out hit);
-            if (touch.phase == TouchPhase.Began)
+
+            Debug.Log(hit.point);
+            if (isDragging == false) //touch.phase == TouchPhase.Began
             {
                 if (!isFind) return;
-
+                Debug.Log("touch");
                 hit.transform.TryGetComponent(out _clicked);
                 if (_clicked != null)
                 {
 
+                    Debug.Log("touch1");
                     isDragging = true;
                     _clicked.OnBeginDrag(hit.point);
                 }
             }
-            if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled && !isFind)
-            {
-                UI_MercenaryAction.Instance.gameObject.SetActive(false);
-            }
+            //if (touch.phase == TouchPhase.Ended && !isFind)
+            //{
+            //    UI_MercenaryAction.Instance.gameObject.SetActive(false);
+            //}
             if (!isDragging) return;
 
-            // 터치 이동 시
             if (touch.phase == TouchPhase.Moved)
             {
-                remainCallTime -= Time.deltaTime;
-                if (remainCallTime > 0) { return; }
-                remainCallTime = 0.08f;
+
+                Debug.Log("touch3");
+                //remainCallTime -= Time.deltaTime;
+                //if (remainCallTime > 0) { return; }
+                //remainCallTime = 0.08f;
                 _clicked.OnDrag(hit.point);
             }
 
             // 터치 종료 시
             if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
             {
+                Debug.Log("Touch4");
                 isDragging = false;
 
                 _clicked.OnEndDrag(hit.point);
                 _clicked = null;
-
             }
         }
     }

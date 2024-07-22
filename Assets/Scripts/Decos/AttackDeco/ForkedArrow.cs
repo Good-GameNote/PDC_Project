@@ -24,7 +24,7 @@ public class ForkedArrow : AttackDecoTemplate
 
     public override string GiveExplan(int level)
     {
-        throw new System.NotImplementedException();
+        return "공격시 대상 주변 적에게 한발더 발사합니다.";
     }
 
 

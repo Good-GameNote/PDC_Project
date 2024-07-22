@@ -7,7 +7,7 @@ public class Catsle : Singleton<Catsle>
     [SerializeField]
     short HP;
 
-    short MaxHP = 15;
+    short MaxHP = 1555;
     // Start is called before the first frame update
     void Start()
     {

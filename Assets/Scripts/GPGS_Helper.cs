@@ -24,33 +24,20 @@ public class GPGSHelper : MonoBehaviour
         Debug.Log("@@@@@@@@@@@@@@@@@@@@");
         if(status == SignInStatus.Success)
         {
-            string name = PlayGamesPlatform.Instance.GetUserDisplayName();
-            PlayGamesPlatform.Instance.GetUserId();
-            PlayGamesPlatform.Instance.GetUserImageUrl();
-            PlayGamesPlatform.Instance.RequestServerSideAccess(true, (string authCode) =>
-            {
-                if (!string.IsNullOrEmpty(authCode))
-                {
-                    Debug.Log("서버 측 액세스 코드 요청 성공: " + authCode);
-                    // 이곳에서 authCode를 서버로 전송하여 토큰 교환 및 사용자 인증을 처리
-                    CP_Enter cp = new CP_Enter(0);
-                    Buffer.BlockCopy(Encoding.UTF8.GetBytes(authCode), 0, cp._token, 0, authCode.Length);
+            CP_Enter cp = new CP_Enter(0);
+            Buffer.BlockCopy(Encoding.UTF8.GetBytes(PlayGamesPlatform.Instance.GetUserId()), 0, cp._token, 0, PlayGamesPlatform.Instance.GetUserId().Length);
 
-                    Crypto.Testing(Encoding.UTF8.GetBytes("qwerasdfzxcv"));
-                    byte[] plainText = Encoding.UTF8.GetBytes(authCode);
-                    cp._test = Crypto.Encrypt(plainText);
+            Crypto.Testing(Encoding.UTF8.GetBytes("qwerasdfzxcv"));
+            byte[] plainText = Encoding.UTF8.GetBytes(PlayGamesPlatform.Instance.GetUserId());
+            cp._test = Crypto.Encrypt(plainText);
+            GameManager.Instance._packetManager.Send(cp, cp._size);
+            Crypto.Testing(cp._token);
 
-                    GameManager.Instance._packetManager.Send(cp, cp._size);
-                    Crypto.Testing(cp._token);
-                }
-                else
-                {
-                    Debug.Log("서버 측 액세스 코드 요청 실패");
-                }
-            });
         }
         else
         {
+#if UNITY_EDITOR              
+
             Debug.Log("Running in the Unity Editor");
             CP_Enter packet = new CP_Enter(0);
             Buffer.BlockCopy(Encoding.UTF8.GetBytes(_tempToken), 0, packet._token, 0, _tempToken.Length);
@@ -60,12 +47,10 @@ public class GPGSHelper : MonoBehaviour
             GameManager.Instance._packetManager.Send(packet, packet._size);
 
             Crypto.Testing(packet._token);
-        }
-        
-    }
-#if UNITY_EDITOR
-
-#elif UNITY_ANDROID
 
 #endif
+        }
+
+    }
+
 }
