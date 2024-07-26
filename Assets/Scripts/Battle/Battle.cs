@@ -148,10 +148,6 @@ public class Battle : MonoBehaviour, ISubject<Stage>
             Debug.Log(p.stages);
         });
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
     public void Clear( short achivement, Reward reward)
     {

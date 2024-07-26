@@ -1,7 +1,16 @@
 ﻿
 
+using System;
+
 public class Common
 {
+
+    static DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+    public static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
+    {
+        // Unix Epoch (1970년 1월 1일 00:00:00 UTC)
+        return epoch.AddMilliseconds(unixTimeStamp).ToLocalTime();
+    }
 
     public const int MAX_PACKET_SIZE = 1024;
     public const int MAX_NICKNAME_SIZE = 10;//닉네임 최대 글자수
@@ -83,6 +92,9 @@ public class Common
         eRock,
         eRubi,
         eEnerge,
+        eAttendance,
+        eLetter,
+        eRecommend,
         MAX_MONEY_SIZE
     };
 
@@ -165,6 +177,8 @@ public class Common
         eCP_ChangeDeck,
         eCP_StageProcess,
         eCP_CanI,
+        eCP_Contect,
+        eCP_Reciept,
         MAX_CPACKET_SIZE
     };
 
@@ -181,6 +195,7 @@ public class Common
         eSP_Upgrade,
         eSP_RecordMoney,
         eSP_CanI,
+        eSP_LoadPosts,
         MAX_SPACKET_SIZE
     };
 

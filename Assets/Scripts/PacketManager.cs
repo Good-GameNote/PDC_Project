@@ -7,10 +7,6 @@ using System.Runtime.InteropServices;
 using System.Collections;
 using System.Collections.Generic;
 using static Common;
-using TWC.OdinSerializer;
-using System.Drawing;
-using Unity.Burst.Intrinsics;
-
 public class PacketManager : MonoBehaviour
 {
     public static Socket sock;
@@ -18,6 +14,7 @@ public class PacketManager : MonoBehaviour
     private int _Port = 9090;
 
     byte[] _Packet = new byte[MAX_PACKET_SIZE];
+    byte[] _tempPacket = new byte[0];
 
     private IPEndPoint _ServerIpEndPoint;
     private Action<byte[]>[] mPacketFunc = new Action<byte[]>[(int)eSPacket.MAX_SPACKET_SIZE];
@@ -102,10 +99,11 @@ public class PacketManager : MonoBehaviour
     {
         sendCool = sendElapse;
         InitClient();
-      
-        sock.BeginReceive(_Packet, 0, _Packet.Length, SocketFlags.None, new AsyncCallback(OnReceive), sock);
-        
+
+        BeginReceive();
+
     }
+    /*
     void OnReceive(IAsyncResult ar)
     {
         try
@@ -114,9 +112,16 @@ public class PacketManager : MonoBehaviour
             int bytesRead = client.EndReceive(ar);
             if (bytesRead > 0)
             {
-                byte[] tempBuffer = new byte[bytesRead];
-                Buffer.BlockCopy(_Packet, 0, tempBuffer, 0, bytesRead);
-                _executionQueue.Enqueue(tempBuffer);
+                short offset = 0;
+                do
+                {
+                    short size = BitConverter.ToInt16(_Packet, offset);
+                    byte[] tempBuffer = new byte[size];
+                    Buffer.BlockCopy(_Packet, offset, tempBuffer, 0, size);
+                    _executionQueue.Enqueue(tempBuffer);
+                    offset += size;
+                }
+                while (offset < bytesRead);
             }
             client.BeginReceive(_Packet, 0, _Packet.Length, SocketFlags.None, new AsyncCallback(OnReceive), client);
         }
@@ -128,10 +133,74 @@ public class PacketManager : MonoBehaviour
             Debug.Log("Exception: " + e.ToString());
         }
     }
-
+    */
 
     //private static readonly Queue<byte[]> _sendQueue = new ();
     private static readonly Queue<byte[]> _executionQueue = new Queue<byte[]>();
+
+
+    private  void BeginReceive()
+    {
+        sock.BeginReceive(_Packet, 0, _Packet.Length, SocketFlags.None, new AsyncCallback(OnReceive), sock);
+    }
+
+    private void OnReceive(IAsyncResult ar)
+    {
+        try
+        {
+            Socket client = (Socket)ar.AsyncState;
+            int bytesRead = client.EndReceive(ar);
+
+            if (bytesRead > 0)
+            {
+                byte[] tempBuffer = new byte[_tempPacket.Length + bytesRead];
+                Buffer.BlockCopy(_tempPacket, 0, tempBuffer, 0, _tempPacket.Length);
+                Buffer.BlockCopy(_Packet, 0, tempBuffer, _tempPacket.Length, bytesRead);
+                _tempPacket = tempBuffer;
+
+                ProcessPackets();
+
+                BeginReceive();
+            }
+        }
+        catch (SocketException e)
+        {
+            Debug.Log("SocketException: " + e.ToString());
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Exception: " + e.ToString());
+        }
+    }
+
+    private  void ProcessPackets()
+    {
+        int offset = 0;
+
+        while (_tempPacket.Length - offset >= 2)
+        {
+            short size = BitConverter.ToInt16(_tempPacket, offset);
+
+            if (_tempPacket.Length - offset >= size)
+            {
+                byte[] packet = new byte[size];
+                Buffer.BlockCopy(_tempPacket, offset, packet, 0, size);
+                _executionQueue.Enqueue(packet);
+                offset += size;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (offset > 0)
+        {
+            byte[] leftover = new byte[_tempPacket.Length - offset];
+            Buffer.BlockCopy(_tempPacket, offset, leftover, 0, leftover.Length);
+            _tempPacket = leftover;
+        }
+    }
 
     byte[] _recieveBuffer;
     byte[] _sendBuffer;
@@ -163,6 +232,11 @@ public class PacketManager : MonoBehaviour
         }
     }
     void OnApplicationQuit()
+    {
+        CloseClient();
+        Debug.Log("접속종료");
+    }
+    void OnDestroy()
     {
         CloseClient();
         Debug.Log("접속종료");

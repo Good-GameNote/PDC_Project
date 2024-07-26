@@ -63,10 +63,6 @@ public class GameManager : Singleton<GameManager>
 
 
     }
-    private void Start()
-    {
-        
-    }
 
 
 
@@ -86,7 +82,8 @@ public class GameManager : Singleton<GameManager>
     public Team _team { get; private set; }
     [field: SerializeField]
     public Town _town { get; private set; }
-
+    [field: SerializeField]
+    public Post _post { get; private set; }
 
     //[field: SerializeField]
     //public SceneLoader _sceneLoader { get; private set; }
