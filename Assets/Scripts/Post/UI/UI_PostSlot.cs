@@ -31,6 +31,10 @@ public class UI_PostSlot : MonoBehaviour
         // _CreateAt.text = Common.UnixTimeStampToDateTime(data.createdAt).ToString();
 
     }
+    public bool IsMatch(SP_LoadPost data)
+    {
+        return data.idx == idx;
+    }
 
 
 

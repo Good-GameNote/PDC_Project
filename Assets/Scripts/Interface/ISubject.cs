@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public interface ISubject<T>
 {
     void ResistObserver(IObserver<T> observer);
-    void NotifyObservers();
+    void NotifyObservers(T data);
 }
 
 public interface ITownSubject

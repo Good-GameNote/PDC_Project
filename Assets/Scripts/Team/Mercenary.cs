@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public abstract class Mercenary : MonoBehaviour,IClickable
+public abstract class Mercenary : MonoBehaviour,IClickable, IObserver<sMercenary[]>, ISlotExhibition,ISubject<ISlotExhibition>
 {
     [SerializeField]
     public MercenaryData _mercenaryData;
 
-    sMercenary _sMercenary;
+    sMercenary[] _sMercenary;
 
     ProjectileBase _projectile;
     protected MercenaryAI _mercenaryAI;
@@ -18,10 +18,15 @@ public abstract class Mercenary : MonoBehaviour,IClickable
     {
         new List<Mercenary>[Common.MAX_STAR] { new (), new (),new (),new() },
         new List<Mercenary>[Common.MAX_STAR] { new (), new (),new (),new() },
+        new List<Mercenary>[Common.MAX_STAR] { new (), new (),new (),new() },
+        new List<Mercenary>[Common.MAX_STAR] { new (), new (),new (),new() },
+        new List<Mercenary>[Common.MAX_STAR] { new (), new (),new (),new() },
+        new List<Mercenary>[Common.MAX_STAR] { new (), new (),new (),new() },
     };
 
     private void Awake() 
     {
+        GameManager.Instance._team.ResistObserver((short)_mercenaryData.Index, this);
         _mercenaryAI = GetComponentInChildren<MercenaryAI>();
         _mercenaryAI.SetCanSee(_mercenaryData);
         _mercenaryAI.SetRange(_mercenaryData.Range);
@@ -36,9 +41,6 @@ public abstract class Mercenary : MonoBehaviour,IClickable
         StartCoroutine(SetCooltime());
         _countByStar[_mercenaryData.Index][_star].Add(this);
     }
-
-
-
 
     private void OnDisable()
     {
@@ -61,7 +63,6 @@ public abstract class Mercenary : MonoBehaviour,IClickable
 
         }
 
-
         _star++;
         _countByStar[_mercenaryData.Index][_star].Add(this);
     }
@@ -73,15 +74,7 @@ public abstract class Mercenary : MonoBehaviour,IClickable
     }
 
     public abstract ICardExhibition[] CanStarUp();
-    public void SetsMercenary(sMercenary sMercenary)
-    {
-        _sMercenary = sMercenary;
-    }
 
-    public void LostTarget()
-    {
-        // _myTarget = _mercenaryAI._enemiesList[0];
-    }
 
     IEnumerator SetCooltime()
     {
@@ -123,5 +116,51 @@ public abstract class Mercenary : MonoBehaviour,IClickable
     {
         Debug.Log($"%%% {hit}");
 
+    }
+
+    IObserver<ISlotExhibition> _observer;
+    public void ResistObserver(IObserver<ISlotExhibition> observer)
+    {
+        _observer = observer;
+    }
+
+    public void NotifyObservers(ISlotExhibition data)
+    {
+        _observer.Set(this);
+    }
+
+    public void Set(sMercenary[] data)
+    {
+        _sMercenary = data;
+    }
+
+    public Common.ePage GiveType()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public short GiveIndex()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public Sprite GiveSprite()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public string GiveName()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public short GiveLevel()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public short GiveSurplus()
+    {
+        throw new System.NotImplementedException();
     }
 }

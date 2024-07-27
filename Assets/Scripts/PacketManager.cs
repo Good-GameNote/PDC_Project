@@ -28,13 +28,6 @@ public class PacketManager : MonoBehaviour
         try
         {
 
-        if(sendCool < sendElapse)
-        {
-            return false;
-        }
-        sendCool -= sendElapse;
-
-        // int size = Marshal.SizeOf(typeof(T));
         byte[] arr = new byte[size];
         IntPtr ptr = Marshal.AllocHGlobal(size);
         unsafe
@@ -51,7 +44,11 @@ public class PacketManager : MonoBehaviour
 
         //_sendQueue.Enqueue(arr);
         Debug.Log($"cp index = {BitConverter.ToInt16(arr, 2)}");
+        Debug.Log($"cp size = {BitConverter.ToInt16(arr, 0)}");
+
+           
         sock.Send(arr, 0, size, SocketFlags.None);
+       
         }
         catch (Exception ex)
         {

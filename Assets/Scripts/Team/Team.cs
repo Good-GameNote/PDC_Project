@@ -6,11 +6,24 @@ using static Common;
 
 
 
-public struct sMercenary
+public struct sMercenary:IServerData
 {
     public short index;
-    //public short level;
-    //public short surplus;
+    public short level;
+    public short surplus;
+    public short GiveIndex()
+    {
+        return index;
+    }
+    public short GiveLevel()
+    {
+        return level;
+    }
+
+    public short GiveSurplus()
+    {
+        return surplus;
+    }
 };
 
 struct SP_LoadMercenarys
@@ -26,30 +39,37 @@ struct SP_LoadMercenarys
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = (int)eMercenary.MAX_MERCENARY_SIZE)]
     public sMercenary[] mercenarys;
 };
-public class Team : MonoBehaviour
+public class Team : MonoBehaviour, IIndexableSubject<sMercenary[]>
 {
-    Mercenary[] _mercenarys;
-    private void Awake()
+    sMercenary[][] _mercenarys;
+
+    public void NotifyObservers(short index)
     {
-        _mercenarys = new Mercenary[(int)eMercenary.MAX_MERCENARY_SIZE];
-        GameManager.Instance._packetManager.Recieve<SP_LoadMercenarys>((int)eSPacket.eSP_LoadMercenarys, (p) =>
-        {
-            //for(int i =0; i<(int)eMercenary.MAX_MERCENARY_SIZE; i++)
-            //{
-            //    _mercenarys[i].SetsMercenary(p.mercenarys[i]);
-            //}
-            //Debug.Log(p.mercenarys);
-        });
+        observers[index].Set(_mercenarys[index]);
     }
-    // Start is called before the first frame update
-    void Start()
+    IObserver<sMercenary[]>[] observers = new IObserver<sMercenary[]>[(int)eMercenary.MAX_MERCENARY_SIZE];
+    public void ResistObserver(short index, IObserver<sMercenary[]> observer)
     {
-        
+        observers[index] = observer;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        _mercenarys = new sMercenary[(int)eMercenary.MAX_MERCENARY_SIZE][];
+        for (int i = 0; i < (int)eMercenary.MAX_MERCENARY_SIZE; i++)
+        {
+            _mercenarys[i] = new sMercenary[1];
+        }
+        GameManager.Instance._packetManager.Recieve<SP_LoadMercenarys>((int)eSPacket.eSP_LoadMercenarys, (p) =>
+        {
+            for (int i = 0; i < (int)eMercenary.MAX_MERCENARY_SIZE; i++)
+            {
+                _mercenarys[i][0]=p.mercenarys[i];
+
+                Debug.Log(p.mercenarys[i]);
+            }
+            Debug.Log(p.mercenarys);
+        });
     }
+
 }

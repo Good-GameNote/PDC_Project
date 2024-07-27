@@ -70,7 +70,7 @@ public class Battle : MonoBehaviour, ISubject<Stage>
         GameManager.Instance._packetManager.Send(cp, cp._size);
 
         sellectStage = stages[stageNum];
-        NotifyObservers();
+        NotifyObservers(sellectStage);
     }
 
     public void ChangeStage(bool isNext)
@@ -99,7 +99,7 @@ public class Battle : MonoBehaviour, ISubject<Stage>
         cp._type = (short)eOption.eSellectStage;
         cp._deckNum = nextStage;
         GameManager.Instance._packetManager.Send(cp, cp._size);
-        NotifyObservers();
+        NotifyObservers(sellectStage);
     }
 
     public short HighestStage { get; private set; }
@@ -110,7 +110,7 @@ public class Battle : MonoBehaviour, ISubject<Stage>
         observers.Add(observer);
         if(observers.Count >= 1)
         {
-            NotifyObservers();
+            NotifyObservers(sellectStage);
         }
     }
 
@@ -120,10 +120,10 @@ public class Battle : MonoBehaviour, ISubject<Stage>
         HighStageObservers.Add(observer);
         if (observers.Count >= 1)
         {
-            NotifyObservers();
+            NotifyObservers(sellectStage);
         }
     }
-    public void NotifyObservers()
+    public void NotifyObservers(Stage sellectStage)
     {
         foreach (var observer in observers)
         {

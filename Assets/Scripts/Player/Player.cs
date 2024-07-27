@@ -68,7 +68,7 @@ public class Player : MonoBehaviour, ISubject<int[]>
         GameManager.Instance._packetManager.Recieve<SP_RecordMoney>((int)eSPacket.eSP_RecordMoney, (p) =>
         {
             _money[p.moneyType] += p.value;
-            NotifyObservers();
+            NotifyObservers(_money);
         });
     }
     // Start is called before the first frame update
@@ -82,14 +82,14 @@ public class Player : MonoBehaviour, ISubject<int[]>
         _moneyObservers.Add(observer);
         if(_moneyObservers.Count>=1)//등록할때 마다 숫자 올려줘야함
         {
-            NotifyObservers();
+            NotifyObservers(_money);
         }
     }
 
-    public void NotifyObservers()
+    public void NotifyObservers(int[] data)
     {
         foreach (IObserver<int[]> observer in _moneyObservers) { 
-            observer.Set(_money);
+            observer.Set(data);
         };
     }
 

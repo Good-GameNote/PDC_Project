@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class PageController : Singleton<PageController>,ISubject<Common.ePage>
 {
-    Common.ePage _currentPage;
 
     List<IObserver<Common.ePage>> observers = new();
-    public void NotifyObservers()
+    public void NotifyObservers(Common.ePage data)
     {
         foreach(IObserver<Common.ePage> observer in observers )
         {
-            observer.Set(_currentPage);
+            observer.Set(data);
         }
     }
 
@@ -22,9 +21,8 @@ public class PageController : Singleton<PageController>,ISubject<Common.ePage>
 
     public void SetCurrentPage(Common.ePage page)
     {
-        _currentPage = page;
 
-        NotifyObservers();
+        NotifyObservers(page);
     }
 
 

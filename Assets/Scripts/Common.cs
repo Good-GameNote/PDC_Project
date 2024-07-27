@@ -81,6 +81,10 @@ public class Common
     {
         eFireArrow,
         eFireGhostRider,
+        eDummyMercenary1,
+        eDummyMercenary2,
+        eDummyMercenary3,
+        eDummyMercenary4,
         MAX_MERCENARY_SIZE
     };
 

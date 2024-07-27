@@ -41,20 +41,19 @@ public struct CP_Reciept
     public int idx ;
 };
 
-public class Post : MonoBehaviour,ISubject<List<SP_LoadPost>> 
+public class Post : MonoBehaviour, ISubject<(SP_LoadPost,bool)> 
 {
 
     List<SP_LoadPost> _postList = new List<SP_LoadPost>();
+
+
     private void Awake()
     {
         GameManager.Instance._packetManager.Recieve<SP_LoadPost>((int)Common.eSPacket.eSP_LoadPosts, (p) =>
         {
             _postList.Add(p);
 
-            string test = Encoding.Unicode.GetString(p.message);
-
-            test = Encoding.Unicode.GetString(p.fromNick);
-            Debug.Log("post"+p);
+            NotifyObservers((p, true));
         });
     }
     public void Reciept(int idx)
@@ -62,24 +61,26 @@ public class Post : MonoBehaviour,ISubject<List<SP_LoadPost>>
         CP_Reciept cp = new CP_Reciept(0);
 
         cp.idx = idx;
-        _postList.RemoveAll(p => p.idx == idx);
+        SP_LoadPost post = _postList.Find(p => p.idx == idx);
+
+        _postList.Remove(post);
+        NotifyObservers((post,false));
         GameManager.Instance._packetManager.Send(cp, cp._size);
-
     }
 
-    List< IObserver<List<SP_LoadPost>>> observers = new List<IObserver<List<SP_LoadPost>>>();
-
-    public void ResistObserver(IObserver<List<SP_LoadPost>> observer)
+    IObserver<(SP_LoadPost, bool)> _observer;
+    public void ResistObserver( IObserver<(SP_LoadPost,bool)> observer)
     {
-        observers.Add(observer);
-        NotifyObservers();
-    }
-
-    public void NotifyObservers()
-    {
-        foreach (var observer in observers)
+        _observer = observer;
+        foreach(SP_LoadPost post in _postList)
         {
-            observer.Set(_postList);
+            NotifyObservers((post, true));
         }
+    }
+
+    public void NotifyObservers((SP_LoadPost, bool) data)
+    {
+        if (_observer == null) return;
+        _observer.Set(data);
     }
 }

@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_Post : Singleton<UI_Post>, IObserver<List<SP_LoadPost>>
+public class UI_Post : Singleton<UI_Post>, IObserver<(SP_LoadPost,bool)>
 {
 
     [SerializeField]
     UI_PostSlot _slotPrefab;
-    List<SP_LoadPost> _datas;
+    List<UI_PostSlot> _slots = new List<UI_PostSlot>();
 
     [SerializeField]
     Transform _slotsParent;
@@ -16,15 +16,20 @@ public class UI_Post : Singleton<UI_Post>, IObserver<List<SP_LoadPost>>
     UI_PostIn _postDetale;
 
 
-    public void Set(List<SP_LoadPost> datas)
+    public void Set((SP_LoadPost,bool) data)
     {
-        _datas = datas;
-        for (int i=0; i< _datas.Count; i++)
+       if(data.Item2)
         {
-            UI_PostSlot slot =  Instantiate(_slotPrefab, _slotsParent);
-
-            slot.SetContent(_datas[i]);
+            UI_PostSlot slot = Instantiate(_slotPrefab, _slotsParent);
+            slot.SetContent(data.Item1);
+            _slots.Add(slot);
+        }else
+        {
+            UI_PostSlot slot = _slots.Find((el) => { return el.IsMatch(data.Item1); });
+            Destroy(slot.gameObject);
+            _slots.Remove(slot);
         }
+
     }
 
     public void SetDetail(ref SP_LoadPost data)
@@ -37,7 +42,10 @@ public class UI_Post : Singleton<UI_Post>, IObserver<List<SP_LoadPost>>
     {
         GameManager.Instance._post.ResistObserver(this);
     }
-
+    private void OnEnable()
+    {
+        _postDetale.gameObject.SetActive(false);
+    }
 
 
 }

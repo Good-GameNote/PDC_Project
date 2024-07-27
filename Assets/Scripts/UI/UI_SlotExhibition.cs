@@ -14,6 +14,9 @@ public class UI_SlotExhibition : MonoBehaviour, IObserver<ISlotExhibition>
 
     [SerializeField]
     Text _level;
+
+    [SerializeField]
+    Image _gage;
     [SerializeField]
     Text _surPlus;
 

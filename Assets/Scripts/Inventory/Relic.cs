@@ -2,9 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static Common;
 
 public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubject<ISlotExhibition>
 {
@@ -98,12 +96,12 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
         observers.Add(observer);
         if (observers.Count>=1)
         {
-            NotifyObservers();
+            NotifyObservers(this);
         }
     }
-    public void NotifyObservers()
+    public void NotifyObservers(ISlotExhibition data)
     {
-        foreach (IObserver<ISlotExhibition> observer in observers) { observer.Set(this); };
+        foreach (IObserver<ISlotExhibition> observer in observers) { observer.Set(data); };
     }
 
     public void Set(sRelic[] data)
@@ -112,7 +110,7 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
         
         CurrentRelic = this;
         ChangeState(false);
-        NotifyObservers();
+        NotifyObservers(this);
     }
     public void ChangeState(bool SendPacket)
     {
