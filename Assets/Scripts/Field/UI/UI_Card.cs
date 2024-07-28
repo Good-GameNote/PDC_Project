@@ -20,7 +20,6 @@ public class UI_Card : MonoBehaviour
     {
         gameObject.SetActive(true);
         _notify = notify;
-
     }
     public void SetICardExhibition(ICardExhibition num )
     {

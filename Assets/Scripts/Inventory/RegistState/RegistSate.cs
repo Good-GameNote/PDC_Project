@@ -19,7 +19,7 @@ public abstract class RegistSate :MonoBehaviour
             return result;
 
         relic.transform.SetParent(other.transform);
-        relic.transform.SetSiblingIndex(relic.GiveIndex());
+        relic.transform.SetSiblingIndex(relic._relicData.GiveIndex());
 
         return result;
     }

@@ -4,40 +4,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubject<ISlotExhibition>
+public class Relic : MonoBehaviour, IObserver<sRelic[]>,  ISubject<ISlotExhibition>
 {
     [field: SerializeField]
     public RelicData _relicData { get; private set; }
 
     public sRelic[] _sRelic { get; private set; }
-
-
     static public Relic CurrentRelic { get; private set; }
-    UnityEngine.UI.Button _button;
-
     private RegistSate State;
 
-
+    public ISlotExhibition _uiData;
     private void Awake()
     {
         sRelic[] _sRelic = new sRelic[1];
         State = GetComponentInParent<RegistSate>();
-        _button = gameObject.AddComponent<UnityEngine.UI.Button>();
-        _button.onClick.AddListener(() => { CurrentRelic = this; UI_ClickSlotMenu.Instance.ClickThis(transform, this); });
+        UnityEngine.UI.Button _button = gameObject.AddComponent<UnityEngine.UI.Button>();
+        _button.onClick.AddListener(() => { CurrentRelic = this; UI_ClickSlotMenu.Instance.ClickThis(transform, _uiData); });
 
         GameManager.Instance._inven.ResistObserver((short)_relicData.Index, this);
     }
-
-    public Sprite GiveSprite()
-    {
-        return _relicData.Sprite;
-    }
-    public string GiveName()
-    {
-        return _relicData.Name;
-    }
-
- 
 
     /*
     public string GiveExplan()
@@ -72,31 +57,13 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
     }
     */
 
-    public short GiveLevel()
-    {
-        if (_sRelic==null)
-        {
-            return 0;
-        }
-        return _sRelic[0].level;
-    }
-
-    public short GiveSurplus()
-    {
-        if (_sRelic == null)
-        {
-            return 0;
-        }
-        return _sRelic[0].surplus;
-    }
-
     List<IObserver<ISlotExhibition>> observers = new();
     public void ResistObserver(IObserver<ISlotExhibition> observer)
     {
         observers.Add(observer);
         if (observers.Count>=1)
         {
-            NotifyObservers(this);
+            NotifyObservers(_uiData);
         }
     }
     public void NotifyObservers(ISlotExhibition data)
@@ -110,7 +77,8 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
         
         CurrentRelic = this;
         ChangeState(false);
-        NotifyObservers(this);
+        _uiData = new MergedUIData(_relicData, _sRelic[0], Common.ePage.eInven);
+        NotifyObservers(_uiData);
     }
     public void ChangeState(bool SendPacket)
     {
@@ -129,17 +97,5 @@ public class Relic : MonoBehaviour, IObserver<sRelic[]>, ISlotExhibition, ISubje
         GameManager.Instance._packetManager.Send(cp, cp._size);
     }
    
-
-    public short GiveIndex()
-    {
-        return (short)_relicData.Index;
-    }
-
-    public Common.ePage GiveType()
-    {
-        return Common.ePage.eInven;
-    }
-
-  
 
 }

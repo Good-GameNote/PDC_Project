@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public abstract class Mercenary : MonoBehaviour,IClickable, IObserver<sMercenary[]>, ISlotExhibition,ISubject<ISlotExhibition>
+public abstract class Mercenary : MonoBehaviour,IClickable
 {
     [SerializeField]
     public MercenaryData _mercenaryData;
@@ -13,7 +13,7 @@ public abstract class Mercenary : MonoBehaviour,IClickable, IObserver<sMercenary
     ProjectileBase _projectile;
     protected MercenaryAI _mercenaryAI;
 
-
+    ISlotExhibition _uiData;
     static protected List<Mercenary>[][] _countByStar = new List<Mercenary>[(int)Common.eMercenary.MAX_MERCENARY_SIZE][]
     {
         new List<Mercenary>[Common.MAX_STAR] { new (), new (),new (),new() },
@@ -26,7 +26,6 @@ public abstract class Mercenary : MonoBehaviour,IClickable, IObserver<sMercenary
 
     private void Awake() 
     {
-        GameManager.Instance._team.ResistObserver((short)_mercenaryData.Index, this);
         _mercenaryAI = GetComponentInChildren<MercenaryAI>();
         _mercenaryAI.SetCanSee(_mercenaryData);
         _mercenaryAI.SetRange(_mercenaryData.Range);
@@ -118,49 +117,4 @@ public abstract class Mercenary : MonoBehaviour,IClickable, IObserver<sMercenary
 
     }
 
-    IObserver<ISlotExhibition> _observer;
-    public void ResistObserver(IObserver<ISlotExhibition> observer)
-    {
-        _observer = observer;
-    }
-
-    public void NotifyObservers(ISlotExhibition data)
-    {
-        _observer.Set(this);
-    }
-
-    public void Set(sMercenary[] data)
-    {
-        _sMercenary = data;
-    }
-
-    public Common.ePage GiveType()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public short GiveIndex()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public Sprite GiveSprite()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public string GiveName()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public short GiveLevel()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public short GiveSurplus()
-    {
-        throw new System.NotImplementedException();
-    }
 }

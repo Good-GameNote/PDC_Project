@@ -164,7 +164,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3074854604409539104}
-  - component: {fileID: 2258227812618975391}
+  - component: {fileID: 411332415354577906}
+  - component: {fileID: 2851274953281252626}
   m_Layer: 5
   m_Name: Mercenary_Slot
   m_TagString: Untagged
@@ -193,7 +194,7 @@ RectTransform:
   m_AnchoredPosition: {x: 125, y: -140}
   m_SizeDelta: {x: 150, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2258227812618975391
+--- !u!114 &411332415354577906
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -202,7 +203,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1095338943943191787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4c9da75c8177c8468fde8156622c349, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b1952d66728973408de3c6ff8a6e9dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mercenaryData: {fileID: 11400000, guid: 2412eeaab2d22ed46b9dce25d71fab9b, type: 2}
+--- !u!114 &2851274953281252626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095338943943191787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317ff6727682d854d8c2656e026e6d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _portrait: {fileID: 8592143202067731195}

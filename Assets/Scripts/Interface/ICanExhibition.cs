@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 public interface ICanExhibition
 {
 
@@ -30,3 +32,48 @@ public interface ISlotExhibition : ICanExhibition, IServerData
 {
     Common.ePage GiveType();
 }
+
+public class MergedUIData : ISlotExhibition
+{
+    ICanExhibition _scriptable;
+    IServerData _sdata;
+    Common.ePage _page;
+    public MergedUIData(ICanExhibition scriptable, IServerData sdata, Common.ePage page )
+    {
+        _scriptable = scriptable;
+        _sdata = sdata;
+        _page = page;
+    }
+    public Common.ePage GiveType()
+    {
+        return _page;
+    }
+
+    public short GiveIndex()
+    {
+        return _scriptable.GiveIndex();
+    }
+
+    public Sprite GiveSprite()
+    {
+        return _scriptable.GiveSprite();
+    }
+
+    public string GiveName()
+    {
+        return _scriptable.GiveName();
+    }
+
+    public short GiveLevel()
+    {
+        return _sdata.GiveLevel();
+    }
+
+    public short GiveSurplus()
+    {
+        return _sdata.GiveSurplus();
+    }
+
+
+}
+

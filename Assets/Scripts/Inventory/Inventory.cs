@@ -78,7 +78,7 @@ public class Inventory : MonoBehaviour, IIndexableSubject<sRelic[]>
         {
             NotifyObservers(i);
         }
-        UI_ClickSlotMenu.Instance.ClickThis(Relic.CurrentRelic.transform, Relic.CurrentRelic);
+        UI_ClickSlotMenu.Instance.ClickThis(Relic.CurrentRelic.transform, Relic.CurrentRelic._uiData);
     }
 
     public void GachaResult(SP_Gacha sp)

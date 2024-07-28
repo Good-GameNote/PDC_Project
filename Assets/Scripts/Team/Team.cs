@@ -51,6 +51,7 @@ public class Team : MonoBehaviour, IIndexableSubject<sMercenary[]>
     public void ResistObserver(short index, IObserver<sMercenary[]> observer)
     {
         observers[index] = observer;
+        NotifyObservers(index);
     }
 
     private void Awake()

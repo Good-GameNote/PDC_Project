@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,14 +52,18 @@ public class Enemy : MonoBehaviour,IIsDetacted,IGetHit
         _curseDeco.GetHitEffect( this, attacker, damage, debuff);
     }
 
+    UI_HpBar _hpBar;
 
     public void GetDamage(int damage)
     {
         _HP -= damage;
+
         if (_HP < 0 )
         {
             _HP = 0;
         }
+
+        _hpBar.Set((float)_HP / _enemyData.HP);
     }
 
 
@@ -105,12 +110,15 @@ public class Enemy : MonoBehaviour,IIsDetacted,IGetHit
     {
 
         _agent.SetDestination(Catsle.Instance.transform.position);
+        Vector3 mypoint = transform.position;
+        _hpBar = HpBarPool.Instance.Get(ref mypoint);
+        _hpBar.Init(transform);
     }
-
-    void Start()
+    private void OnDisable()
     {
-
+        HpBarPool.Instance.Release(_hpBar, 0);
     }
+
 
     // Update is called once per frame
     void Update()
@@ -121,7 +129,7 @@ public class Enemy : MonoBehaviour,IIsDetacted,IGetHit
             _debuffs[i].Activation();
         
         }
-        
     }
 
+  
 }
