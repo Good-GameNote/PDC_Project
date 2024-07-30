@@ -14879,7 +14879,7 @@ MonoBehaviour:
       Data: end
     - Name: foldout
       Entry: 5
-      Data: true
+      Data: false
     - Name: active
       Entry: 5
       Data: true
@@ -15771,7 +15771,7 @@ MonoBehaviour:
       Data: tree
     - Name: foldout
       Entry: 5
-      Data: true
+      Data: false
     - Name: active
       Entry: 5
       Data: true

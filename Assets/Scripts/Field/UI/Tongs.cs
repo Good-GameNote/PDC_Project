@@ -111,13 +111,13 @@ public class Tongs : Singleton<Tongs>, IPointerDownHandler,  IDragHandler, IPoin
 
         while (!_canHold)
         {
-            Vector3 randomPos = new Vector3(Random.Range(0, Field.Instance._Wide) + 0.5f, 10f, Random.Range(90, 90 + Field.Instance._height) + 0.5f);
+            Vector3 randomPos = new Vector3(Random.Range(0, Field.Instance._Wide) + 0.5f, 10f, Random.Range(-50, -50 + Field.Instance._height) + 0.5f);
             if (Physics.Raycast(randomPos, Vector3.down, out hit, maxDistance, _ground))
             {
                 SetState( CheckCanHold());                
             }
         }
-        curPoint.y = 0.05f;
+        curPoint.y = 1.3f;
         _employee.transform.position = curPoint;
 
         _dummy.sprite = _originSprite;
