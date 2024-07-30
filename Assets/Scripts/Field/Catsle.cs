@@ -8,11 +8,14 @@ public class Catsle : Singleton<Catsle>
     short HP;
 
     short MaxHP = 1555;
+    [SerializeField]
+    Transform point;
     // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
         HP = MaxHP;
-        transform.position = StageLoader.Instance.CurrentMapInfo._castlePoint;
+        point = point.GetChild(0).GetChild(0);
+        transform.position = point.position;
 
     }
     LayerMask enemyLayer = 1<<(int)Common.eLayer.Enemy;
@@ -24,7 +27,7 @@ public class Catsle : Singleton<Catsle>
         //적에 충돌하지않으면 필터
         if ((enemyLayer.value & (1 << other.gameObject.layer)) == 0)        
             return;        
-        Debug.Log("공격받음");
+        Debug.Log("공격받음" );
         HP--;
         other.gameObject.TryGetComponent(out enemy);
         EnemyPool.Instance.Release(enemy, enemy._enemyData.Index);

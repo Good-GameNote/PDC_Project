@@ -9,22 +9,23 @@ public class Slow : Debuff
     private float _speedReductionRate;
 
     private float _fixedSpeedReduction;
-    public Slow(float speedReductionRate, float fixedSpeedReduction, float durationTime, Sprite sprite) : base(durationTime,sprite )
+
+    public void Init(float speedReductionRate, float fixedSpeedReduction, float durationTime,  Sprite sprite = null)
     {
         _speedReductionRate = speedReductionRate;
         _fixedSpeedReduction = fixedSpeedReduction;
+        base.Init(durationTime, sprite);
+
     }
 
-    public override void StartAction(Enemy target)
+
+    protected override void StartAction(Enemy target)
     {
-        _target = target;
         _target.ChangeMoveSpeed(_speedReductionRate, _fixedSpeedReduction);
     }
 
-    public override void ContinueAction(float lapse)
-    {
-    }
-    public override void EndAction()
+
+    protected override void EndAction()
     {
         _target.ChangeMoveSpeed(-_speedReductionRate, -_fixedSpeedReduction);
     }

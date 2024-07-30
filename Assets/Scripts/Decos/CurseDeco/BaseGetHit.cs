@@ -21,7 +21,7 @@ public class BaseGetHit : CurseEffect
         self.GetDamage(damage);
         if (debuff != null)
         {
-            self.GetDebuff(debuff);
+            debuff.Excute(self);
         }
     }
 

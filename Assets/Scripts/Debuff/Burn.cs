@@ -7,22 +7,18 @@ public class Burn : Debuff
 {
 
     private float _damage;
-    public Burn(float damage, float durationTime, Sprite sprite) : base(durationTime, sprite)
+
+    public void Init(float damage, float durationTime,  Sprite sprite = null)
     {
         _damage = damage;
+        base.Init(durationTime, sprite);
     }
 
-    public override void StartAction(Enemy target)
-    {
-        _target = target;
-    }
 
-    public override void ContinueAction(float lapse)
+    protected override void ContinueAction(float lapse)
     {
 
         _target.GetDamage((int)(lapse * _damage));
     }
-    public override void EndAction()
-    {
-    }
+
 }

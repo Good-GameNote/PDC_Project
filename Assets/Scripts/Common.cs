@@ -123,13 +123,13 @@ public class Common
     {
         eUsingDeck,
         eSellectStage,
-        MAX_Option_SIZE
+        MAX_OPTION_SIZE
     };
 
     public enum eCanI
     {
         eEnterBattle,
-        MAX_Page_SIZE
+        MAX_CANI_SIZE
     };
 
 
@@ -140,8 +140,16 @@ public class Common
         eStage,
         eInven,
         eTown,
-        MAX_Page_SIZE
+        MAX_PAGE_SIZE
     };
+
+    public enum eDebuff
+    {
+        eSlow,
+        eStun,
+        eBurn,
+        MAX_DEBUFF_SIZE
+    }
 
     public enum All_ERROR
     {

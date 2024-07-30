@@ -25,7 +25,7 @@ public class Tongs : Singleton<Tongs>, IPointerDownHandler,  IDragHandler, IPoin
         {
             Debug.Log("돈잇는지 검사");
 
-            _employee = MercenaryPool.Instance.Get(ref _initPoint);
+            _employee = MercenaryPool.Instance.Get(_initPoint);
 
         }
         else
@@ -117,7 +117,7 @@ public class Tongs : Singleton<Tongs>, IPointerDownHandler,  IDragHandler, IPoin
                 SetState( CheckCanHold());                
             }
         }
-        curPoint.y = 1.3f;
+        curPoint.y = 0.05f;
         _employee.transform.position = curPoint;
 
         _dummy.sprite = _originSprite;

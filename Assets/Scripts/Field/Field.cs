@@ -25,16 +25,19 @@ public class Field :  Singleton<Field>
 
     short _curRemainEnemyCount=0;
 
+
+    [SerializeField]
+    public Transform _enemySpot;
     private void Awake()
     {
-
     }
 
     public void StartWave()
     {
-      
-        StartCoroutine(RoundUpper());
 
+        _enemySpot = _enemySpot. GetChild(0).GetChild(0);
+        StartCoroutine(RoundUpper());
+        Catsle.Instance.Init();
     }
 
     [SerializeField]
@@ -59,14 +62,13 @@ public class Field :  Singleton<Field>
         Clear();
 
     }
-    [SerializeField]
-    EnemyPool pool;
+
     IEnumerator ExcutePool()
     {
         while (_curRemainEnemyCount>0)
         {
             _curRemainEnemyCount--;
-            pool.Get(ref StageLoader.Instance.CurrentMapInfo._enemySpot);
+            EnemyPool.Instance.Get(_enemySpot.position);
             yield return new WaitForSeconds(_enemySponEleapse);
         }
 

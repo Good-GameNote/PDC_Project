@@ -6,7 +6,7 @@ public interface IPool<T>
 {
     T Get(int type,  Vector3 position);//특정타입
 
-    T Get(ref Vector3 position);//랜덤타입
+    T Get( Vector3 position);//랜덤타입
     void Release(T obj, int type);
 }
 
@@ -65,11 +65,12 @@ public abstract class ObjectPool<T> : Singleton<ObjectPool<T>>, IPool<T> where T
         else
         {
             var obj = poolQueue[type].Dequeue();
+            obj.transform.position = position;
             obj.gameObject.SetActive(true);
             return obj;
         }
     }
-    public T Get(ref Vector3 position)
+    public T Get(Vector3 position)
     {
         int arrIdx = Random.Range(0, _usingIdx.Length);
 
@@ -83,6 +84,7 @@ public abstract class ObjectPool<T> : Singleton<ObjectPool<T>>, IPool<T> where T
         else
         {
             var obj = poolQueue[type].Dequeue();
+            obj.transform.position = position;
             obj.gameObject.SetActive(true);
             return obj;
         }

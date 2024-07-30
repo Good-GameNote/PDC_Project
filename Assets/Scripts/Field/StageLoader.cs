@@ -5,121 +5,13 @@ using TWC;
 using Unity.AI.Navigation;
 using UnityEngine;
 
-public class mapInfo
-{
 
-    public short _seed;
-    public Vector3 _enemySpot;
-    public Vector3 _castlePoint;
-    public mapInfo(short seed,Vector3 enemySpot,  Vector3 catslePoint) { _seed = seed;_enemySpot = enemySpot; _castlePoint = catslePoint; }
-}
+
 public class StageLoader : Singleton<StageLoader> 
 {
     [SerializeField]
     TileWorldCreator twc;
-    static mapInfo[] _mapInfos = new mapInfo[]
-    {
-        new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
-        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
-     new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
-        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
-     new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
-        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
-     new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
-        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
-     new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
-        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
-     new(3, new Vector3(2.45f,0.5f,93.5f),new Vector3(8.5f,1.5f,108.5f) ),
-        new (9, new Vector3(7.5f,0.5f,108.5f),new Vector3(16.5f,1.5f,93.5f) ),
-       new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-                new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-                new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-          new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-                new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-         new(0, new Vector3(0,0,0),new Vector3(0,0,0) ),
-        new (0, new Vector3(0,0,0),new Vector3(0,0,0) )
-    };
+
     string[] _stageNames = new string[]
     {
         "sea",
@@ -138,7 +30,9 @@ public class StageLoader : Singleton<StageLoader>
     NavMeshSurface _path;
     [SerializeField]
     TMPro.TextMeshProUGUI _tStage;
-    public mapInfo CurrentMapInfo { get; private  set; }
+    [SerializeField]
+    short[] seeds = {1, 2, 3, 4, 5, 6, 7 };
+
 
     private void Awake()
     {
@@ -146,8 +40,7 @@ public class StageLoader : Singleton<StageLoader>
         short index = GameManager.Instance._battle.sellectStage.stage.index;
         _tStage.text =$"Stage {index + 1}" ;
         //short index = 1;
-        CurrentMapInfo = _mapInfos[index];
-        twc.SetCustomRandomSeed(_mapInfos[index]._seed);
+        twc.SetCustomRandomSeed(seeds[index]);
         string name = _stageNames[index / 10];
    
         string filePath = $"Twm/{name}";

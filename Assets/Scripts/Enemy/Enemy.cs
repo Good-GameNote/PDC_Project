@@ -17,8 +17,6 @@ public class Enemy : MonoBehaviour,IIsDetacted,IGetHit
 
 
 
-    List<Debuff> _debuffs = new();
-
     short[] _states;
 
     [SerializeField]
@@ -27,6 +25,7 @@ public class Enemy : MonoBehaviour,IIsDetacted,IGetHit
     SpriteRenderer _renderer ;
 
     CurseEffect _curseDeco;
+
     public bool IsDetacted(Common.eEnemyState[] stats )
     {
 
@@ -67,17 +66,6 @@ public class Enemy : MonoBehaviour,IIsDetacted,IGetHit
     }
 
 
-    public void GetDebuff(Debuff debuff)
-    {
-        _debuffs.Add( debuff );
-        debuff.StartAction(this);
-    }
-    public void RemoveBuff(Debuff target)
-    {
-        target.EndAction();
-        _debuffs.Remove( target );
-    }
-
     float _speedChangeRate;
     float _fixedSpeedChange;
 
@@ -104,32 +92,23 @@ public class Enemy : MonoBehaviour,IIsDetacted,IGetHit
 
     public void SetInitPosition()
     {
-        _agent.Warp(StageLoader.Instance.CurrentMapInfo._enemySpot);
+        _agent.Warp(Field.Instance._enemySpot.position);
     }
     private void OnEnable()
     {
-
         _agent.SetDestination(Catsle.Instance.transform.position);
-        Vector3 mypoint = transform.position;
-        _hpBar = HpBarPool.Instance.Get(ref mypoint);
+        
+        _hpBar = HpBarPool.Instance.Get(transform.position);
         _hpBar.Init(transform);
     }
     private void OnDisable()
     {
         HpBarPool.Instance.Release(_hpBar, 0);
     }
-
-
-    // Update is called once per frame
-    void Update()
+    
+    public Transform GiveDebuffSlot()
     {
-        for(int i =0 ; i< _debuffs.Count; i++)
-        {
-            if(_debuffs[i]==null) continue;
-            _debuffs[i].Activation();
-        
-        }
+        return _hpBar.DebuffSlotTrf;
     }
 
-  
 }

@@ -25,9 +25,11 @@ public class FireArrow : ProjectileBase
         if(hit != null)
         {
             Debug.Log($"BB");
-            Debuff a = new Slow(30f, 0f, 2f, default);
+            Slow a =  DebuffPool.Instance.Get((int)Common.eDebuff.eSlow, Vector3.zero) as Slow;
+            a.Init(30f, 0f, 2f);
             _splash.Excute(hit, _mercenary, _damage, a);
         }
+        ProjectilePool.Instance.Release(this,(int)Common.eMercenary.eFireArrow);
     }
 }
 
