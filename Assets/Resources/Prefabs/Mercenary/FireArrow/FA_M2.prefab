@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   _enemiesList: []
 --- !u!135 &1122633428479415015
 SphereCollider:

@@ -31,6 +31,7 @@ public abstract class ProjectileBase : MonoBehaviour
     public void Initialize( Transform targetTransform, Mercenary orner)
     {
         _targetTransform = targetTransform;
+        _damage = orner._mercenaryData.Damage;
     }
 
     private void Update() 

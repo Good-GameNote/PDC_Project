@@ -13837,6 +13837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _thisButton: 0
   _view: {fileID: 1992604512}
+  _tabNameText: {fileID: 4372785457371339826}
 --- !u!114 &996311773663259455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13884,7 +13885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1118250956444837445
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14065,6 +14066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _thisButton: 2
   _view: {fileID: 296633399}
+  _tabNameText: {fileID: 5575267193514418698}
 --- !u!222 &1425988182262584558
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14380,7 +14382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &2144351448962550168
 GameObject:
   m_ObjectHideFlags: 0
@@ -15392,42 +15394,42 @@ PrefabInstance:
     - target: {fileID: 1780930052208217199, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1780930052208217199, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1780930052208217199, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 150
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1780930052208217199, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3675122430992302919, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3675122430992302919, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3675122430992302919, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 245
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3675122430992302919, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6392904458792665588, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
@@ -15537,22 +15539,22 @@ PrefabInstance:
     - target: {fileID: 8901322939423544489, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8901322939423544489, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8901322939423544489, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 55
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8901322939423544489, guid: 77fa96dc0c18a1541be16b082059843c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15581,6 +15583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _thisButton: 4
   _view: {fileID: 393509707}
+  _tabNameText: {fileID: 8776896713533144651}
 --- !u!114 &5117973797604314256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15650,7 +15653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &5289368502106345721
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15862,6 +15865,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _thisButton: 1
   _view: {fileID: 1948575026}
+  _tabNameText: {fileID: 6113933130514408806}
 --- !u!1001 &5490453841186828456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16595,6 +16599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _thisButton: 3
   _view: {fileID: 1249531657}
+  _tabNameText: {fileID: 7325408624009098231}
 --- !u!114 &6113933130514408806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16812,7 +16817,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &7513415167918726359
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16968,7 +16973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &8182973373283640583
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ public class UI_Tab : MonoBehaviour,IObserver<Common.ePage>
     Common.ePage _thisButton;
     [SerializeField]
     GameObject _view;
+    // [SerializeField]
+    // UnityEngine.UI.Text _tabNameText;
     
     RectTransform _rectTransform;
     Vector2 sizeDelta;
@@ -19,6 +21,9 @@ public class UI_Tab : MonoBehaviour,IObserver<Common.ePage>
         sizeDelta.x = _thisButton == data ? 180 : 135;
 
         _rectTransform.sizeDelta = sizeDelta;
+
+        // _tabNameText.gameObject.SetActive(sizeDelta.x >= 180);
+        
     }
 
     private void Awake()
@@ -30,5 +35,7 @@ public class UI_Tab : MonoBehaviour,IObserver<Common.ePage>
 
 
         PageController.Instance.ResistObserver(this);
+        
+        // _tabNameText.gameObject.SetActive(sizeDelta.x >= 180);
     }
 }
