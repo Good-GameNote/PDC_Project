@@ -5,16 +5,11 @@ using static Common;
 
 public abstract class CurseDecoTemplate :  CurseEffect
 {
-    public PriorityQueue<CurseEffect> _curseDecos = new();
-
-    public override void GetHitEffect(Enemy self, Mercenary attacker, int damage, Debuff debuff)
-    {
-        _curseDecos.Circuit((deco) => {deco.GetHitEffectDetail(ref self, ref attacker, ref damage, ref debuff );});
-    }
+ 
 
     public CurseDecoTemplate(CurseEffect deco)
     {
-        _curseDecos.Enqueue(deco);
+        _curseDecos = deco._curseDecos;
         _curseDecos.Enqueue(this);
     }
     public CurseDecoTemplate()
@@ -23,7 +18,7 @@ public abstract class CurseDecoTemplate :  CurseEffect
 
     public static CurseEffect GiveCurseEffector()
     {
-        CurseEffect curseEffect = new BaseGetHit();
+        CurseEffect curseEffect = new BaseTakeHit();
 
         foreach (Relic r in RelicResister.Instance._resistedRelics)
         {

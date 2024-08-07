@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UI_HpBar : MonoBehaviour
 {
-    static Vector3 _offset= new Vector3 (0,0,1.0f);
+    static Vector3 _offset= new Vector3 (0,0,0.7f);
     Transform _targetTrf;
     [SerializeField]
     UnityEngine.UI.Slider _gage;

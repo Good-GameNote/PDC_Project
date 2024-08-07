@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T instance;
+    protected static T instance;
 
     public static T Instance
     {
@@ -11,7 +11,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = (T)FindObjectOfType(typeof(T));
+                instance = FindObjectOfType<T>(true);
                 if (instance == null)
                 {
                     GameObject singletonObj = new GameObject();

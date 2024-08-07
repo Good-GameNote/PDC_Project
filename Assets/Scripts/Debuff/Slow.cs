@@ -29,4 +29,9 @@ public class Slow : Debuff
     {
         _target.ChangeMoveSpeed(-_speedReductionRate, -_fixedSpeedReduction);
     }
+
+    protected override Common.eDebuff GiveType()
+    {
+        return Common.eDebuff.eSlow;
+    }
 }

@@ -35,8 +35,9 @@ public class Tongs : Singleton<Tongs>, IPointerDownHandler,  IDragHandler, IPoin
         }
 
         _dummy.sprite = _employee._mercenaryData.Sprite;
-        _range.transform.localScale = Vector3.one * _employee._mercenaryData.Range;
+        _range.transform.localScale = Vector3.one * _employee._mercenaryData.Range.Value;
 
+        _isMove = false;
         SetState(false);
     }
     public void OnEmployeeSet(Mercenary emplyeee)
@@ -124,7 +125,6 @@ public class Tongs : Singleton<Tongs>, IPointerDownHandler,  IDragHandler, IPoin
         transform.localPosition = Vector3.zero;
         _range.transform.localScale = Vector3.zero;
         _dummy.color = new Color(1, 1, 1, 0);
-        _isMove = false;
     }
 
 

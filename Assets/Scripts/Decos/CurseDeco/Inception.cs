@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Inception : CurseDecoTemplate
@@ -17,20 +18,24 @@ public class Inception : CurseDecoTemplate
 
 
 
-    public override void GetHitEffectDetail(ref Enemy self,ref Mercenary attacker,ref int damage,ref Debuff debuff)
+    protected override void TakeHitEffectDetail(ref Enemy self,ref Mercenary attacker,ref int damage,ref List<Debuff> debuffs)
     {
-        if (debuff != null)
+        foreach(Debuff debuff in debuffs)
         {
-            Stun stun = debuff as Stun;
-            if (stun != null)
+            if (debuff != null)
             {
-                if (Random.Range(0, 100000) < 5000)
+                Stun stun = debuff as Stun;
+                if (stun != null)
                 {
-                    self.SetInitPosition();
-                }
+                    if (Random.Range(0, 100000) < 5000)
+                    {
+                        self.SetInitPosition();
+                    }
 
+                }
             }
         }
+
     }
 
     public override short GiveIndex()

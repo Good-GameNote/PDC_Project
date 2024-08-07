@@ -5,17 +5,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour,IIsDetacted,IGetHit
+public class Enemy : MonoBehaviour,IIsDetacted
 {
     [field: SerializeField]
     public EnemyData _enemyData {  get; private set; }
-
-
     public int _HP { get; private set; }
-
     public float _speed { get; private set; }
-
-
 
     short[] _states;
 
@@ -46,14 +41,14 @@ public class Enemy : MonoBehaviour,IIsDetacted,IGetHit
 
     }
  
-    public void GetHit( Mercenary attacker, int damage, Debuff debuff)
+    public void TakeHit( Mercenary attacker, int damage, List<Debuff> debuff)
     {
-        _curseDeco.GetHitEffect( this, attacker, damage, debuff);
+        _curseDeco.TakeHitEffect( this, attacker, damage, debuff);
     }
 
     UI_HpBar _hpBar;
 
-    public void GetDamage(int damage)
+    public void TakeDamage(int damage)
     {
         _HP -= damage;
 

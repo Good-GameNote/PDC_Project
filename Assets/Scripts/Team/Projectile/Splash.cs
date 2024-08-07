@@ -15,7 +15,7 @@ public abstract class Splash : Component
         EffectSprite = effectSprite;
     }
 
-    public abstract void Excute(IGetHit getHit, Mercenary mercenary, int damage, Debuff debuff);
+    public abstract void FindTargets(Enemy origin, List<Enemy> targets);
 }
 
 public class NonSplash : Splash
@@ -24,22 +24,21 @@ public class NonSplash : Splash
     {
     }
 
-    public override void Excute(IGetHit getHit, Mercenary mercenary, int damage, Debuff debuff)
+    public override void FindTargets(Enemy origin, List<Enemy>targets)
     {
-        Debug.Log($"CC");
-        getHit.GetHit(mercenary, damage, debuff);
+        targets.Add(origin);
     }
 }
 
 public class CircleSplash : Splash
 {
     Collider[] _enemyColliders = new Collider[10];
-    IGetHit _getHit;
+    Enemy _target;
     public CircleSplash(float splashRange, float effectDuration) : base (splashRange, effectDuration)
     {
     }
 
-    public override void Excute(IGetHit getHit, Mercenary mercenary, int damage, Debuff debuff)
+    public override void FindTargets(Enemy origin, List<Enemy> targets)
     {
         Debug.Log($"DD");
         _enemyColliders = Physics.OverlapSphere(transform.position, SplashRange, 1<<(int)Common.eLayer.Enemy);
@@ -47,8 +46,11 @@ public class CircleSplash : Splash
         {
             if(enemy != null)
             {
-                TryGetComponent(out _getHit);
-                _getHit.GetHit(mercenary, damage, debuff);
+                TryGetComponent(out _target);
+                if(_target != null)
+                {
+                    targets.Add(_target); 
+                }
             }
         }
     }

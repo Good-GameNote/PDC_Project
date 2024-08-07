@@ -6,7 +6,7 @@ public class Mite : CurseDecoTemplate
 {
     public Mite(CurseEffect deco) : base(deco)    {    }
     public Mite() : base(){    }
-    public override void GetHitEffectDetail(ref Enemy self,ref Mercenary attacker, ref int damage,ref Debuff debuff)
+    protected override void TakeHitEffectDetail(ref Enemy self,ref Mercenary attacker, ref int damage,ref List<Debuff> debuff)
     {
         if (self._HP == self._enemyData.HP)
         {

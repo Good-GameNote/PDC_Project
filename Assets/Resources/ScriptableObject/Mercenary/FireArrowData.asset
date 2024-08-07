@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b138bba43285c6429729a2a053d5a6b, type: 3}
+  m_Name: FireArrowData
+  m_EditorClassIdentifier: 
+  <Index>k__BackingField: 0
+  <CoolTime>k__BackingField:
+    <Icon>k__BackingField: {fileID: 21300000, guid: 8cd9ba8c2545f4570b8b9b186324532b,
+      type: 3}
+    Value: 10
+    <Page>k__BackingField: 0
+  <Range>k__BackingField:
+    <Icon>k__BackingField: {fileID: 21300000, guid: 4f1846f5e9ef246f59a339bc877947f1,
+      type: 3}
+    Value: 15
+    <Page>k__BackingField: 0
+  <Damage>k__BackingField:
+    <Icon>k__BackingField: {fileID: 21300000, guid: da606bf48dff0421495e1dee4ca23a90,
+      type: 3}
+    Value: 20
+    <Page>k__BackingField: 0
+  <CriticalPer>k__BackingField:
+    <Icon>k__BackingField: {fileID: 21300000, guid: 2e8b9acaedecbd54b9360b86653ccc25,
+      type: 3}
+    Value: 5
+    <Page>k__BackingField: 0
+  <Name>k__BackingField: "\uD654\uC5FC\uAD81\uC218"
+  <Description>k__BackingField: "\uB3D9\uB124 \uC591\uAD81\uC7A5 \uACBD\uD488\uC744
+    \uD729\uC4F4 \uC8FC\uC778\uACF5\uC774\uB2E4."
+  <Sprite>k__BackingField: {fileID: 1222467635, guid: 30b8ab2f0fe5449591d63bc81c734cd9,
+    type: 3}
+  <ThingCanSee>k__BackingField: 00000000
+  <DebuffRate>k__BackingField:
+    <Icon>k__BackingField: {fileID: 21300000, guid: 30519252e18e748fbb0670effaf9372f,
+      type: 3}
+    Value: 0
+    <Page>k__BackingField: 1
+  <Piercing>k__BackingField:
+    <Icon>k__BackingField: {fileID: 21300000, guid: 537aeabc85441434cbaa2877216b523d,
+      type: 3}
+    Value: 0
+    <Page>k__BackingField: 1
+  <AddPjtCount>k__BackingField:
+    <Icon>k__BackingField: {fileID: 21300000, guid: a66577b5b826a4a4fb46ae7e6108b830,
+      type: 3}
+    Value: 0
+    <Page>k__BackingField: 1

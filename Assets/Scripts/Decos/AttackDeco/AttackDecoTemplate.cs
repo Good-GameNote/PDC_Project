@@ -1,12 +1,11 @@
 ﻿
 public abstract class AttackDecoTemplate : AttackEffect
 {
-    public PriorityQueue<AttackEffect> _curseDecos = new();
 
     public AttackDecoTemplate(AttackEffect deco)
     {
-        _curseDecos.Enqueue(deco);
-        _curseDecos.Enqueue(this);
+        _attackDecos = deco._attackDecos;
+        _attackDecos.Enqueue(this);
     }
 
     public AttackDecoTemplate()
@@ -16,7 +15,7 @@ public abstract class AttackDecoTemplate : AttackEffect
     public override void Choice(Mercenary sellectedMercernary)
     {
         sellectedMercernary.UpStarGrade(out AttackEffect origin);
-        origin = new ForkedArrow(origin);
+        origin = GiveSelf(ref origin);
     }
-
+    protected  abstract AttackEffect GiveSelf(ref AttackEffect deco);
 }

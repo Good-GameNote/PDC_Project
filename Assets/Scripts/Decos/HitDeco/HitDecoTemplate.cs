@@ -2,20 +2,23 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class HitDecoTemplate : HitEffect
+public abstract class HitDecoTemplate : HitEffect
 {
 
+    public HitDecoTemplate(HitEffect deco)
+    {
+        _hitDecos = deco._hitDecos;
+        _hitDecos.Enqueue(this);
+    }
 
-    //public abstract string GiveExplan(int level);
+    public HitDecoTemplate()
+    {
+    }
 
-    public abstract void HitEffect();
-
-    public abstract void Operate(int level);
-
-
-
-    //static IAttackDecorator CreateDeco(int index)
-    //{
-
-    //}
+    public override void Choice(Mercenary sellectedMercernary)
+    {
+        sellectedMercernary.UpStarGrade(out HitEffect origin);
+        origin = GiveSelf(ref origin);
+    }
+    protected abstract HitEffect GiveSelf(ref HitEffect deco);
 }

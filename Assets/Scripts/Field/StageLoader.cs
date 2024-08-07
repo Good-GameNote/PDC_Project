@@ -68,9 +68,9 @@ public class StageLoader : Singleton<StageLoader>
     {
         _path.BuildNavMesh();
         _field.StartWave();
-
-
     }
+
+
 
 
 }

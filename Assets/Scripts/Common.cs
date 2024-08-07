@@ -168,6 +168,14 @@ public class Common
         eLackEnergy,
     };
 
+    public enum eBaseStat
+    {
+        eDamage,
+        eAttackSpeed,
+        eRange,
+        eCritical,
+        MAX_BASESTAT_SIZE
+    }
 
     public enum eEffector
     {
@@ -175,6 +183,7 @@ public class Common
         e인셉션,
         e10퍼추댐,
         e갈래화살,
+        e화염묻히기,
         MAX_EFFECTOR_SIZE
     }
 

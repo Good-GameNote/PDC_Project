@@ -21,4 +21,9 @@ public class Stun : Debuff
     {
         _target.ChangeState(Common.eEnemyState.eStun, -1);
     }
+
+    protected override Common.eDebuff GiveType()
+    {
+        return Common.eDebuff.eStun;
+    }
 }

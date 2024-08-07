@@ -15,23 +15,25 @@ public abstract class ProjectileBase : MonoBehaviour
     protected float _duration;
     // 투사체의 적 관통 수
     protected short _penetration;
-    protected Splash _splash;
     public Splash Splash 
     { 
-        get => _splash; 
-        set => _splash = value; 
+        get ; 
+        set ; 
     }
     protected IMission _mission;
     protected Mercenary _mercenary;
     protected Transform _targetTransform;
 
-    Mercenary orner;
+    protected List<Enemy> _findingTargets = new List<Enemy>();
+
+    protected List<Debuff> _debuffList = new List<Debuff>();
+
     public abstract void Move();
 
-    public void Initialize( Transform targetTransform, Mercenary orner)
+    public void Initialize( Transform targetTransform, Mercenary owner)
     {
         _targetTransform = targetTransform;
-        _damage = orner._mercenaryData.Damage;
+        _damage = _mercenary._mercenaryData.Damage.Value;
     }
 
     private void Update() 
@@ -39,10 +41,6 @@ public abstract class ProjectileBase : MonoBehaviour
         if(_targetTransform == null) return;
 
         Move();
-    }
-    public void SetSplash(Splash splash)
-    {
-        _splash = splash;
     }
 
     private void OnEnable() 

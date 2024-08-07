@@ -51,7 +51,7 @@ public abstract class Effector :  IComparable<Effector>,ICardExhibition
 
 
         //Hit
-        new ForkedArrow(),
+        new BurningGiver(),
     };
 
 }

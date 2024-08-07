@@ -82,10 +82,10 @@ public class Field :  Singleton<Field>
     [SerializeField]
     UI_End _ender;
 
-    ICardExhibition[] _posts = new Reward[3];
+    List<ICardExhibition>_posts = new List<ICardExhibition>();
     void Clear()
     {
-
+        _posts.Clear();
         Stage info = GameManager.Instance._battle.sellectStage;
 
         float stage = (info.stage.index+1) *0.2f; //현 스테이지 *0.2
@@ -103,7 +103,7 @@ public class Field :  Singleton<Field>
             {
                 GameManager.Instance._battle.Clear(achivement, post);
             }
-            _posts[i] = post;
+            _posts.Add ( post);
 
         }
 

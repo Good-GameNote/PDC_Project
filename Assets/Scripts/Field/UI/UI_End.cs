@@ -23,7 +23,7 @@ public class UI_End : MonoBehaviour
         GameManager.Instance._battle.ChangeStage(true);
         _sceneLoader.LoadScene("BattleScene1");
     }
-    public void IsClear(ICardExhibition[] rewards = null,short achivement=0)
+    public void IsClear(List<ICardExhibition> rewards = null,short achivement=0)
     {
         for (short i = 0; i < 3; i++)
         {

@@ -56,7 +56,7 @@ public class UI_MercenaryAction : Singleton<UI_MercenaryAction>
     [SerializeField]
     UI_CardSellecter _cardSellector;
 
-    ICardExhibition[] _list;
+    List< ICardExhibition> _list;
     Mercenary _sellected;
     public void TakeInfo(Mercenary sellected, Vector3 position)
     {        

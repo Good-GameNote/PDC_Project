@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Debuff:MonoBehaviour
+public abstract class Debuff:MonoBehaviour
 {
     [SerializeField]
     protected UnityEngine.UI.Image _background;
@@ -26,7 +26,7 @@ public class Debuff:MonoBehaviour
         _remainDuration= _durationTime = durationTime; 
         _img.sprite = sprite ?? _img.sprite;
     }
-
+    protected abstract Common.eDebuff GiveType();
  
     //public void SetDuration(float duration) {  _remainDuration = duration; }
 
@@ -66,7 +66,7 @@ public class Debuff:MonoBehaviour
         {
 
             EndAction();
-            gameObject.SetActive(false);
+            DebuffPool.Instance.Release(this,(int)GiveType());
         }
     }
 

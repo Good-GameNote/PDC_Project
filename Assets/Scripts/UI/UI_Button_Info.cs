@@ -18,7 +18,9 @@ public class UI_Button_Info : MonoBehaviour, ISlotMenu
     }
 
     public void Show(ISlotExhibition purchas)
-    {        
+    {
+        gameObject.SetActive(purchas.GiveType() == Common.ePage.eInven);
+
     }
 
     public void Upgrade()

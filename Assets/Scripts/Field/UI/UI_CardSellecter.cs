@@ -7,9 +7,9 @@ public abstract class UI_CardSellecter : MonoBehaviour
     [SerializeField]
     protected UI_Card[] _cards;
 
-    protected ICardExhibition[] _list;//섞어야할때쓸것
+    protected List<ICardExhibition> _list;//섞어야할때쓸것
 
-    public void SetCard(ICardExhibition[] list = null)
+    public void SetCard(List<ICardExhibition> list = null)
     {
         if(list == null) { gameObject.SetActive(false); return; }
         gameObject.SetActive(true);
@@ -17,7 +17,7 @@ public abstract class UI_CardSellecter : MonoBehaviour
         for(int i =0;i <_cards.Length; i++)
         {
             _cards[i].gameObject.SetActive(false);
-            if (i >= list.Length) break;
+            if (i >= list.Count) break;
             _cards[i].SetICardExhibition( list[i]);
             _cards[i].SetNotify(Action);
         }

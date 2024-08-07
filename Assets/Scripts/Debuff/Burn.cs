@@ -18,7 +18,11 @@ public class Burn : Debuff
     protected override void ContinueAction(float lapse)
     {
 
-        _target.GetDamage((int)(lapse * _damage));
+        _target.TakeDamage((int)(lapse * _damage));
     }
 
+    protected override Common.eDebuff GiveType()
+    {
+        return Common.eDebuff.eBurn;
+    }
 }

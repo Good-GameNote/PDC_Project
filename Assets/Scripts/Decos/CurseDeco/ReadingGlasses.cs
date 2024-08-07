@@ -26,7 +26,7 @@ public class ReadingGlasses : CurseDecoTemplate
 
 
 
-    public override void GetHitEffectDetail( ref Enemy self, ref Mercenary attacker, ref int damage, ref Debuff debuff)
+    protected override void TakeHitEffectDetail( ref Enemy self, ref Mercenary attacker, ref int damage, ref List<Debuff> debuff)
     {
         damage = Amplification(damage);
     }

@@ -7,13 +7,8 @@ public abstract class Mercenary : MonoBehaviour,IClickable
 {
     [SerializeField]
     public MercenaryData _mercenaryData;
-
-    sMercenary[] _sMercenary;
-
-    ProjectileBase _projectile;
     protected MercenaryAI _mercenaryAI;
 
-    ISlotExhibition _uiData;
     static protected List<Mercenary>[][] _countByStar = new List<Mercenary>[(int)Common.eMercenary.MAX_MERCENARY_SIZE][]
     {
         new List<Mercenary>[Common.MAX_STAR] { new (), new (),new (),new() },
@@ -28,7 +23,7 @@ public abstract class Mercenary : MonoBehaviour,IClickable
     {
         _mercenaryAI = GetComponentInChildren<MercenaryAI>();
         _mercenaryAI.SetCanSee(_mercenaryData);
-        _mercenaryAI.SetRange(_mercenaryData.Range);
+        _mercenaryAI.SetRange(_mercenaryData.Range.Value);
     }
 
 
@@ -47,8 +42,9 @@ public abstract class Mercenary : MonoBehaviour,IClickable
 
     }
 
-    AttackEffect _attackEffect = new BaseAttack();
+    protected AttackEffect _attackEffect = new BaseAttack();
 
+    protected HitEffect _hitEffect = new BaseGiveHit();
     public void UpStarGrade(out AttackEffect deco)
     { 
         deco = _attackEffect;
@@ -65,6 +61,23 @@ public abstract class Mercenary : MonoBehaviour,IClickable
         _star++;
         _countByStar[_mercenaryData.Index][_star].Add(this);
     }
+    public void UpStarGrade(out HitEffect deco)
+    {
+        deco = _hitEffect;
+        _countByStar[_mercenaryData.Index][_star].Remove(this);
+        for (int i = 0; i < 2; i++)
+        {
+            Mercenary offering = _countByStar[_mercenaryData.Index][_star][0];
+            _countByStar[_mercenaryData.Index][_star].Remove(offering);
+
+            MercenaryPool.Instance.Release(offering, _mercenaryData.Index);
+
+        }
+
+        _star++;
+        _countByStar[_mercenaryData.Index][_star].Add(this);
+    }
+
     public void Sell()
     {
 
@@ -72,12 +85,12 @@ public abstract class Mercenary : MonoBehaviour,IClickable
         MercenaryPool.Instance.Release(this, _mercenaryData.Index);
     }
 
-    public abstract ICardExhibition[] CanStarUp();
+    public abstract List<ICardExhibition> CanStarUp();
 
 
     IEnumerator SetCooltime()
     {
-        float _remainTime = _mercenaryData.CoolTime;
+        float _remainTime = _mercenaryData.CoolTime.Value;
          Attack();
         while(true)
         {
@@ -88,33 +101,34 @@ public abstract class Mercenary : MonoBehaviour,IClickable
             if(_remainTime <= 0)
             {
                 Attack();
-                _remainTime = _mercenaryData.CoolTime;
+                _remainTime = _mercenaryData.CoolTime.Value;
             }
             yield return null;
         }
     }
 
-    public virtual void Attack()
+    public void Attack()
     {
+        if (_mercenaryAI._enemiesList.Count <= 0) return;
+        // _mercenaryAI._enemiesList[0] == null
+        //Instantiate(_fireArrowPrefab, transform);
+        _attackEffect.Attack(_mercenaryAI._enemiesList, new List<ProjectileBase>(), this);
+
     }
 
 
     public void OnBeginDrag(Vector3 hit)
     {
-        Debug.Log($"111 {hit}");
         UI_MercenaryAction.Instance.TakeInfo(this,  Vector3.up*40+ Input.mousePosition);
     }
 
     public void OnDrag(Vector3 hit)
     {
-        Debug.Log($"222 {hit}");
 
     }
 
     public void OnEndDrag(Vector3 hit)
     {
-        Debug.Log($"%%% {hit}");
-
     }
 
 }
