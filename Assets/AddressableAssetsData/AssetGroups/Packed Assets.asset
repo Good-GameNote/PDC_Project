@@ -22,31 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 37b21047f1fdcd843b5ba6ef85afe9d5
-    m_Address: Sprite0
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d697b503c81184249ad9be5b162413a7
-    m_Address: Sprite2
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f3e67973f3bbd63468d328f63bac0aba
-    m_Address: Sprite3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ce7cb8f731102bf4a8f15a1ab7ee8f7a
-    m_Address: Sprite4
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ad273ee5c2bfe39499abbb398a97b221
-    m_Address: Sprite1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8cfcba89909902345aec1dd7c415b03e
     m_Address: Resources_moved
     m_ReadOnly: 0
@@ -69,6 +44,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5e7c4eb741a8d944e9538561fea1e5cf
     m_Address: MainIJH
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1329999d10ed8184f902ba2932054799
+    m_Address: BattleScene2
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

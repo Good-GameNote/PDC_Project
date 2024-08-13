@@ -20,7 +20,7 @@ public class UI_HpBar : MonoBehaviour
 
     public void Set(float data)
     {
-         gameObject.SetActive(data > 0);
+         gameObject.SetActive(true);
         _gage.value = data;
     }
 

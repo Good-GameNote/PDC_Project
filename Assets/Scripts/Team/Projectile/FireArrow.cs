@@ -10,6 +10,10 @@ public class FireArrow : ProjectileBase
     // private Sprite _fireArrowSplashEffect;
 
     // 무브
+    private void Awake()
+    {
+        Splash = new NonSplash();
+    }
     public override void Move()
     {
         Vector3 tr = _targetTransform.position - transform.position;
@@ -32,10 +36,11 @@ public class FireArrow : ProjectileBase
         {
             if(_findingTargets[i]==null) continue;
 
-            _findingTargets[i].TakeHit(_mercenary,_damage,_debuffList );
+            _findingTargets[i].TakeHit(_owner,_damage,_debuffList );
         
 
         }
+        ProjectilePool.Instance.Release(this, (int)Common.eMercenary.eFireArrow);
     }
 }
 

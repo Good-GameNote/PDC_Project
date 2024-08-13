@@ -34,10 +34,14 @@ public class Field :  Singleton<Field>
 
     public void StartWave()
     {
-
         _enemySpot = _enemySpot. GetChild(0).GetChild(0);
+
+        if (Physics.Raycast(_enemySpot.position, Vector3.up, out RaycastHit hitInfo, 100, 1<< (int)Common.eLayer.Dest))
+        {
+            hitInfo.transform.TryGetComponent(out Destination dest);
+            dest.SetChain();
+        }
         StartCoroutine(RoundUpper());
-        Catsle.Instance.Init();
     }
 
     [SerializeField]

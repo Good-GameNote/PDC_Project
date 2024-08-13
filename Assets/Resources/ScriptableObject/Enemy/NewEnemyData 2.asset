@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: NewEnemyData 2
   m_EditorClassIdentifier: 
   <Index>k__BackingField: 2
-  <IsAir>k__BackingField: 0
-  <IsHide>k__BackingField: 0
+  <ShowTypes>k__BackingField: 6
   <HP>k__BackingField: 50
   <Speed>k__BackingField: 0
   <Name>k__BackingField: 

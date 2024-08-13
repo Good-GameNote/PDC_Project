@@ -45,7 +45,7 @@ public class MercenaryData : ScriptableObject,ICanExhibition
     [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public string Description { get; protected set; }
     [field: SerializeField] public Sprite Sprite { get; protected set; }
-    [field: SerializeField] public Common.eEnemyState[] ThingCanSee { get; protected set; }
+    [field: SerializeField] public Common.eEnemyState ThingCanSee { get; protected set; }
     public UpStatData[] StatsByLevel { get; protected set; }
 
     protected bool[] UpStatChecking = new bool[20];

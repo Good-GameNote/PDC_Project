@@ -11,7 +11,7 @@ public class Stun : Debuff
 
     }
 
-    protected override void StartAction(Enemy target)
+    protected override void StartAction()
     {
         _target.ChangeState(Common.eEnemyState.eStun, 1);
     }

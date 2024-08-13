@@ -24,6 +24,7 @@ public class UI_ClickSlotMenu : Singleton<UI_ClickSlotMenu>
 
     public void ClickThis(Transform obj , ISlotExhibition purchas)
     {
+        gameObject.SetActive( true);
         _rectTransform.anchoredPosition = Vector3.zero;
         if (obj != _parentTrf)
         {

@@ -2,8 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour,IIsDetacted
 {
@@ -13,30 +13,46 @@ public class Enemy : MonoBehaviour,IIsDetacted
     public float _speed { get; private set; }
 
     short[] _states;
+    static int eEnemyStateLength = Enum.GetValues(typeof(Common.eEnemyState)).Length;
 
-    [SerializeField]
-    NavMeshAgent _agent;
+
+    //[SerializeField]
+    //NavMeshAgent _agent;
     [SerializeField]
     SpriteRenderer _renderer ;
 
     CurseEffect _curseDeco;
 
-    public bool IsDetacted(Common.eEnemyState[] stats )
-    {
+    Vector3 _destPoint;
 
-        return true;
+    public bool IsDetacted(Common.eEnemyState state )
+    {
+        bool result=true;
+        for (int i = 0; i < eEnemyStateLength; i++)
+        {
+            if ((state & (Common.eEnemyState)(1 << i)) == 0)
+            {//용병이 이부분 못봄
+                if (_states[i] > 0)//적이 이부분 가지고 있음
+                {
+                    result = false;//감지 못함
+                    break;
+                }
+            }
+        }
+        return result;
     }
     private void Awake()
     {
         _HP = _enemyData.HP; 
         _speed = _enemyData.Speed;
-        _states = new short[(int)Common.eEnemyState.MAX_ENEMY_STATE_SIZE];
-        _states[(int)Common.eEnemyState.eAir] = _enemyData.IsAir;
-        _states[(int)Common.eEnemyState.eHide] = _enemyData.IsHide;
+
         _renderer.sprite = _enemyData.Sprite;
-        
-        _agent = GetComponent<NavMeshAgent>();
-        _agent.updateRotation = false;
+        _states = new short[eEnemyStateLength];
+
+        ChangeState(_enemyData.ShowTypes, 1);
+
+        //_agent = GetComponent<NavMeshAgent>();
+        //_agent.updateRotation = false;
         _curseDeco = CurseDecoTemplate.GiveCurseEffector();
 
     }
@@ -80,21 +96,28 @@ public class Enemy : MonoBehaviour,IIsDetacted
          _speed = (100 / (100 + _speedChangeRate)) * fixedSlowSpeed;
     }
 
-    public void ChangeState(Common.eEnemyState state, short change)//1 or -1
+    public void ChangeState(Common.eEnemyState state, sbyte change)//1 or -1
     {
-        _states[(int)state] += change;
+        for (int i = 0; i < eEnemyStateLength; i++)
+        {
+            if ((state & (Common.eEnemyState)(1 << i)) != 0)
+            {
+                _states[i]+= change;
+            }
+        }
     }
 
     public void SetInitPosition()
     {
-        _agent.Warp(Field.Instance._enemySpot.position);
+       // _agent.Warp(Field.Instance._enemySpot.position);
     }
     private void OnEnable()
     {
-        _agent.SetDestination(Catsle.Instance.transform.position);
+        transform.position=Catsle.Instance.transform.position;
         
         _hpBar = HpBarPool.Instance.Get(transform.position);
         _hpBar.Init(transform);
+
     }
     private void OnDisable()
     {
@@ -106,4 +129,12 @@ public class Enemy : MonoBehaviour,IIsDetacted
         return _hpBar.DebuffSlotTrf;
     }
 
+    public void TakeDest(Vector3 dest)
+    {
+        _destPoint = dest;
+    }
+    private void Update()
+    {
+        transform.position= Vector3.MoveTowards(transform.position, _destPoint, _speed);
+    }
 }

@@ -118,10 +118,9 @@ public class Battle : MonoBehaviour, ISubject<Stage>
     public void ResistObserver(IObserver<short> observer)
     {
         HighStageObservers.Add(observer);
-        if (observers.Count >= 1)
-        {
-            NotifyObservers(sellectStage);
-        }
+     
+        NotifyObservers(sellectStage);
+        
     }
     public void NotifyObservers(Stage sellectStage)
     {

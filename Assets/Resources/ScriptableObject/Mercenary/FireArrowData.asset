@@ -21,7 +21,7 @@ MonoBehaviour:
   <Range>k__BackingField:
     <Icon>k__BackingField: {fileID: 21300000, guid: 4f1846f5e9ef246f59a339bc877947f1,
       type: 3}
-    Value: 15
+    Value: 5
     <Page>k__BackingField: 0
   <Damage>k__BackingField:
     <Icon>k__BackingField: {fileID: 21300000, guid: da606bf48dff0421495e1dee4ca23a90,
@@ -34,11 +34,11 @@ MonoBehaviour:
     Value: 5
     <Page>k__BackingField: 0
   <Name>k__BackingField: "\uD654\uC5FC\uAD81\uC218"
-  <Description>k__BackingField: "\uB3D9\uB124 \uC591\uAD81\uC7A5 \uACBD\uD488\uC744
-    \uD729\uC4F4 \uC8FC\uC778\uACF5\uC774\uB2E4."
+  <Description>k__BackingField: "\uAD6D\uB300 \uCD9C\uC2E0\uC758 \uC2A4\uCF08\uB808\uD1A4.
+    \uD55C\uAD6D\uC5B4\uB97C \uD560\uC904 \uC548\uB2E4."
   <Sprite>k__BackingField: {fileID: 1222467635, guid: 30b8ab2f0fe5449591d63bc81c734cd9,
     type: 3}
-  <ThingCanSee>k__BackingField: 00000000
+  <ThingCanSee>k__BackingField: 2
   <DebuffRate>k__BackingField:
     <Icon>k__BackingField: {fileID: 21300000, guid: 30519252e18e748fbb0670effaf9372f,
       type: 3}

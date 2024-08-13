@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TWC;
-using Unity.AI.Navigation;
 using UnityEngine;
 
 
@@ -26,8 +25,8 @@ public class StageLoader : Singleton<StageLoader>
         "sea",
     };
 
-    [SerializeField]
-    NavMeshSurface _path;
+    //[SerializeField]
+    //NavMeshSurface _path;
     [SerializeField]
     TMPro.TextMeshProUGUI _tStage;
     [SerializeField]
@@ -66,7 +65,7 @@ public class StageLoader : Singleton<StageLoader>
     Field _field;
     void BuildMap2(TileWorldCreator _twc)
     {
-        _path.BuildNavMesh();
+       // _path.BuildNavMesh();
         _field.StartWave();
     }
 

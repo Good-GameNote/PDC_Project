@@ -201,9 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bd62a233ddf2048af79fccffaa1ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mercenaryData: {fileID: 11400000, guid: 2412eeaab2d22ed46b9dce25d71fab9b, type: 2}
-  _fireArrowPrefab: {fileID: 8348491599981107365, guid: e366f3ab6d2ae9543830ea1c2e418bb4,
-    type: 3}
+  _mercenaryData: {fileID: 11400000, guid: 34ed5353e09874f4fb980fd12fd416c1, type: 2}
 --- !u!135 &6027027580713135852
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -11,13 +11,13 @@ public class MercenaryAI : MonoBehaviour
     private float _range;
     private SphereCollider _perceptionCollider;
     IIsDetacted _isDetacted;
-    Common.eEnemyState[] _canSee;
+    Common.eEnemyState _canSee;
 
     private void OnEnable() 
     {
         if(_perceptionCollider == null)
         {
-            bool isGetCollider = TryGetComponent<SphereCollider>(out _perceptionCollider);
+            bool isGetCollider = TryGetComponent(out _perceptionCollider);
             if(isGetCollider == false)
             {
                 gameObject.AddComponent<SphereCollider>();

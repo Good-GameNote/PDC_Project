@@ -8,10 +8,9 @@ public class Catsle : Singleton<Catsle>
     short HP;
 
     short MaxHP = 1555;
-    [SerializeField]
-    Transform point;
+    
     // Start is called before the first frame update
-    public void Init()
+    public void Init(Transform point)
     {
         HP = MaxHP;
         point = point.GetChild(0).GetChild(0);

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class Debuff:MonoBehaviour
 {
+    #region
     [SerializeField]
     protected UnityEngine.UI.Image _background;
 
@@ -26,22 +27,19 @@ public abstract class Debuff:MonoBehaviour
         _remainDuration= _durationTime = durationTime; 
         _img.sprite = sprite ?? _img.sprite;
     }
-    protected abstract Common.eDebuff GiveType();
- 
-    //public void SetDuration(float duration) {  _remainDuration = duration; }
+    protected abstract Common.eDebuff GiveType(); 
 
     protected Enemy _target;
-
+    #endregion
     public void Excute(Enemy target)
     {
         _target = target;
         transform.SetParent(_target.GiveDebuffSlot()) ;
-        StartAction(target);
+        StartAction();
 
         gameObject.SetActive(true);
     }
-    protected  virtual void StartAction(Enemy target) { }
-
+    protected  virtual void StartAction() { }
     protected virtual void ContinueAction(float lapse) { }
     protected virtual void EndAction() { }
 

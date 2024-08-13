@@ -21,7 +21,7 @@ public abstract class ProjectileBase : MonoBehaviour
         set ; 
     }
     protected IMission _mission;
-    protected Mercenary _mercenary;
+    protected Mercenary _owner;
     protected Transform _targetTransform;
 
     protected List<Enemy> _findingTargets = new List<Enemy>();
@@ -33,7 +33,9 @@ public abstract class ProjectileBase : MonoBehaviour
     public void Initialize( Transform targetTransform, Mercenary owner)
     {
         _targetTransform = targetTransform;
-        _damage = _mercenary._mercenaryData.Damage.Value;
+        _owner = owner;
+        _damage = _owner._mercenaryData.Damage.Value;
+
     }
 
     private void Update() 
@@ -45,6 +47,6 @@ public abstract class ProjectileBase : MonoBehaviour
 
     private void OnEnable() 
     {
-        if(_mercenary == null) transform.parent.TryGetComponent(out _mercenary);
+        if(_owner == null) transform.parent.TryGetComponent(out _owner);
     }
 }

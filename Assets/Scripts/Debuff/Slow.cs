@@ -19,7 +19,7 @@ public class Slow : Debuff
     }
 
 
-    protected override void StartAction(Enemy target)
+    protected override void StartAction()
     {
         _target.ChangeMoveSpeed(_speedReductionRate, _fixedSpeedReduction);
     }

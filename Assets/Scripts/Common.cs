@@ -41,6 +41,7 @@ public class Common
         Enemy = 7,
         Mercenary = 8,
         Ground = 9,
+        Dest=10,
     }
     public enum eRelic
     {
@@ -60,12 +61,12 @@ public class Common
         MAX_RELIC_SIZE
     };
 
+    [System.Flags]
     public enum eEnemyState
     {
-        eStun,
-        eAir,
-        eHide,
-        MAX_ENEMY_STATE_SIZE
+        eStun=1<<0,
+        eAir = 1 << 1,
+        eHide = 1 << 2,
     }
 
     public enum eBuilding

@@ -2,5 +2,5 @@
 
 internal interface IIsDetacted
 {
-    bool IsDetacted(Common.eEnemyState[] thingsCanSee);
+    bool IsDetacted(Common.eEnemyState thingsCanSee);
 }
