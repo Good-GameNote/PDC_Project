@@ -42,6 +42,7 @@ public class Common
         Mercenary = 8,
         Ground = 9,
         Dest=10,
+        Tile =11,
     }
     public enum eRelic
     {

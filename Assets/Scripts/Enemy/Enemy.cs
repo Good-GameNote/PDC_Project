@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour,IIsDetacted
     CurseEffect _curseDeco;
 
     Vector3 _destPoint;
+    Vector3 _nextDestPoint;
 
     public bool IsDetacted(Common.eEnemyState state )
     {
@@ -109,19 +110,19 @@ public class Enemy : MonoBehaviour,IIsDetacted
 
     public void SetInitPosition()
     {
-       // _agent.Warp(Field.Instance._enemySpot.position);
+        transform. position = Field.Instance._enemySpot.position;
     }
     private void OnEnable()
     {
-        transform.position=Catsle.Instance.transform.position;
-        
+
+        _destPoint = _nextDestPoint = transform.position;
         _hpBar = HpBarPool.Instance.Get(transform.position);
         _hpBar.Init(transform);
 
     }
     private void OnDisable()
     {
-        HpBarPool.Instance.Release(_hpBar, 0);
+        if(_hpBar) HpBarPool.Instance.Release(_hpBar, 0);
     }
     
     public Transform GiveDebuffSlot()
@@ -130,11 +131,15 @@ public class Enemy : MonoBehaviour,IIsDetacted
     }
 
     public void TakeDest(Vector3 dest)
-    {
-        _destPoint = dest;
+    {        
+        _nextDestPoint = dest;
     }
     private void Update()
     {
-        transform.position= Vector3.MoveTowards(transform.position, _destPoint, _speed);
+        transform.position= Vector3.MoveTowards(transform.position, _destPoint, _speed*Time.deltaTime);
+        if(transform.position == _destPoint)
+        {
+            _destPoint = _nextDestPoint;
+        }
     }
 }

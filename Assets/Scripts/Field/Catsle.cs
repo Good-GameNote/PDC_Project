@@ -13,7 +13,6 @@ public class Catsle : Singleton<Catsle>
     public void Init(Transform point)
     {
         HP = MaxHP;
-        point = point.GetChild(0).GetChild(0);
         transform.position = point.position;
 
     }

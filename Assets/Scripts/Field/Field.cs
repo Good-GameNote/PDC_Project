@@ -35,8 +35,9 @@ public class Field :  Singleton<Field>
     public void StartWave()
     {
         _enemySpot = _enemySpot. GetChild(0).GetChild(0);
-
-        if (Physics.Raycast(_enemySpot.position, Vector3.up, out RaycastHit hitInfo, 100, 1<< (int)Common.eLayer.Dest))
+        Vector3 point = _enemySpot.position;
+        point.z = 0;
+        if (Physics.Raycast(point, Vector3.back, out RaycastHit hitInfo, 100, 1<< (int)Common.eLayer.Dest))
         {
             hitInfo.transform.TryGetComponent(out Destination dest);
             dest.SetChain();

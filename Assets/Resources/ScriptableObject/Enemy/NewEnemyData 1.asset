@@ -15,7 +15,7 @@ MonoBehaviour:
   <Index>k__BackingField: 1
   <ShowTypes>k__BackingField: -1
   <HP>k__BackingField: 50
-  <Speed>k__BackingField: 0
+  <Speed>k__BackingField: 1
   <Name>k__BackingField: 
   <Description>k__BackingField: 
   <Sprite>k__BackingField: {fileID: -6329420634031446844, guid: 11847ea73c2247f59726cec7bc5df54d,

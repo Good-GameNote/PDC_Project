@@ -78,7 +78,8 @@ public abstract class ObjectPool<T> : Singleton<ObjectPool<T>>, IPool<T> where T
 
         if (poolQueue[type].Count == 0)
         {
-            var obj = GameObject.Instantiate(_prefabs[type], position, Quaternion.identity,transform);
+            var obj = Instantiate(_prefabs[type], position, Quaternion.identity,transform);
+            obj.transform.position = position;
             return obj;
         }
         else

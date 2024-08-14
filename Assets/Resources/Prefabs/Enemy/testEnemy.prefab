@@ -25,13 +25,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2933183119159277883}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6883546, y: 0, z: 0, w: 0.72537434}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.39, y: 0.39, z: 0.39}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4356718672612465770}
-  m_LocalEulerAnglesHint: {x: 87, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8153942024496475208
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -73,8 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7034338576483803127, guid: 3bfe63dedff947d2aab2fb00964e7573,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: b9c4dffb085f64e318847c45bfc5b28b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,8 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4356718672612465770}
   - component: {fileID: 6508106552616236161}
-  - component: {fileID: -3947215358641078320}
-  - component: {fileID: 277085541877856566}
+  - component: {fileID: 538569665469062471}
   m_Layer: 7
   m_Name: testEnemy
   m_TagString: Untagged
@@ -134,32 +132,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <_enemyData>k__BackingField: {fileID: 11400000, guid: 8fdb6ec7082beed4dab2a7ae2124e013,
     type: 2}
-  _agent: {fileID: -3947215358641078320}
   _renderer: {fileID: 8153942024496475208}
---- !u!195 &-3947215358641078320
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9206252550713441042}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.25
-  m_Speed: 3.5
-  m_Acceleration: 1000
-  avoidancePriority: 50
-  m_AngularSpeed: 1000
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 0
-  m_AutoBraking: 0
-  m_AutoRepath: 0
-  m_Height: 0.3
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
---- !u!136 &277085541877856566
-CapsuleCollider:
+--- !u!135 &538569665469062471
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -176,8 +151,6 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

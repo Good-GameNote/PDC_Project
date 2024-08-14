@@ -18,14 +18,8 @@ public class TongsFor3D : Singleton<TongsFor3D>
     void Update()
     {
         HandleMouseInput();
-//#if UNITY_EDITOR 
-//        HandleMouseInput();
-//#elif  UNITY_ANDROID
-//            HandleTouchInput();
-//#endif
-
     }
-    LayerMask layerMask = 1 << (int)Common.eLayer.Mercenary | 1 << (int)Common.eLayer.Enemy ;
+    LayerMask layerMask = 1 << (int)Common.eLayer.Tile | 1 << (int)Common.eLayer.Enemy ;
     void HandleMouseInput()
     {
 
@@ -38,7 +32,6 @@ public class TongsFor3D : Singleton<TongsFor3D>
         // 마우스 버튼 클릭 감지
         if (Input.GetMouseButtonDown(0))
         {
-
             if (!isFind) return;
             hit.transform.TryGetComponent(out _clicked);
             if (_clicked != null)
@@ -46,8 +39,7 @@ public class TongsFor3D : Singleton<TongsFor3D>
 
                 isDragging = true;
                 _clicked.OnBeginDrag(hit.point);
-            }
- 
+            } 
         }
 
         if (Input.GetMouseButtonUp(0) && !isFind)
@@ -75,60 +67,8 @@ public class TongsFor3D : Singleton<TongsFor3D>
             _clicked.OnEndDrag(hit.point);
             _clicked = null;
 
-
         }
 
-    }
-
-    void HandleTouchInput()
-    {
-        // 터치 입력이 있는지 확인
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            ray = Camera.main.ScreenPointToRay(touch.position);
-            isFind = Physics.Raycast(ray, out hit);
-
-            Debug.Log(hit.point);
-            if (isDragging == false) //touch.phase == TouchPhase.Began
-            {
-                if (!isFind) return;
-                Debug.Log("touch");
-                hit.transform.TryGetComponent(out _clicked);
-                if (_clicked != null)
-                {
-
-                    Debug.Log("touch1");
-                    isDragging = true;
-                    _clicked.OnBeginDrag(hit.point);
-                }
-            }
-            //if (touch.phase == TouchPhase.Ended && !isFind)
-            //{
-            //    UI_MercenaryAction.Instance.gameObject.SetActive(false);
-            //}
-            if (!isDragging) return;
-
-            if (touch.phase == TouchPhase.Moved)
-            {
-
-                Debug.Log("touch3");
-                //remainCallTime -= Time.deltaTime;
-                //if (remainCallTime > 0) { return; }
-                //remainCallTime = 0.08f;
-                _clicked.OnDrag(hit.point);
-            }
-
-            // 터치 종료 시
-            if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-            {
-                Debug.Log("Touch4");
-                isDragging = false;
-
-                _clicked.OnEndDrag(hit.point);
-                _clicked = null;
-            }
-        }
     }
 
 

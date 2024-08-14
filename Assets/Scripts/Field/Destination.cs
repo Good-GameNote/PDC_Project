@@ -9,30 +9,37 @@ public class Destination : MonoBehaviour
     Destination next;
     Enemy enemy;
     LayerMask _destLayer = 1 << (int)Common.eLayer.Dest;
-    static Vector3[] directions= {Vector3.left,Vector3.right,Vector3.forward,Vector3.back};
+    static Vector3[] directions= {Vector3.left,Vector3.right,Vector3.up,Vector3.down};
     public void SetChain(Destination prev=null)
     {
         for (int i = 0; i < directions.Length; i++)
         {
+
             if (Physics.Raycast(transform.position, directions[i], out RaycastHit hitInfo, 100, _destLayer))
             {
                 hitInfo.transform.TryGetComponent(out next);
                 if (next&& next!= prev)
                 {
                     next.SetChain(this);
-                    break;
+                    return;
                 }
             }
         }
-        if (next!=null)
+        if (prev )
         {
 
             Catsle.Instance.Init(transform);
         }
     }
+    private void Update()
+    {
+        for (int i = 0; i < directions.Length; i++)
+        {
 
-
-private void OnTriggerEnter(Collider other)
+            Debug.DrawRay(transform.position, directions[i] * 100, Color.red);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
     {
         if (!next) return;
         other.TryGetComponent(out enemy);
@@ -41,4 +48,5 @@ private void OnTriggerEnter(Collider other)
             enemy.TakeDest(next.transform.position);
         }
     }
+
 }
